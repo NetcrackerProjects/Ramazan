@@ -1,0 +1,37 @@
+public class Point {
+
+    private double x;
+    private double y;
+
+    public Point(double x, double y){
+        this.x = x;
+        this.y = y;
+    }
+
+
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    @Override
+    public boolean equals(Object object){
+        if (object == null) return false;
+        if (object.getClass() != Point.class) return false;
+
+        Point p = (Point)object;
+
+        return (p.x == x && p.y == y);
+    }
+}
