@@ -25,23 +25,23 @@ public class Rectangle {
     }
 
     public boolean intersects(Rectangle rectangle){
-        if (rectangle.pos.getX() > pos.getX() + size.getX()) return false;
-        if (rectangle.pos.getY() > pos.getY() + size.getY()) return false;
-        if (rectangle.pos.getX() + rectangle.size.getX() < pos.getX()) return false;
-        if (rectangle.pos.getY() + rectangle.size.getY() < pos.getY()) return false;
+        if (rectangle.pos.x > pos.x + size.x) return false;
+        if (rectangle.pos.y > pos.y + size.y) return false;
+        if (rectangle.pos.x + rectangle.size.x < pos.x) return false;
+        if (rectangle.pos.y + rectangle.size.y < pos.y) return false;
         return true;
     }
 
     public boolean includes(Rectangle rectangle){
-        if (rectangle.getPos().getX() < pos.getX()) return false;
-        if (rectangle.getPos().getY() < pos.getY()) return false;
-        if (rectangle.getPos().getX() + rectangle.getSize().getX() > pos.getX() + size.getX()) return false;
-        if (rectangle.getPos().getY() + rectangle.getSize().getY() > pos.getY() + size.getY()) return false;
+        if (rectangle.getPos().x < pos.x) return false;
+        if (rectangle.getPos().y < pos.y) return false;
+        if (rectangle.getPos().x + rectangle.getSize().x > pos.x + size.x) return false;
+        if (rectangle.getPos().y + rectangle.getSize().y > pos.y + size.y) return false;
         return true;
     }
 
     public void shift(Point shift){
-        pos.setX(pos.getX() + shift.getX());
-        pos.setY(pos.getY() + shift.getY());
+        pos.x = pos.x + shift.x;
+        pos.y = pos.y + shift.y;
     }
 }

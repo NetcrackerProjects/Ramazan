@@ -43,10 +43,10 @@ public class GameField {
     private boolean canMove(GameObject gameObject, double delta){
         Point speed = gameObject.getSpeed();
 
-        movedBody.getPos().setX(gameObject.getPos().getX() + speed.getX() * delta);
-        movedBody.getPos().setY(gameObject.getPos().getY() + speed.getY() * delta);
-        movedBody.getSize().setX(gameObject.getSize().getX());
-        movedBody.getSize().setY(gameObject.getSize().getY());
+        movedBody.getPos().x = gameObject.getPos().x + speed.x * delta;
+        movedBody.getPos().y = gameObject.getPos().y + speed.y * delta;
+        movedBody.getSize().x = gameObject.getSize().x;
+        movedBody.getSize().y = gameObject.getSize().y;
 
         if (outOfField(movedBody)) return false;
         if (intersectsObjectsExcept(movedBody, gameObject)) return false;

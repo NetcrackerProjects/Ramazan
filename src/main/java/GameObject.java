@@ -25,8 +25,8 @@ public class GameObject {
     }
 
     public void move(double delta){
-        shift.setX(delta * speed.getX());
-        shift.setY(delta * speed.getY());
+        shift.x = delta * speed.x;
+        shift.y = delta * speed.y;
 
         body.shift(shift);
     }

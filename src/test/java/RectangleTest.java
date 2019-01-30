@@ -50,11 +50,11 @@ public class RectangleTest {
         Rectangle rect = new Rectangle(new Point(0, 0), new Point(10, 10));
         Point shift = new Point(1, 1);
 
-        double beforeX = rect.getPos().getX();
-        double beforeY = rect.getPos().getY();
+        double beforeX = rect.getPos().x;
+        double beforeY = rect.getPos().y;
 
         rect.shift(shift);
 
-        assertTrue((rect.getPos().getX() == beforeX + shift.getX()) && (rect.getPos().getY() == beforeY + shift.getY()));
+        assertTrue((rect.getPos().x == beforeX + shift.x) && (rect.getPos().y == beforeY + shift.y));
     }
 }
