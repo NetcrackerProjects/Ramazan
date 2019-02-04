@@ -1,6 +1,4 @@
-import java.util.Scanner;
-
-public class GameLoop extends Thread{
+public class Game extends Thread{
 
     private final static double interval = 0.1;
     private final static int MS_PER_UPDATE = 30;
@@ -31,8 +29,8 @@ public class GameLoop extends Thread{
     }
 
     private void init(){
-        gameField = new GameField(new Point(100, 100));
-        gameField.addObject(new GameObject(new Point(10, 10), new Point(10, 10)));
+        this.gameField = new GameField(new Point(100, 100));
+        this.gameField.addObject(new GameObject(new Point(10, 10), new Point(10, 10)));
     }
 
     public boolean isRunning(){
@@ -40,7 +38,7 @@ public class GameLoop extends Thread{
     }
 
     public void terminate() throws InterruptedException {
-        running = false;
+        this.running = false;
         join();
     }
 
@@ -57,18 +55,6 @@ public class GameLoop extends Thread{
     }
 
     public static void main(String[] argv){
-        GameLoop loop = new GameLoop();
-        loop.start();
-        Scanner sc = new Scanner(System.in);
-        while (sc.hasNext()){
-            String text = sc.nextLine();
-            System.out.print(text + "!");
-        }
-        try {
-            loop.terminate();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
 }

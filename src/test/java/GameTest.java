@@ -2,15 +2,15 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
 
-public class GameLoopTest {
+public class GameTest {
 
     @Test
     public void should_notRun_when_terminated() throws InterruptedException {
-        GameLoop gameLoop = new GameLoop();
-        gameLoop.start();
+        Game game = new Game();
+        game.start();
 
-        gameLoop.terminate();
+        game.terminate();
 
-        assertFalse(gameLoop.isRunning());
+        assertFalse(game.isRunning());
     }
 }
