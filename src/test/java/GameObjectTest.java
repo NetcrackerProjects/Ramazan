@@ -5,7 +5,7 @@ import static junit.framework.TestCase.assertTrue;
 public class GameObjectTest {
 
     @Test
-    public void should_moveObjectCorrectly_when_move(){
+    public void shouldMoveObjectCorrectlyWhenMoved(){
         GameObject gameObject = new GameObject(new Point(0, 0), new Point(1, 1));
         gameObject.setSpeed(new Point(1, 1));
         Point expected = new Point(1, 1);
