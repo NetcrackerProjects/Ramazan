@@ -3,7 +3,7 @@ class Point {
     public double x;
     public double y;
 
-    public Point(double x, double y){
+    Point(double x, double y){
         this.x = x;
         this.y = y;
     }
@@ -13,12 +13,12 @@ class Point {
         if (object == null){
             return false;
         }
+
         if (object.getClass() != Point.class){
             return false;
         }
 
         Point p = (Point)object;
-
         return (p.x == x && p.y == y);
     }
 }

@@ -9,19 +9,39 @@ class GameField {
 
     private Rectangle movedBody;
 
-    public GameField(Point size){
+    GameField(Point size){
         this.field = new Rectangle(new Point(0, 0), size);
         gameObjects = new ArrayList<>();
         movedBody = new Rectangle(new Point(0, 0), new Point(0, 0));
+    }
+
+    public void addObject(GameObject gameObject){
+        if (isFree(gameObject.getBody())){
+            gameObjects.add(gameObject);
+        }
+    }
+
+    public void removeObject(GameObject gameObject){
+        gameObjects.remove(gameObject);
+    }
+
+    public Collection<GameObject> getGameObjects() {
+        return gameObjects;
+    }
+
+    public void update(double delta){
+        move(delta);
     }
 
     private boolean isFree(Rectangle rectangle){
         if (outOfField(rectangle)){
             return false;
         }
+
         if (intersectsObjects(rectangle)){
             return false;
         }
+
         return true;
     }
 
@@ -30,9 +50,11 @@ class GameField {
             if (exception == gameObject){
                 continue;
             }
+
             if (gameObject.intersects(rectangle)){
                 return true;
             }
+
         }
         return false;
     }
@@ -61,14 +83,12 @@ class GameField {
         if (outOfField(movedBody)){
             return false;
         }
+
         if (intersectsObjectsExcept(movedBody, gameObject)){
             return false;
         }
-        return true;
-    }
 
-    public void update(double delta){
-        move(delta);
+        return true;
     }
 
     private void move(double delta){
@@ -77,20 +97,5 @@ class GameField {
                 gameObject.move(delta);
             }
         }
-    }
-
-
-    public void addObject(GameObject gameObject){
-        if (isFree(gameObject.getBody())){
-            gameObjects.add(gameObject);
-        }
-    }
-
-    public void removeObject(GameObject gameObject){
-        gameObjects.remove(gameObject);
-    }
-
-    public Collection<GameObject> getGameObjects() {
-        return gameObjects;
     }
 }

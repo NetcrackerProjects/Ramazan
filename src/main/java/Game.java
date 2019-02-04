@@ -28,11 +28,6 @@ public class Game extends Thread{
         }
     }
 
-    private void init(){
-        this.gameField = new GameField(new Point(100, 100));
-        this.gameField.addObject(new GameObject(new Point(10, 10), new Point(10, 10)));
-    }
-
     public boolean isRunning(){
         return running;
     }
@@ -40,6 +35,11 @@ public class Game extends Thread{
     public void terminate() throws InterruptedException {
         this.running = false;
         join();
+    }
+
+    private void init(){
+        this.gameField = new GameField(new Point(100, 100));
+        this.gameField.addObject(new GameObject(new Point(10, 10), new Point(10, 10)));
     }
 
     private void processInput(){
@@ -53,8 +53,4 @@ public class Game extends Thread{
     private double getCurrentTime(){
         return System.currentTimeMillis();
     }
-
-    public static void main(String[] argv){
-    }
-
 }

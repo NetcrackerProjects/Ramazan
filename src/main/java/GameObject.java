@@ -3,10 +3,9 @@ class GameObject {
     private Rectangle body;
     private Point speed;
 
-
     private Point shift;
 
-    public GameObject(Point pos, Point size){
+    GameObject(Point pos, Point size){
         body = new Rectangle(pos, size);
         speed = new Point(0, 0);
         shift = new Point(0, 0);
