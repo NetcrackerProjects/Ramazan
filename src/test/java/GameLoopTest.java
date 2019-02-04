@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 public class GameLoopTest {
 
     @Test
-    public void givenGameLoop_whenTerminate_thenCorrect() throws InterruptedException {
+    public void should_notRun_when_terminated() throws InterruptedException {
         GameLoop gameLoop = new GameLoop();
         gameLoop.start();
 

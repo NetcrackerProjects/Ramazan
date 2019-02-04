@@ -6,7 +6,7 @@ import static org.junit.Assert.assertFalse;
 public class RectangleTest {
 
     @Test
-    public void givenIntersectedRectangles_WhenIntersects_thenTrue(){
+    public void should_returnTrue_when_rectanglesIntersected(){
         Rectangle rec1 = new Rectangle(new Point(0, 0), new Point(10, 10));
         Rectangle rec2 = new Rectangle(new Point(4, 4), new Point(10, 10));
 
@@ -16,7 +16,7 @@ public class RectangleTest {
     }
 
     @Test
-    public void givenNotIntersectedRectangles_WhenIntersects_thenFalse(){
+    public void should_returnFalse_when_rectanglesNotIntersected(){
         Rectangle rec1 = new Rectangle(new Point(0, 0), new Point(10, 10));
         Rectangle rec2 = new Rectangle(new Point(14, 14), new Point(10, 10));
 
@@ -26,7 +26,7 @@ public class RectangleTest {
     }
 
     @Test
-    public void givenIncludedRectangle_whenIncludes_thenTrue(){
+    public void should_returnTrue_when_rectangleIncludeOther(){
         Rectangle rec1 = new Rectangle(new Point(0, 0), new Point(10, 10));
         Rectangle rec2 = new Rectangle(new Point(5, 5), new Point(2, 2));
 
@@ -36,7 +36,7 @@ public class RectangleTest {
     }
 
     @Test
-    public void givenNotIncludedRectangle_whenIncludes_thenFalse(){
+    public void should_returnFalse_when_rectangleNotIncludeOther(){
         Rectangle rec1 = new Rectangle(new Point(0, 0), new Point(10, 10));
         Rectangle rec2 = new Rectangle(new Point(5, 5), new Point(6, 6));
 
@@ -46,10 +46,9 @@ public class RectangleTest {
     }
 
     @Test
-    public void givenRectangle_whenShift_thenCorrect(){
+    public void should_shiftRectangleCorrectly_when_shift(){
         Rectangle rect = new Rectangle(new Point(0, 0), new Point(10, 10));
         Point shift = new Point(1, 1);
-
         double beforeX = rect.getPos().x;
         double beforeY = rect.getPos().y;
 
