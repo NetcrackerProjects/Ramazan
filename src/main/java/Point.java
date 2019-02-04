@@ -10,8 +10,12 @@ public class Point {
 
     @Override
     public boolean equals(Object object){
-        if (object == null) return false;
-        if (object.getClass() != Point.class) return false;
+        if (object == null){
+            return false;
+        }
+        if (object.getClass() != Point.class){
+            return false;
+        }
 
         Point p = (Point)object;
 

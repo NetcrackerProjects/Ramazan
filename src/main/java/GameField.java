@@ -16,22 +16,32 @@ public class GameField {
     }
 
     private boolean isFree(Rectangle rectangle){
-        if (outOfField(rectangle)) return false;
-        if (intersectsObjects(rectangle)) return false;
+        if (outOfField(rectangle)){
+            return false;
+        }
+        if (intersectsObjects(rectangle)){
+            return false;
+        }
         return true;
     }
 
     private boolean intersectsObjectsExcept(Rectangle rectangle, GameObject exception){
         for(GameObject gameObject: gameObjects){
-            if (exception == gameObject) continue;
-            if (gameObject.intersects(rectangle)) return true;
+            if (exception == gameObject){
+                continue;
+            }
+            if (gameObject.intersects(rectangle)){
+                return true;
+            }
         }
         return false;
     }
 
     private boolean intersectsObjects(Rectangle rectangle){
         for(GameObject gameObject: gameObjects){
-            if (gameObject.intersects(rectangle)) return true;
+            if (gameObject.intersects(rectangle)){
+                return true;
+            }
         }
         return false;
     }
@@ -48,8 +58,12 @@ public class GameField {
         movedBody.getSize().x = gameObject.getSize().x;
         movedBody.getSize().y = gameObject.getSize().y;
 
-        if (outOfField(movedBody)) return false;
-        if (intersectsObjectsExcept(movedBody, gameObject)) return false;
+        if (outOfField(movedBody)){
+            return false;
+        }
+        if (intersectsObjectsExcept(movedBody, gameObject)){
+            return false;
+        }
         return true;
     }
 
@@ -59,13 +73,17 @@ public class GameField {
 
     private void move(double delta){
         for(GameObject gameObject: gameObjects){
-            if (canMove(gameObject, delta)) gameObject.move(delta);
+            if (canMove(gameObject, delta)){
+                gameObject.move(delta);
+            }
         }
     }
 
 
     public void addObject(GameObject gameObject){
-        if (isFree(gameObject.getBody())) gameObjects.add(gameObject);
+        if (isFree(gameObject.getBody())){
+            gameObjects.add(gameObject);
+        }
     }
 
     public void removeObject(GameObject gameObject){
