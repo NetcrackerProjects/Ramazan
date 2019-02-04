@@ -1,4 +1,4 @@
-public class GameObject {
+class GameObject {
 
     private Rectangle body;
     private Point speed;

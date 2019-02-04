@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class GameField {
+class GameField {
 
     private Rectangle field;
 

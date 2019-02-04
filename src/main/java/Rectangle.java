@@ -1,4 +1,4 @@
-public class Rectangle {
+class Rectangle {
 
     private Point pos;
     private Point size;
