@@ -10,7 +10,6 @@ public class GameLoop extends Thread{
 
     @Override
     public void run(){
-
         init();
 
         double lag = 0.0;
@@ -28,9 +27,7 @@ public class GameLoop extends Thread{
                 update(interval);
                 lag -= MS_PER_UPDATE;
             }
-
         }
-
     }
 
     private void init(){
@@ -58,7 +55,6 @@ public class GameLoop extends Thread{
     private double getCurrentTime(){
         return System.currentTimeMillis();
     }
-
 
     public static void main(String[] argv){
         GameLoop loop = new GameLoop();

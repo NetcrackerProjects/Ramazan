@@ -9,11 +9,8 @@ public class GameLoopTest {
         GameLoop gameLoop = new GameLoop();
         gameLoop.start();
 
-
         gameLoop.terminate();
 
-
         assertFalse(gameLoop.isRunning());
-
     }
 }
