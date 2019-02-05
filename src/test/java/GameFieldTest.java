@@ -7,29 +7,23 @@ import static org.junit.Assert.assertTrue;
 
 public class GameFieldTest {
 
-    @Test
-    public void shouldNotAddObjectWhenObjectIsOutOfBoundary(){
+    @Test(expected = OutOfBoundaryException.class)
+    public void shouldThrowOutBoundaryExceptionWhenObjectIsOutOfBoundary() throws OutOfBoundaryException, ObjectIntersectionException {
         GameField gameField = new GameField(new Point(10, 10));
 
         gameField.addObject(new GameObject(new Point(9, 9), new Point(2, 2)));
-
-        Collection<GameObject> gameObjects = gameField.getGameObjects();
-        assertEquals(0, gameObjects.size());
     }
 
-    @Test
-    public void shouldNotAddObjectWhenObjectIntersectsOthers(){
+    @Test(expected = ObjectIntersectionException.class)
+    public void shouldThrowObjectIntersectionExceptionWhenObjectIntersectsOthers() throws OutOfBoundaryException, ObjectIntersectionException {
         GameField gameField = new GameField(new Point(10, 10));
         gameField.addObject(new GameObject(new Point(4, 4), new Point(3, 5)));
 
         gameField.addObject(new GameObject(new Point(4, 6), new Point(2, 3)));
-
-        Collection<GameObject> gameObjects = gameField.getGameObjects();
-        assertEquals(1, gameObjects.size());
     }
 
     @Test
-    public void shouldMoveObjectWhenIsUpdated(){
+    public void shouldMoveObjectWhenIsUpdated() throws OutOfBoundaryException, ObjectIntersectionException {
         GameField gameField = new GameField(new Point(10, 10));
         GameObject gameObject = new GameObject(new Point(1, 1), new Point(1, 1));
         gameObject.setSpeed(new Point(1, 1));

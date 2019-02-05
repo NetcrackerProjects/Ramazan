@@ -21,8 +21,6 @@ public class Game extends Thread{
             previous = current;
             lag += elapsed;
 
-            processInput();
-
             while(lag >= MS_PER_UPDATE){
                 update(interval);
                 lag -= MS_PER_UPDATE;
@@ -41,11 +39,11 @@ public class Game extends Thread{
 
     private void init(){
         this.gameField = new GameField(new Point(100, 100));
-        gameField.addObject(new GameObject(new Point(10, 10), new Point(10, 10)));
-    }
-
-    private void processInput(){
-
+        try {
+            gameField.addObject(new GameObject(new Point(10, 10), new Point(10, 10)));
+        } catch (OutOfBoundaryException | ObjectIntersectionException e) {
+            e.printStackTrace();
+        }
     }
 
     private void update(double delta){

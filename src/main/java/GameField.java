@@ -15,34 +15,22 @@ class GameField {
         this.movedBody = new Rectangle(new Point(0, 0), new Point(0, 0));
     }
 
-    public void addObject(GameObject gameObject){
-        if (isFree(gameObject.getBody())){
-            gameObjects.add(gameObject);
+    public void addObject(GameObject gameObject) throws OutOfBoundaryException, ObjectIntersectionException {
+        Rectangle body = gameObject.getBody();
+
+        if (outOfField(body)){
+            throw new OutOfBoundaryException();
         }
-    }
 
-    public void removeObject(GameObject gameObject){
-        gameObjects.remove(gameObject);
-    }
+        if (intersectsObjects(body)){
+            throw new ObjectIntersectionException();
+        }
 
-    public Collection<GameObject> getGameObjects() {
-        return gameObjects;
+        gameObjects.add(gameObject);
     }
 
     public void update(double delta){
         move(delta);
-    }
-
-    private boolean isFree(Rectangle rectangle){
-        if (outOfField(rectangle)){
-            return false;
-        }
-
-        if (intersectsObjects(rectangle)){
-            return false;
-        }
-
-        return true;
     }
 
     private boolean intersectsObjectsExcept(Rectangle rectangle, GameObject exception){
