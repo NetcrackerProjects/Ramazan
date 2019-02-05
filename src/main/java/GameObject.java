@@ -3,12 +3,9 @@ class GameObject {
     private Rectangle body;
     private Point speed;
 
-    private Point shift;
-
     GameObject(Point pos, Point size){
         this.body = new Rectangle(pos, size);
         this.speed = new Point(0, 0);
-        this.shift = new Point(0, 0);
     }
 
     public Point getSpeed() {
@@ -23,11 +20,8 @@ class GameObject {
         return body.intersects(rectangle);
     }
 
-    public void move(double delta){
-        this.shift.x = delta * speed.x;
-        this.shift.y = delta * speed.y;
-
-        body.shift(shift);
+    public void move(){
+        body.shift(speed);
     }
 
     public Point getPos(){

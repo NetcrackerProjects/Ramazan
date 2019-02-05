@@ -1,6 +1,5 @@
 public class Game extends Thread{
 
-    private final static double interval = 0.1;
     private final static int MS_PER_UPDATE = 30;
     private volatile boolean running = true;
 
@@ -22,7 +21,7 @@ public class Game extends Thread{
             lag += elapsed;
 
             while(lag >= MS_PER_UPDATE){
-                update(interval);
+                update();
                 lag -= MS_PER_UPDATE;
             }
         }
@@ -46,8 +45,8 @@ public class Game extends Thread{
         }
     }
 
-    private void update(double delta){
-        gameField.update(delta);
+    private void update(){
+        gameField.update();
     }
 
     private double getCurrentTime(){

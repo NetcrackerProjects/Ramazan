@@ -1,5 +1,5 @@
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 class GameField {
 
@@ -11,7 +11,7 @@ class GameField {
 
     GameField(Point size){
         this.field = new Rectangle(new Point(0, 0), size);
-        this.gameObjects = new ArrayList<>();
+        this.gameObjects = new HashSet<>();
         this.movedBody = new Rectangle(new Point(0, 0), new Point(0, 0));
     }
 
@@ -29,8 +29,8 @@ class GameField {
         gameObjects.add(gameObject);
     }
 
-    public void update(double delta){
-        move(delta);
+    public void update(){
+        move();
     }
 
     private boolean intersectsObjectsExcept(Rectangle rectangle, GameObject exception){
@@ -60,13 +60,13 @@ class GameField {
         return !field.includes(rectangle);
     }
 
-    private boolean canMove(GameObject gameObject, double delta){
+    private boolean canMove(GameObject gameObject){
         Point speed = gameObject.getSpeed();
 
-        movedBody.getPos().x = gameObject.getPos().x + speed.x * delta;
-        movedBody.getPos().y = gameObject.getPos().y + speed.y * delta;
-        movedBody.getSize().x = gameObject.getSize().x;
-        movedBody.getSize().y = gameObject.getSize().y;
+        this.movedBody.getPos().x = gameObject.getPos().x + speed.x;
+        this.movedBody.getPos().y = gameObject.getPos().y + speed.y;
+        this.movedBody.getSize().x = gameObject.getSize().x;
+        this.movedBody.getSize().y = gameObject.getSize().y;
 
         if (outOfField(movedBody)){
             return false;
@@ -79,10 +79,10 @@ class GameField {
         return true;
     }
 
-    private void move(double delta){
+    private void move(){
         for(GameObject gameObject: gameObjects){
-            if (canMove(gameObject, delta)){
-                gameObject.move(delta);
+            if (canMove(gameObject)){
+                gameObject.move();
             }
         }
     }

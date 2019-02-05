@@ -30,7 +30,7 @@ public class GameFieldTest {
         gameField.addObject(gameObject);
         Point expected = new Point(2, 2);
 
-        gameField.update(1);
+        gameField.update();
 
         assertEquals(expected, gameObject.getPos());
     }

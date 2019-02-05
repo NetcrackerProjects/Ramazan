@@ -10,7 +10,7 @@ public class GameObjectTest {
         gameObject.setSpeed(new Point(1, 1));
         Point expected = new Point(1, 1);
 
-        gameObject.move(1);
+        gameObject.move();
 
         assertTrue(expected.equals(gameObject.getPos()));
     }
