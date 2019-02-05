@@ -6,10 +6,12 @@ public class Game extends Thread{
 
     private GameField gameField;
 
+    public Game(){
+        init();
+    }
+
     @Override
     public void run(){
-        init();
-
         double lag = 0.0;
         double previous = getCurrentTime();
 
@@ -39,7 +41,7 @@ public class Game extends Thread{
 
     private void init(){
         this.gameField = new GameField(new Point(100, 100));
-        this.gameField.addObject(new GameObject(new Point(10, 10), new Point(10, 10)));
+        gameField.addObject(new GameObject(new Point(10, 10), new Point(10, 10)));
     }
 
     private void processInput(){

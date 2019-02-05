@@ -6,9 +6,9 @@ class GameObject {
     private Point shift;
 
     GameObject(Point pos, Point size){
-        body = new Rectangle(pos, size);
-        speed = new Point(0, 0);
-        shift = new Point(0, 0);
+        this.body = new Rectangle(pos, size);
+        this.speed = new Point(0, 0);
+        this.shift = new Point(0, 0);
     }
 
     public Point getSpeed() {
@@ -24,8 +24,8 @@ class GameObject {
     }
 
     public void move(double delta){
-        shift.x = delta * speed.x;
-        shift.y = delta * speed.y;
+        this.shift.x = delta * speed.x;
+        this.shift.y = delta * speed.y;
 
         body.shift(shift);
     }

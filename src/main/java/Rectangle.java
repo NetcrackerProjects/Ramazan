@@ -65,7 +65,7 @@ class Rectangle {
     }
 
     public void shift(Point shift){
-        pos.x = pos.x + shift.x;
-        pos.y = pos.y + shift.y;
+        this.pos.x = this.pos.x + shift.x;
+        this.pos.y = this.pos.y + shift.y;
     }
 }

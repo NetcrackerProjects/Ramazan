@@ -11,8 +11,8 @@ class GameField {
 
     GameField(Point size){
         this.field = new Rectangle(new Point(0, 0), size);
-        gameObjects = new ArrayList<>();
-        movedBody = new Rectangle(new Point(0, 0), new Point(0, 0));
+        this.gameObjects = new ArrayList<>();
+        this.movedBody = new Rectangle(new Point(0, 0), new Point(0, 0));
     }
 
     public void addObject(GameObject gameObject){
