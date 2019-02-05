@@ -1,2 +1,2 @@
-public class ObjectIntersectionException extends Exception {
+class ObjectIntersectionException extends Exception {
 }
