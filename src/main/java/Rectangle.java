@@ -1,35 +1,42 @@
+import java.util.Objects;
+
 class Rectangle {
 
-    private Point pos;
-    private Point size;
+    private Point leftTop;
+    private Point bottomRight;
 
-    Rectangle(Point pos, Point size){
-        this.pos = pos;
-        this.size = size;
+    Rectangle(){
+        this.leftTop = new Point(0, 0);
+        this.bottomRight = new Point(0, 0);
     }
 
-    public Point getPos() {
-        return pos;
+    Rectangle(Point leftTop, Point bottomRight){
+        this.leftTop = leftTop;
+        this.bottomRight = bottomRight;
     }
 
-    public Point getSize() {
-        return size;
+    public Point getLeftTop() {
+        return leftTop;
+    }
+
+    public Point getBottomRight() {
+        return bottomRight;
     }
 
     public boolean intersects(Rectangle rectangle){
-        if (rectangle.pos.x > pos.x + size.x){
+        if (rectangle.leftTop.x > bottomRight.x){
             return false;
         }
 
-        if (rectangle.pos.y > pos.y + size.y){
+        if (rectangle.leftTop.y > bottomRight.y){
             return false;
         }
 
-        if (rectangle.pos.x + rectangle.size.x < pos.x){
+        if (rectangle.bottomRight.x < leftTop.x){
             return false;
         }
 
-        if (rectangle.pos.y + rectangle.size.y < pos.y){
+        if (rectangle.bottomRight.y < leftTop.y){
             return false;
         }
 
@@ -37,27 +44,51 @@ class Rectangle {
     }
 
     public boolean includes(Rectangle rectangle){
-        if (rectangle.getPos().x < pos.x){
+        if (rectangle.getLeftTop().x < leftTop.x){
             return false;
         }
 
-        if (rectangle.getPos().y < pos.y){
+        if (rectangle.getLeftTop().y < leftTop.y){
             return false;
         }
 
-        if (rectangle.getPos().x + rectangle.getSize().x > pos.x + size.x){
+        if (rectangle.getBottomRight().x > bottomRight.x){
             return false;
         }
 
-        if (rectangle.getPos().y + rectangle.getSize().y > pos.y + size.y){
+        if (rectangle.getBottomRight().y > bottomRight.y){
             return false;
         }
 
         return true;
     }
 
+    public void setRectangle(Rectangle rectangle){
+        this.leftTop.x = rectangle.getLeftTop().x;
+        this.leftTop.y = rectangle.getLeftTop().y;
+        this.bottomRight.x = rectangle.getBottomRight().x;
+        this.bottomRight.y = rectangle.getBottomRight().y;
+    }
+
     public void shift(Point shift){
-        this.pos.x = this.pos.x + shift.x;
-        this.pos.y = this.pos.y + shift.y;
+        this.leftTop.x = this.leftTop.x + shift.x;
+        this.leftTop.y = this.leftTop.y + shift.y;
+        this.bottomRight.x = this.bottomRight.x + shift.x;
+        this.bottomRight.y = this.bottomRight.y + shift.y;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object){
+            return true;
+        }
+
+        if (object == null || getClass() != object.getClass()){
+            return false;
+        }
+
+        Rectangle rectangle = (Rectangle) object;
+
+        return Objects.equals(leftTop, rectangle.leftTop) && Objects.equals(bottomRight, rectangle.bottomRight);
     }
 }

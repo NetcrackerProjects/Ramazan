@@ -9,10 +9,10 @@ class GameField {
 
     private Rectangle movedBody;
 
-    GameField(Point size){
-        this.field = new Rectangle(new Point(0, 0), size);
+    GameField(Point leftTop, Point rightBottom){
+        this.field = new Rectangle(leftTop, rightBottom);
         this.gameObjects = new HashSet<>();
-        this.movedBody = new Rectangle(new Point(0, 0), new Point(0, 0));
+        this.movedBody = new Rectangle();
     }
 
     public void addObject(GameObject gameObject) throws OutOfBoundaryException, ObjectIntersectionException {
@@ -63,10 +63,8 @@ class GameField {
     private boolean canMove(GameObject gameObject){
         Point speed = gameObject.getSpeed();
 
-        this.movedBody.getPos().x = gameObject.getPos().x + speed.x;
-        this.movedBody.getPos().y = gameObject.getPos().y + speed.y;
-        this.movedBody.getSize().x = gameObject.getSize().x;
-        this.movedBody.getSize().y = gameObject.getSize().y;
+        movedBody.setRectangle(gameObject.getBody());
+        movedBody.shift(speed);
 
         if (outOfField(movedBody)){
             return false;
