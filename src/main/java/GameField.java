@@ -22,7 +22,7 @@ class GameField {
             throw new OutOfBoundaryException();
         }
 
-        if (intersectsObjects(body)){
+        if (intersectsObjects(body, gameObjects)){
             throw new ObjectIntersectionException();
         }
 
@@ -34,21 +34,14 @@ class GameField {
     }
 
     private boolean intersectsObjectsExcept(Rectangle rectangle, GameObject exception){
-        for(GameObject gameObject: gameObjects){
-            if (exception == gameObject){
-                continue;
-            }
+        Collection<GameObject> gameObjectsWithoutException = new HashSet<>(gameObjects);
+        gameObjectsWithoutException.remove(exception);
 
-            if (gameObject.intersects(rectangle)){
-                return true;
-            }
-
-        }
-        return false;
+        return intersectsObjects(rectangle, gameObjectsWithoutException);
     }
 
-    private boolean intersectsObjects(Rectangle rectangle){
-        for(GameObject gameObject: gameObjects){
+    private boolean intersectsObjects(Rectangle rectangle, Collection<GameObject> objectsToIntersect){
+        for(GameObject gameObject: objectsToIntersect){
             if (gameObject.intersects(rectangle)){
                 return true;
             }
