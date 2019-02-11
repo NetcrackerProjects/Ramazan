@@ -15,15 +15,15 @@ class Rectangle {
         this.bottomRight = bottomRight;
     }
 
-    public Point getLeftTop() {
+    Point getLeftTop() {
         return leftTop;
     }
 
-    public Point getBottomRight() {
+    Point getBottomRight() {
         return bottomRight;
     }
 
-    public boolean intersects(Rectangle rectangle){
+    boolean intersects(Rectangle rectangle){
         if (rectangle.leftTop.x > bottomRight.x){
             return false;
         }
@@ -43,7 +43,7 @@ class Rectangle {
         return true;
     }
 
-    public boolean includes(Rectangle rectangle){
+    boolean includes(Rectangle rectangle){
         if (rectangle.getLeftTop().x < leftTop.x){
             return false;
         }
@@ -63,14 +63,14 @@ class Rectangle {
         return true;
     }
 
-    public void setRectangle(Rectangle rectangle){
+    void setRectangle(Rectangle rectangle){
         this.leftTop.x = rectangle.getLeftTop().x;
         this.leftTop.y = rectangle.getLeftTop().y;
         this.bottomRight.x = rectangle.getBottomRight().x;
         this.bottomRight.y = rectangle.getBottomRight().y;
     }
 
-    public void shift(Point shift){
+    void shift(Point shift){
         this.leftTop.x = this.leftTop.x + shift.x;
         this.leftTop.y = this.leftTop.y + shift.y;
         this.bottomRight.x = this.bottomRight.x + shift.x;

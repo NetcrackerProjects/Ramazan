@@ -8,31 +8,31 @@ class GameObject {
         this.speed = new Point(0, 0);
     }
 
-    public Point getSpeed() {
+    Point getSpeed() {
         return speed;
     }
 
-    public void setSpeed(Point speed){
+    void setSpeed(Point speed){
         this.speed = speed;
     }
 
-    public boolean intersects(Rectangle rectangle){
+    boolean intersects(Rectangle rectangle){
         return body.intersects(rectangle);
     }
 
-    public void move(){
+    void move(){
         body.shift(speed);
     }
 
-    public Point getPos(){
+    Point getPos(){
         return body.getLeftTop();
     }
 
-    public Point getSize(){
+    Point getSize(){
         return body.getBottomRight();
     }
 
-    public Rectangle getBody() {
+    Rectangle getBody() {
         return body;
     }
 }
