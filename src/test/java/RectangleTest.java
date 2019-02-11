@@ -50,12 +50,11 @@ public class RectangleTest {
     public void shouldShiftRectangleCorrectlyWhenShifted(){
         Rectangle rectangle = new Rectangle(new Point(0, 0), new Point(10, 10));
         Point shift = new Point(1, 1);
-        double beforeX = rectangle.getTopLeft().x;
-        double beforeY = rectangle.getTopLeft().y;
+        Rectangle expected = new Rectangle(new Point(1, 1), new Point(11, 11));
 
         rectangle.shift(shift);
 
-        assertTrue((rectangle.getTopLeft().x == beforeX + shift.x) && (rectangle.getTopLeft().y == beforeY + shift.y));
+        assertEquals(expected, rectangle);
     }
 
     @Test

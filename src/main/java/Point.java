@@ -8,6 +8,11 @@ class Point {
         this.y = y;
     }
 
+    Point(Point point){
+        this.x = point.x;
+        this.y = point.y;
+    }
+
     void shift(Point shift){
         x += shift.x;
         y += shift.y;

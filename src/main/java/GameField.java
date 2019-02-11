@@ -7,12 +7,9 @@ class GameField {
 
     private Collection<GameObject> gameObjects;
 
-    private Rectangle movedBody;
-
     GameField(Point leftTop, Point rightBottom){
         this.field = new Rectangle(leftTop, rightBottom);
         this.gameObjects = new HashSet<>();
-        this.movedBody = new Rectangle();
     }
 
     void addObject(GameObject gameObject) throws Exception{
@@ -33,6 +30,31 @@ class GameField {
         move();
     }
 
+    private void move(){
+        for(GameObject gameObject: gameObjects){
+            if (canMove(gameObject)){
+                gameObject.move();
+            }
+        }
+    }
+
+    private boolean canMove(GameObject gameObject){
+        Point speed = gameObject.getSpeed();
+
+        Rectangle objectMovedBody = new Rectangle(gameObject.getBody());
+        objectMovedBody.shift(speed);
+
+        if (isOutOfGameField(objectMovedBody)){
+            return false;
+        }
+
+        if (doesIntersectsGameObjectsExcept(objectMovedBody, gameObject)){
+            return false;
+        }
+
+        return true;
+    }
+
     private boolean doesIntersectsGameObjectsExcept(Rectangle rectangle, GameObject exception){
         Collection<GameObject> gameObjectsWithoutException = new HashSet<>(gameObjects);
         gameObjectsWithoutException.remove(exception);
@@ -51,30 +73,5 @@ class GameField {
 
     private boolean isOutOfGameField(Rectangle objectBody){
         return !field.includes(objectBody);
-    }
-
-    private boolean canMove(GameObject gameObject){
-        Point speed = gameObject.getSpeed();
-        
-        movedBody.copyRectangle(gameObject.getBody());
-        movedBody.shift(speed);
-
-        if (isOutOfGameField(movedBody)){
-            return false;
-        }
-
-        if (doesIntersectsGameObjectsExcept(movedBody, gameObject)){
-            return false;
-        }
-
-        return true;
-    }
-
-    private void move(){
-        for(GameObject gameObject: gameObjects){
-            if (canMove(gameObject)){
-                gameObject.move();
-            }
-        }
     }
 }

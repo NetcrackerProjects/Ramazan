@@ -15,11 +15,16 @@ class Rectangle {
         this.bottomRight = bottomRight;
     }
 
+    Rectangle(Rectangle rectangle){
+        this.topLeft = new Point(rectangle.getTopLeft());
+        this.bottomRight = new Point(rectangle.getBottomRight());
+    }
+
     Point getTopLeft() {
         return topLeft;
     }
 
-    Point getBottomRight() {
+    private Point getBottomRight() {
         return bottomRight;
     }
 
