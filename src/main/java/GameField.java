@@ -16,13 +16,13 @@ class GameField {
     }
 
     void addObject(GameObject gameObject) throws OutOfBoundaryException, ObjectIntersectionException {
-        Rectangle body = gameObject.getBody();
+        Rectangle objectBody = gameObject.getBody();
 
-        if (outOfField(body)){
+        if (isOutOfGameField(objectBody)){
             throw new OutOfBoundaryException();
         }
 
-        if (intersectsObjects(body, gameObjects)){
+        if (doesIntersectsGameObjects(objectBody, gameObjects)){
             throw new ObjectIntersectionException();
         }
 
@@ -33,14 +33,14 @@ class GameField {
         move();
     }
 
-    private boolean intersectsObjectsExcept(Rectangle rectangle, GameObject exception){
+    private boolean doesIntersectsGameObjectsExcept(Rectangle rectangle, GameObject exception){
         Collection<GameObject> gameObjectsWithoutException = new HashSet<>(gameObjects);
         gameObjectsWithoutException.remove(exception);
 
-        return intersectsObjects(rectangle, gameObjectsWithoutException);
+        return doesIntersectsGameObjects(rectangle, gameObjectsWithoutException);
     }
 
-    private boolean intersectsObjects(Rectangle rectangle, Collection<GameObject> objectsToIntersect){
+    private boolean doesIntersectsGameObjects(Rectangle rectangle, Collection<GameObject> objectsToIntersect){
         for(GameObject gameObject: objectsToIntersect){
             if (gameObject.intersects(rectangle)){
                 return true;
@@ -49,21 +49,21 @@ class GameField {
         return false;
     }
 
-    private boolean outOfField(Rectangle rectangle){
-        return !field.includes(rectangle);
+    private boolean isOutOfGameField(Rectangle objectBody){
+        return !field.includes(objectBody);
     }
 
     private boolean canMove(GameObject gameObject){
         Point speed = gameObject.getSpeed();
-
+        
         movedBody.setRectangle(gameObject.getBody());
         movedBody.shift(speed);
 
-        if (outOfField(movedBody)){
+        if (isOutOfGameField(movedBody)){
             return false;
         }
 
-        if (intersectsObjectsExcept(movedBody, gameObject)){
+        if (doesIntersectsGameObjectsExcept(movedBody, gameObject)){
             return false;
         }
 
