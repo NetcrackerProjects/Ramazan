@@ -6,7 +6,12 @@ public class Game extends Thread{
     private GameField gameField;
 
     public Game(){
-        init();
+        this.gameField = new GameField(new Point(0, 0), new Point(100, 100));
+        try {
+            gameField.addObject(new GameObject(new Point(10, 10), new Point(20, 20)));
+        } catch (OutOfBoundaryException | ObjectIntersectionException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -34,15 +39,6 @@ public class Game extends Thread{
     public void terminate() throws InterruptedException {
         this.running = false;
         join();
-    }
-
-    private void init(){
-        this.gameField = new GameField(new Point(0, 0), new Point(100, 100));
-        try {
-            gameField.addObject(new GameObject(new Point(10, 10), new Point(20, 20)));
-        } catch (OutOfBoundaryException | ObjectIntersectionException e) {
-            e.printStackTrace();
-        }
     }
 
     private void update(){
