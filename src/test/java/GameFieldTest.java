@@ -8,14 +8,14 @@ import static org.junit.Assert.assertTrue;
 public class GameFieldTest {
 
     @Test(expected = OutOfBoundaryException.class)
-    public void shouldThrowOutBoundaryExceptionWhenObjectIsOutOfBoundary() throws OutOfBoundaryException, ObjectIntersectionException {
+    public void shouldThrowWhenInsertedObjectIsOutOfBoundary() throws Exception {
         GameField gameField = new GameField(new Point(0,0), new Point(10, 10));
 
         gameField.addObject(new GameObject(new Point(9, 9), new Point(11, 11)));
     }
 
     @Test(expected = ObjectIntersectionException.class)
-    public void shouldThrowObjectIntersectionExceptionWhenObjectIntersectsOthers() throws OutOfBoundaryException, ObjectIntersectionException {
+    public void shouldThrowWhenInsertedObjectIntersectsOthers() throws Exception {
         GameField gameField = new GameField(new Point(0, 0), new Point(10, 10));
         gameField.addObject(new GameObject(new Point(4, 4), new Point(7, 9)));
 
@@ -23,7 +23,7 @@ public class GameFieldTest {
     }
 
     @Test
-    public void shouldMoveObjectWhenIsUpdated() throws OutOfBoundaryException, ObjectIntersectionException {
+    public void shouldMoveObjectWhenIsUpdated() throws Exception {
         GameField gameField = new GameField(new Point(0, 0), new Point(10, 10));
         GameObject gameObject = new GameObject(new Point(1, 1), new Point(2, 2));
         gameObject.setSpeed(new Point(1, 1));

@@ -28,10 +28,6 @@ class GameObject {
         return body.getLeftTop();
     }
 
-    Point getSize(){
-        return body.getBottomRight();
-    }
-
     Rectangle getBody() {
         return body;
     }

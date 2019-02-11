@@ -15,7 +15,7 @@ class GameField {
         this.movedBody = new Rectangle();
     }
 
-    void addObject(GameObject gameObject) throws OutOfBoundaryException, ObjectIntersectionException {
+    void addObject(GameObject gameObject) throws Exception{
         Rectangle objectBody = gameObject.getBody();
 
         if (isOutOfGameField(objectBody)){
