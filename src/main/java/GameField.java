@@ -7,9 +7,12 @@ class GameField {
 
     private Collection<GameObject> gameObjects;
 
+    private Collection<Collision> collisions;
+
     GameField(Point leftTop, Point rightBottom){
         this.field = new Rectangle(leftTop, rightBottom);
         this.gameObjects = new HashSet<>();
+        this.collisions = new HashSet<>();
     }
 
     void addObject(GameObject gameObject) throws Exception{
@@ -19,8 +22,10 @@ class GameField {
             throw new OutOfBoundaryException();
         }
 
-        if (doesIntersectsGameObjects(objectBody, gameObjects)){
-            throw new ObjectIntersectionException();
+        if (!gameObject.isPermeable()) {
+            if (doesIntersectsPermeableGameObjects(objectBody, gameObjects)) {
+                throw new ObjectIntersectionException();
+            }
         }
 
         gameObjects.add(gameObject);
@@ -28,6 +33,7 @@ class GameField {
 
     void update(){
         move();
+        processCollisions();
     }
 
     private void move(){
@@ -39,6 +45,10 @@ class GameField {
     }
 
     private boolean canMove(GameObject gameObject){
+        if (gameObject.isPermeable()){
+            return true;
+        }
+
         Point speed = gameObject.getSpeed();
 
         Rectangle objectMovedBody = new Rectangle(gameObject.getBody());
@@ -48,23 +58,61 @@ class GameField {
             return false;
         }
 
-        if (doesIntersectsGameObjectsExcept(objectMovedBody, gameObject)){
+        if (doesIntersectsPermeableGameObjectsExcept(objectMovedBody, gameObject)){
             return false;
         }
 
         return true;
     }
 
-    private boolean doesIntersectsGameObjectsExcept(Rectangle rectangle, GameObject exception){
+    private void processCollisions(){
+        registerCollisions();
+        carryOutRegisteredCollisions();
+        clearRegisteredCollisions();
+    }
+
+    private void registerCollisions(){
+        collisions.clear();
+        for(GameObject gameObject: gameObjects){
+            registerCollision(gameObject);
+        }
+    }
+
+    private void carryOutRegisteredCollisions(){
+        for(Collision collision: collisions){
+            collision.carryOut();
+        }
+    }
+
+    private void clearRegisteredCollisions(){
+        collisions.clear();
+    }
+
+    private void registerCollision(GameObject gameObject){
+        for(GameObject otherGameObject: gameObjects){
+            if (otherGameObject.equals(gameObject)){
+                continue;
+            }
+
+            if (otherGameObject.doesIntersect(gameObject.getBody())){
+                collisions.add(new Collision(gameObject, otherGameObject));
+            }
+        }
+    }
+
+    private boolean doesIntersectsPermeableGameObjectsExcept(Rectangle rectangle, GameObject exception){
         Collection<GameObject> gameObjectsWithoutException = new HashSet<>(gameObjects);
         gameObjectsWithoutException.remove(exception);
 
-        return doesIntersectsGameObjects(rectangle, gameObjectsWithoutException);
+        return doesIntersectsPermeableGameObjects(rectangle, gameObjectsWithoutException);
     }
 
-    private boolean doesIntersectsGameObjects(Rectangle rectangle, Collection<GameObject> objectsToIntersect){
+    private boolean doesIntersectsPermeableGameObjects(Rectangle rectangle, Collection<GameObject> objectsToIntersect){
         for(GameObject gameObject: objectsToIntersect){
-            if (gameObject.intersects(rectangle)){
+            if (gameObject.isPermeable()){
+                continue;
+            }
+            if (gameObject.doesIntersect(rectangle)){
                 return true;
             }
         }

@@ -1,6 +1,11 @@
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class GameFieldTest {
 
@@ -30,5 +35,22 @@ public class GameFieldTest {
         gameField.update();
 
         assertEquals(expected, gameObject.getPos());
+    }
+
+    @Test
+    public void shouldCallIntersectGameObjectWhenCollisionHappened() throws Exception {
+        GameField gameField = new GameField(new Point(0, 0), new Point(10, 10));
+        GameObject gameObject = new GameObject(new Point(1, 1), new Point(2, 2));
+        gameObject.setPermeable();
+        gameField.addObject(gameObject);
+        Rectangle body = new Rectangle(new Point(0, 0), new Point(1.5, 1.5));
+        GameObject mockedGameObject = Mockito.mock(GameObject.class);
+        when(mockedGameObject.getBody()).thenReturn(body);
+        when(mockedGameObject.getSpeed()).thenReturn(new Point(0, 0));
+        gameField.addObject(mockedGameObject);
+
+        gameField.update();
+
+        verify(mockedGameObject, times(1)).intersectGameObject(any(GameObject.class));
     }
 }
