@@ -56,7 +56,7 @@ class GameField {
     private boolean canMove(GameObject gameObject){
         Point speed = gameObject.getSpeed();
         
-        movedBody.setRectangle(gameObject.getBody());
+        movedBody.copyRectangle(gameObject.getBody());
         movedBody.shift(speed);
 
         if (isOutOfGameField(movedBody)){

@@ -25,7 +25,7 @@ class GameObject {
     }
 
     Point getPos(){
-        return body.getLeftTop();
+        return body.getTopLeft();
     }
 
     Rectangle getBody() {

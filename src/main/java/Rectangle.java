@@ -2,21 +2,21 @@ import java.util.Objects;
 
 class Rectangle {
 
-    private Point leftTop;
+    private Point topLeft;
     private Point bottomRight;
 
     Rectangle(){
-        this.leftTop = new Point(0, 0);
+        this.topLeft = new Point(0, 0);
         this.bottomRight = new Point(0, 0);
     }
 
-    Rectangle(Point leftTop, Point bottomRight){
-        this.leftTop = leftTop;
+    Rectangle(Point topLeft, Point bottomRight){
+        this.topLeft = topLeft;
         this.bottomRight = bottomRight;
     }
 
-    Point getLeftTop() {
-        return leftTop;
+    Point getTopLeft() {
+        return topLeft;
     }
 
     Point getBottomRight() {
@@ -24,19 +24,19 @@ class Rectangle {
     }
 
     boolean intersects(Rectangle rectangle){
-        if (rectangle.leftTop.x > bottomRight.x){
+        if (rectangle.topLeft.x > bottomRight.x){
             return false;
         }
 
-        if (rectangle.leftTop.y > bottomRight.y){
+        if (rectangle.topLeft.y > bottomRight.y){
             return false;
         }
 
-        if (rectangle.bottomRight.x < leftTop.x){
+        if (rectangle.bottomRight.x < topLeft.x){
             return false;
         }
 
-        if (rectangle.bottomRight.y < leftTop.y){
+        if (rectangle.bottomRight.y < topLeft.y){
             return false;
         }
 
@@ -44,11 +44,11 @@ class Rectangle {
     }
 
     boolean includes(Rectangle rectangle){
-        if (rectangle.getLeftTop().x < leftTop.x){
+        if (rectangle.getTopLeft().x < topLeft.x){
             return false;
         }
 
-        if (rectangle.getLeftTop().y < leftTop.y){
+        if (rectangle.getTopLeft().y < topLeft.y){
             return false;
         }
 
@@ -63,18 +63,14 @@ class Rectangle {
         return true;
     }
 
-    void setRectangle(Rectangle rectangle){
-        this.leftTop.x = rectangle.getLeftTop().x;
-        this.leftTop.y = rectangle.getLeftTop().y;
-        this.bottomRight.x = rectangle.getBottomRight().x;
-        this.bottomRight.y = rectangle.getBottomRight().y;
+    void copyRectangle(Rectangle rectangle){
+        topLeft.copyPoint(rectangle.topLeft);
+        bottomRight.copyPoint(rectangle.bottomRight);
     }
 
     void shift(Point shift){
-        this.leftTop.x = this.leftTop.x + shift.x;
-        this.leftTop.y = this.leftTop.y + shift.y;
-        this.bottomRight.x = this.bottomRight.x + shift.x;
-        this.bottomRight.y = this.bottomRight.y + shift.y;
+        topLeft.shift(shift);
+        bottomRight.shift(shift);
     }
 
     @Override
@@ -89,6 +85,6 @@ class Rectangle {
 
         Rectangle rectangle = (Rectangle) object;
 
-        return Objects.equals(leftTop, rectangle.leftTop) && Objects.equals(bottomRight, rectangle.bottomRight);
+        return Objects.equals(topLeft, rectangle.topLeft) && Objects.equals(bottomRight, rectangle.bottomRight);
     }
 }
