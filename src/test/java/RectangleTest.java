@@ -8,42 +8,42 @@ public class RectangleTest {
 
     @Test
     public void shouldReturnTrueWhenRectanglesIsIntersected() {
-        Rectangle rectangle1 = new Rectangle(new Point(0, 0), new Point(10, 10));
-        Rectangle rectangle2 = new Rectangle(new Point(4, 4), new Point(14, 14));
+        Rectangle firstRectangle = new Rectangle(new Point(0, 0), new Point(10, 10));
+        Rectangle secondRectangle = new Rectangle(new Point(4, 4), new Point(14, 14));
 
-        boolean intersects = rectangle1.intersects(rectangle2);
+        boolean intersects = firstRectangle.intersects(secondRectangle);
 
         assertTrue(intersects);
     }
 
     @Test
     public void shouldReturnFalseWhenRectanglesIsNotIntersected() {
-        Rectangle rectangle1 = new Rectangle(new Point(0, 0), new Point(10, 10));
-        Rectangle rectangle2 = new Rectangle(new Point(14, 14), new Point(24, 24));
+        Rectangle firstRectangle = new Rectangle(new Point(0, 0), new Point(10, 10));
+        Rectangle secondRectangle = new Rectangle(new Point(14, 14), new Point(24, 24));
 
-        boolean intersects = rectangle1.intersects(rectangle2);
+        boolean intersects = firstRectangle.intersects(secondRectangle);
 
         assertFalse(intersects);
     }
 
     @Test
-    public void shouldReturnTrueWhenRectangleIncludeOther() {
-        Rectangle rectangle1 = new Rectangle(new Point(0, 0), new Point(10, 10));
-        Rectangle rectangle2 = new Rectangle(new Point(5, 5), new Point(7, 7));
+    public void shouldReturnTrueWhenRectangleCoversOther() {
+        Rectangle firstRectangle = new Rectangle(new Point(0, 0), new Point(10, 10));
+        Rectangle secondRectangle = new Rectangle(new Point(5, 5), new Point(7, 7));
 
-        boolean includes = rectangle1.includes(rectangle2);
+        boolean covers = firstRectangle.covers(secondRectangle);
 
-        assertTrue(includes);
+        assertTrue(covers);
     }
 
     @Test
-    public void shouldReturnFalseWhenRectangleNotIncludeOther() {
-        Rectangle rectangle1 = new Rectangle(new Point(0, 0), new Point(10, 10));
-        Rectangle rectangle2 = new Rectangle(new Point(5, 5), new Point(11, 11));
+    public void shouldReturnFalseWhenRectangleDoNotCoverOther() {
+        Rectangle firstRectangle = new Rectangle(new Point(0, 0), new Point(10, 10));
+        Rectangle secondRectangle = new Rectangle(new Point(5, 5), new Point(11, 11));
 
-        boolean includes = rectangle1.includes(rectangle2);
+        boolean covers = firstRectangle.covers(secondRectangle);
 
-        assertFalse(includes);
+        assertFalse(covers);
     }
 
     @Test
@@ -55,15 +55,5 @@ public class RectangleTest {
         rectangle.shift(shift);
 
         assertEquals(expected, rectangle);
-    }
-
-    @Test
-    public void shouldWorkCorrectlyWhenCopyRectangle() {
-        Rectangle rectangle = new Rectangle();
-        Rectangle rectangleForCopying = new Rectangle(new Point(10, 10), new Point(12, 12));
-
-        rectangle.copyRectangle(rectangleForCopying);
-
-        assertEquals(rectangleForCopying, rectangle);
     }
 }

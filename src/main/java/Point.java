@@ -18,11 +18,6 @@ class Point {
         y += shift.y;
     }
 
-    void copyPoint(Point point) {
-        this.x = point.x;
-        this.y = point.y;
-    }
-
     @Override
     public boolean equals(Object object) {
         if (object == null) {

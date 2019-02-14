@@ -5,11 +5,6 @@ class Rectangle {
     private Point topLeft;
     private Point bottomRight;
 
-    Rectangle() {
-        this.topLeft = new Point(0, 0);
-        this.bottomRight = new Point(0, 0);
-    }
-
     Rectangle(Point topLeft, Point bottomRight) {
         this.topLeft = topLeft;
         this.bottomRight = bottomRight;
@@ -48,7 +43,7 @@ class Rectangle {
         return true;
     }
 
-    boolean includes(Rectangle rectangle) {
+    boolean covers(Rectangle rectangle) {
         if (rectangle.getTopLeft().x < topLeft.x) {
             return false;
         }
@@ -66,11 +61,6 @@ class Rectangle {
         }
 
         return true;
-    }
-
-    void copyRectangle(Rectangle rectangle) {
-        topLeft.copyPoint(rectangle.topLeft);
-        bottomRight.copyPoint(rectangle.bottomRight);
     }
 
     void shift(Point shift) {

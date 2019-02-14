@@ -1,5 +1,6 @@
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
 public class GameObjectTest {
@@ -12,6 +13,6 @@ public class GameObjectTest {
 
         gameObject.move();
 
-        assertTrue(expected.equals(gameObject.getPos()));
+        assertEquals(expected, gameObject.getPos());
     }
 }

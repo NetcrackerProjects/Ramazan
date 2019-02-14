@@ -120,6 +120,6 @@ class GameField {
     }
 
     private boolean isOutOfGameField(Rectangle objectBody) {
-        return !field.includes(objectBody);
+        return !field.covers(objectBody);
     }
 }
