@@ -5,12 +5,12 @@ public class Collision {
     private GameObject firstObject;
     private GameObject secondObject;
 
-    Collision(GameObject firstObject, GameObject secondObject){
+    Collision(GameObject firstObject, GameObject secondObject) {
         this.firstObject = firstObject;
         this.secondObject = secondObject;
     }
 
-    void carryOut(){
+    void carryOut() {
         firstObject.intersectGameObject(secondObject);
         secondObject.intersectGameObject(firstObject);
     }
@@ -22,7 +22,7 @@ public class Collision {
         Collision collision = (Collision) object;
         return (Objects.equals(firstObject, collision.firstObject) &&
                 Objects.equals(secondObject, collision.secondObject)) ||
-               (Objects.equals(firstObject, collision.secondObject) &&
-                Objects.equals(secondObject, collision.firstObject));
+                (Objects.equals(firstObject, collision.secondObject) &&
+                        Objects.equals(secondObject, collision.firstObject));
     }
 }

@@ -8,7 +8,7 @@ import static org.mockito.Mockito.verify;
 public class CollisionTest {
 
     @Test
-    public void shouldCallIntersectGameObjectForBothObjectsWhenCarryOut(){
+    public void shouldCallIntersectGameObjectForBothObjectsWhenCarryOut() {
         GameObject firstGameObject = Mockito.mock(GameObject.class);
         GameObject secondGameObject = Mockito.mock(GameObject.class);
         Collision collision = new Collision(firstGameObject, secondGameObject);

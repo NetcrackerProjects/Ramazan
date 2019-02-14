@@ -11,7 +11,7 @@ public class GameFieldTest {
 
     @Test(expected = OutOfBoundaryException.class)
     public void shouldThrowWhenInsertedObjectIsOutOfBoundary() throws Exception {
-        GameField gameField = new GameField(new Point(0,0), new Point(10, 10));
+        GameField gameField = new GameField(new Point(0, 0), new Point(10, 10));
 
         gameField.addObject(new GameObject(new Point(9, 9), new Point(11, 11)));
     }

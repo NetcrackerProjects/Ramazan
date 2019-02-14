@@ -7,7 +7,7 @@ import static org.junit.Assert.assertFalse;
 public class RectangleTest {
 
     @Test
-    public void shouldReturnTrueWhenRectanglesIsIntersected(){
+    public void shouldReturnTrueWhenRectanglesIsIntersected() {
         Rectangle rectangle1 = new Rectangle(new Point(0, 0), new Point(10, 10));
         Rectangle rectangle2 = new Rectangle(new Point(4, 4), new Point(14, 14));
 
@@ -17,7 +17,7 @@ public class RectangleTest {
     }
 
     @Test
-    public void shouldReturnFalseWhenRectanglesIsNotIntersected(){
+    public void shouldReturnFalseWhenRectanglesIsNotIntersected() {
         Rectangle rectangle1 = new Rectangle(new Point(0, 0), new Point(10, 10));
         Rectangle rectangle2 = new Rectangle(new Point(14, 14), new Point(24, 24));
 
@@ -27,7 +27,7 @@ public class RectangleTest {
     }
 
     @Test
-    public void shouldReturnTrueWhenRectangleIncludeOther(){
+    public void shouldReturnTrueWhenRectangleIncludeOther() {
         Rectangle rectangle1 = new Rectangle(new Point(0, 0), new Point(10, 10));
         Rectangle rectangle2 = new Rectangle(new Point(5, 5), new Point(7, 7));
 
@@ -37,7 +37,7 @@ public class RectangleTest {
     }
 
     @Test
-    public void shouldReturnFalseWhenRectangleNotIncludeOther(){
+    public void shouldReturnFalseWhenRectangleNotIncludeOther() {
         Rectangle rectangle1 = new Rectangle(new Point(0, 0), new Point(10, 10));
         Rectangle rectangle2 = new Rectangle(new Point(5, 5), new Point(11, 11));
 
@@ -47,7 +47,7 @@ public class RectangleTest {
     }
 
     @Test
-    public void shouldShiftRectangleCorrectlyWhenShifted(){
+    public void shouldShiftRectangleCorrectlyWhenShifted() {
         Rectangle rectangle = new Rectangle(new Point(0, 0), new Point(10, 10));
         Point shift = new Point(1, 1);
         Rectangle expected = new Rectangle(new Point(1, 1), new Point(11, 11));
@@ -58,7 +58,7 @@ public class RectangleTest {
     }
 
     @Test
-    public void shouldWorkCorrectlyWhenCopyRectangle(){
+    public void shouldWorkCorrectlyWhenCopyRectangle() {
         Rectangle rectangle = new Rectangle();
         Rectangle rectangleForCopying = new Rectangle(new Point(10, 10), new Point(12, 12));
 

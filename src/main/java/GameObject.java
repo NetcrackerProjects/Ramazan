@@ -4,7 +4,7 @@ class GameObject {
     private Point speed;
     private boolean permeable;
 
-    GameObject(Point leftTop, Point rightBottom){
+    GameObject(Point leftTop, Point rightBottom) {
         this.body = new Rectangle(leftTop, rightBottom);
         this.speed = new Point(0, 0);
         this.permeable = false;
@@ -14,11 +14,11 @@ class GameObject {
         return speed;
     }
 
-    void setSpeed(Point speed){
+    void setSpeed(Point speed) {
         this.speed = speed;
     }
 
-    Point getPos(){
+    Point getPos() {
         return body.getTopLeft();
     }
 
@@ -26,11 +26,11 @@ class GameObject {
         return body;
     }
 
-    boolean doesIntersect(Rectangle rectangle){
+    boolean doesIntersect(Rectangle rectangle) {
         return body.intersects(rectangle);
     }
 
-    boolean isPermeable(){
+    boolean isPermeable() {
         return permeable;
     }
 
@@ -38,10 +38,10 @@ class GameObject {
         this.permeable = true;
     }
 
-    void move(){
+    void move() {
         body.shift(speed);
     }
 
-    void intersectGameObject(GameObject gameObject){
+    void intersectGameObject(GameObject gameObject) {
     }
 }

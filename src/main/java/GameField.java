@@ -9,16 +9,16 @@ class GameField {
 
     private Collection<Collision> collisions;
 
-    GameField(Point leftTop, Point rightBottom){
+    GameField(Point leftTop, Point rightBottom) {
         this.field = new Rectangle(leftTop, rightBottom);
         this.gameObjects = new HashSet<>();
         this.collisions = new HashSet<>();
     }
 
-    void addObject(GameObject gameObject) throws Exception{
+    void addObject(GameObject gameObject) throws Exception {
         Rectangle objectBody = gameObject.getBody();
 
-        if (isOutOfGameField(objectBody)){
+        if (isOutOfGameField(objectBody)) {
             throw new OutOfBoundaryException();
         }
 
@@ -31,21 +31,21 @@ class GameField {
         gameObjects.add(gameObject);
     }
 
-    void update(){
+    void update() {
         move();
         processCollisions();
     }
 
-    private void move(){
-        for(GameObject gameObject: gameObjects){
-            if (canMove(gameObject)){
+    private void move() {
+        for (GameObject gameObject : gameObjects) {
+            if (canMove(gameObject)) {
                 gameObject.move();
             }
         }
     }
 
-    private boolean canMove(GameObject gameObject){
-        if (gameObject.isPermeable()){
+    private boolean canMove(GameObject gameObject) {
+        if (gameObject.isPermeable()) {
             return true;
         }
 
@@ -54,72 +54,72 @@ class GameField {
         Rectangle objectMovedBody = new Rectangle(gameObject.getBody());
         objectMovedBody.shift(speed);
 
-        if (isOutOfGameField(objectMovedBody)){
+        if (isOutOfGameField(objectMovedBody)) {
             return false;
         }
 
-        if (doesIntersectsPermeableGameObjectsExcept(objectMovedBody, gameObject)){
+        if (doesIntersectsPermeableGameObjectsExcept(objectMovedBody, gameObject)) {
             return false;
         }
 
         return true;
     }
 
-    private void processCollisions(){
+    private void processCollisions() {
         registerCollisions();
         carryOutRegisteredCollisions();
         clearRegisteredCollisions();
     }
 
-    private void registerCollisions(){
+    private void registerCollisions() {
         collisions.clear();
-        for(GameObject gameObject: gameObjects){
+        for (GameObject gameObject : gameObjects) {
             registerCollision(gameObject);
         }
     }
 
-    private void carryOutRegisteredCollisions(){
-        for(Collision collision: collisions){
+    private void carryOutRegisteredCollisions() {
+        for (Collision collision : collisions) {
             collision.carryOut();
         }
     }
 
-    private void clearRegisteredCollisions(){
+    private void clearRegisteredCollisions() {
         collisions.clear();
     }
 
-    private void registerCollision(GameObject gameObject){
-        for(GameObject otherGameObject: gameObjects){
-            if (otherGameObject.equals(gameObject)){
+    private void registerCollision(GameObject gameObject) {
+        for (GameObject otherGameObject : gameObjects) {
+            if (otherGameObject.equals(gameObject)) {
                 continue;
             }
 
-            if (otherGameObject.doesIntersect(gameObject.getBody())){
+            if (otherGameObject.doesIntersect(gameObject.getBody())) {
                 collisions.add(new Collision(gameObject, otherGameObject));
             }
         }
     }
 
-    private boolean doesIntersectsPermeableGameObjectsExcept(Rectangle rectangle, GameObject exception){
+    private boolean doesIntersectsPermeableGameObjectsExcept(Rectangle rectangle, GameObject exception) {
         Collection<GameObject> gameObjectsWithoutException = new HashSet<>(gameObjects);
         gameObjectsWithoutException.remove(exception);
 
         return doesIntersectsPermeableGameObjects(rectangle, gameObjectsWithoutException);
     }
 
-    private boolean doesIntersectsPermeableGameObjects(Rectangle rectangle, Collection<GameObject> objectsToIntersect){
-        for(GameObject gameObject: objectsToIntersect){
-            if (gameObject.isPermeable()){
+    private boolean doesIntersectsPermeableGameObjects(Rectangle rectangle, Collection<GameObject> objectsToIntersect) {
+        for (GameObject gameObject : objectsToIntersect) {
+            if (gameObject.isPermeable()) {
                 continue;
             }
-            if (gameObject.doesIntersect(rectangle)){
+            if (gameObject.doesIntersect(rectangle)) {
                 return true;
             }
         }
         return false;
     }
 
-    private boolean isOutOfGameField(Rectangle objectBody){
+    private boolean isOutOfGameField(Rectangle objectBody) {
         return !field.includes(objectBody);
     }
 }
