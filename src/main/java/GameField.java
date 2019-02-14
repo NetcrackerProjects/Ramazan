@@ -1,3 +1,10 @@
+import Collisions.Collision;
+import Exceptions.ObjectIntersectionException;
+import Exceptions.OutOfBoundaryException;
+import GameObjects.GameObject;
+import Geometry.Point;
+import Geometry.Rectangle;
+
 import java.util.Collection;
 import java.util.HashSet;
 

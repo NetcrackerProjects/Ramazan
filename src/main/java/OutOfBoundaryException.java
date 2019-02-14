@@ -1,2 +1,0 @@
-class OutOfBoundaryException extends Exception {
-}

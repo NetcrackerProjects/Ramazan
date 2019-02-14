@@ -1,3 +1,6 @@
+import GameObjects.GameObject;
+import Geometry.Point;
+
 class Game extends Thread {
 
     private final static int MS_PER_UPDATE = 30;

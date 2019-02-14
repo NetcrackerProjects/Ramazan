@@ -1,3 +1,6 @@
+package Collisions;
+
+import GameObjects.GameObject;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -15,7 +18,7 @@ public class CollisionTest {
 
         collision.carryOut();
 
-        verify(firstGameObject, times(1)).intersectGameObject(any(GameObject.class));
-        verify(secondGameObject, times(1)).intersectGameObject(any(GameObject.class));
+        verify(firstGameObject, times(1)).intersectGameObject();
+        verify(secondGameObject, times(1)).intersectGameObject();
     }
 }

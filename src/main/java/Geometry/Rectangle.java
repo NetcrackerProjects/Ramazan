@@ -1,29 +1,27 @@
+package Geometry;
+
 import java.util.Objects;
 
-class Rectangle {
+public class Rectangle {
 
     private Point topLeft;
     private Point bottomRight;
 
-    Rectangle(Point topLeft, Point bottomRight) {
+    public Rectangle(Point topLeft, Point bottomRight) {
         this.topLeft = topLeft;
         this.bottomRight = bottomRight;
     }
 
-    Rectangle(Rectangle rectangle) {
-        this.topLeft = new Point(rectangle.getTopLeft());
-        this.bottomRight = new Point(rectangle.getBottomRight());
+    public Rectangle(Rectangle rectangle) {
+        this.topLeft = new Point(rectangle.topLeft);
+        this.bottomRight = new Point(rectangle.bottomRight);
     }
 
-    Point getTopLeft() {
+    public Point getTopLeft() {
         return topLeft;
     }
 
-    private Point getBottomRight() {
-        return bottomRight;
-    }
-
-    boolean intersects(Rectangle rectangle) {
+    public boolean intersects(Rectangle rectangle) {
         if (rectangle.topLeft.x > bottomRight.x) {
             return false;
         }
@@ -43,27 +41,27 @@ class Rectangle {
         return true;
     }
 
-    boolean covers(Rectangle rectangle) {
-        if (rectangle.getTopLeft().x < topLeft.x) {
+    public boolean covers(Rectangle rectangle) {
+        if (rectangle.topLeft.x < topLeft.x) {
             return false;
         }
 
-        if (rectangle.getTopLeft().y < topLeft.y) {
+        if (rectangle.topLeft.y < topLeft.y) {
             return false;
         }
 
-        if (rectangle.getBottomRight().x > bottomRight.x) {
+        if (rectangle.bottomRight.x > bottomRight.x) {
             return false;
         }
 
-        if (rectangle.getBottomRight().y > bottomRight.y) {
+        if (rectangle.bottomRight.y > bottomRight.y) {
             return false;
         }
 
         return true;
     }
 
-    void shift(Point shift) {
+    public void shift(Point shift) {
         topLeft.shift(shift);
         bottomRight.shift(shift);
     }

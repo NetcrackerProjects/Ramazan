@@ -1,3 +1,7 @@
+package Collisions;
+
+import GameObjects.GameObject;
+
 import java.util.Objects;
 
 public class Collision {
@@ -5,14 +9,14 @@ public class Collision {
     private GameObject firstObject;
     private GameObject secondObject;
 
-    Collision(GameObject firstObject, GameObject secondObject) {
+    public Collision(GameObject firstObject, GameObject secondObject) {
         this.firstObject = firstObject;
         this.secondObject = secondObject;
     }
 
-    void carryOut() {
-        firstObject.intersectGameObject(secondObject);
-        secondObject.intersectGameObject(firstObject);
+    public void carryOut() {
+        firstObject.intersectGameObject();
+        secondObject.intersectGameObject();
     }
 
     @Override

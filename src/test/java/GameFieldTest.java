@@ -1,3 +1,8 @@
+import Exceptions.ObjectIntersectionException;
+import Exceptions.OutOfBoundaryException;
+import GameObjects.GameObject;
+import Geometry.Point;
+import Geometry.Rectangle;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -51,6 +56,6 @@ public class GameFieldTest {
 
         gameField.update();
 
-        verify(mockedGameObject, times(1)).intersectGameObject(any(GameObject.class));
+        verify(mockedGameObject, times(1)).intersectGameObject();
     }
 }

@@ -1,47 +1,52 @@
-class GameObject {
+package GameObjects;
+
+import Geometry.Point;
+import Geometry.Rectangle;
+
+public class GameObject {
 
     private Rectangle body;
     private Point speed;
     private boolean permeable;
 
-    GameObject(Point leftTop, Point rightBottom) {
+    public GameObject(Point leftTop, Point rightBottom) {
         this.body = new Rectangle(leftTop, rightBottom);
         this.speed = new Point(0, 0);
         this.permeable = false;
     }
 
-    Point getSpeed() {
+    public Point getSpeed() {
         return speed;
     }
 
-    void setSpeed(Point speed) {
+    public void setSpeed(Point speed) {
         this.speed = speed;
     }
 
-    Point getPos() {
+    public Point getPos() {
         return body.getTopLeft();
     }
 
-    Rectangle getBody() {
+    public Rectangle getBody() {
         return body;
     }
 
-    boolean doesIntersect(Rectangle rectangle) {
+    public boolean doesIntersect(Rectangle rectangle) {
         return body.intersects(rectangle);
     }
 
-    boolean isPermeable() {
+    public boolean isPermeable() {
         return permeable;
     }
 
-    void setPermeable() {
+    public void setPermeable() {
         this.permeable = true;
     }
 
-    void move() {
+    public void move() {
         body.shift(speed);
     }
 
-    void intersectGameObject(GameObject gameObject) {
+    public void intersectGameObject() {
     }
 }
