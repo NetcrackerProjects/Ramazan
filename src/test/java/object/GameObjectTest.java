@@ -1,6 +1,6 @@
-package GameObjects;
+package object;
 
-import Geometry.Point;
+import geometry.Point;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;

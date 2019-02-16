@@ -1,7 +1,7 @@
-package GameObjects;
+package object;
 
-import Geometry.Point;
-import Geometry.Rectangle;
+import geometry.Point;
+import geometry.Rectangle;
 
 public class GameObject {
 

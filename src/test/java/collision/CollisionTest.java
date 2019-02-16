@@ -1,10 +1,9 @@
-package Collisions;
+package collision;
 
-import GameObjects.GameObject;
+import object.GameObject;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 

@@ -1,5 +1,5 @@
-import GameObjects.GameObject;
-import Geometry.Point;
+import object.GameObject;
+import geometry.Point;
 
 class Game extends Thread {
 

@@ -1,6 +1,6 @@
-package Collisions;
+package collision;
 
-import GameObjects.GameObject;
+import object.GameObject;
 
 import java.util.Objects;
 

@@ -1,13 +1,12 @@
-import Exceptions.ObjectIntersectionException;
-import Exceptions.OutOfBoundaryException;
-import GameObjects.GameObject;
-import Geometry.Point;
-import Geometry.Rectangle;
+import exception.ObjectIntersectionException;
+import exception.OutOfBoundaryException;
+import object.GameObject;
+import geometry.Point;
+import geometry.Rectangle;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
