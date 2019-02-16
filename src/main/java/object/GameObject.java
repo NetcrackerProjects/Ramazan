@@ -39,10 +39,6 @@ public class GameObject {
         return permeable;
     }
 
-    public void setPermeable() {
-        this.permeable = true;
-    }
-
     public void move() {
         body.shift(speed);
     }

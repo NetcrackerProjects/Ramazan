@@ -15,7 +15,7 @@ public class CollisionTest {
         GameObject secondGameObject = Mockito.mock(GameObject.class);
         Collision collision = new Collision(firstGameObject, secondGameObject);
 
-        collision.carryOut();
+        collision.intersectGameObjects();
 
         verify(firstGameObject, times(1)).intersectGameObject();
         verify(secondGameObject, times(1)).intersectGameObject();

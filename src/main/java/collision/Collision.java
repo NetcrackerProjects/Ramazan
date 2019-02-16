@@ -9,12 +9,12 @@ public class Collision {
     private GameObject firstObject;
     private GameObject secondObject;
 
-    public Collision(GameObject firstObject, GameObject secondObject) {
+    Collision(GameObject firstObject, GameObject secondObject) {
         this.firstObject = firstObject;
         this.secondObject = secondObject;
     }
 
-    public void carryOut() {
+    void intersectGameObjects() {
         firstObject.intersectGameObject();
         secondObject.intersectGameObject();
     }
