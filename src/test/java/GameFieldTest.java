@@ -3,6 +3,7 @@ import exception.OutOfBoundaryException;
 import object.GameObject;
 import geometry.Point;
 import geometry.Rectangle;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -13,16 +14,20 @@ import static org.mockito.Mockito.when;
 
 public class GameFieldTest {
 
+    private GameField gameField;
+
+    @Before
+    public void setup() {
+        gameField = new GameField(new Point(0, 0), new Point(10, 10));
+    }
+
     @Test(expected = OutOfBoundaryException.class)
     public void shouldThrowWhenInsertedObjectIsOutOfBoundary() throws Exception {
-        GameField gameField = new GameField(new Point(0, 0), new Point(10, 10));
-
         gameField.addObject(new GameObject(new Point(9, 9), new Point(11, 11)));
     }
 
     @Test(expected = ObjectIntersectionException.class)
     public void shouldThrowWhenInsertedObjectIntersectsOthers() throws Exception {
-        GameField gameField = new GameField(new Point(0, 0), new Point(10, 10));
         gameField.addObject(new GameObject(new Point(4, 4), new Point(7, 9)));
 
         gameField.addObject(new GameObject(new Point(4, 6), new Point(6, 9)));
@@ -30,7 +35,6 @@ public class GameFieldTest {
 
     @Test
     public void shouldMoveObjectWhenIsUpdated() throws Exception {
-        GameField gameField = new GameField(new Point(0, 0), new Point(10, 10));
         GameObject gameObject = new GameObject(new Point(1, 1), new Point(2, 2));
         gameObject.setSpeed(new Point(1, 1));
         gameField.addObject(gameObject);
@@ -43,7 +47,6 @@ public class GameFieldTest {
 
     @Test
     public void shouldCallIntersectGameObjectWhenCollisionHappened() throws Exception {
-        GameField gameField = new GameField(new Point(0, 0), new Point(10, 10));
         GameObject gameObject = new GameObject(new Point(1, 1), new Point(2, 2));
         gameObject.setPermeable();
         gameField.addObject(gameObject);
