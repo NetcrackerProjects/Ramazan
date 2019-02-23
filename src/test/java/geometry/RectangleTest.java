@@ -13,12 +13,12 @@ public class RectangleTest {
 
     @Before
     public void setup() {
-        firstRectangle = new Rectangle(new Point(0, 0), new Point(10, 10));
+        this.firstRectangle = new Rectangle(new Vector(0, 0), new Vector(10, 10));
     }
 
     @Test
     public void shouldReturnTrueWhenRectanglesIsIntersected() {
-        Rectangle secondRectangle = new Rectangle(new Point(4, 4), new Point(14, 14));
+        Rectangle secondRectangle = new Rectangle(new Vector(4, 4), new Vector(14, 14));
 
         boolean intersects = firstRectangle.intersects(secondRectangle);
 
@@ -27,7 +27,7 @@ public class RectangleTest {
 
     @Test
     public void shouldReturnFalseWhenRectanglesIsNotIntersected() {
-        Rectangle secondRectangle = new Rectangle(new Point(14, 14), new Point(24, 24));
+        Rectangle secondRectangle = new Rectangle(new Vector(14, 14), new Vector(24, 24));
 
         boolean intersects = firstRectangle.intersects(secondRectangle);
 
@@ -36,7 +36,7 @@ public class RectangleTest {
 
     @Test
     public void shouldReturnTrueWhenRectangleCoversOther() {
-        Rectangle secondRectangle = new Rectangle(new Point(5, 5), new Point(7, 7));
+        Rectangle secondRectangle = new Rectangle(new Vector(5, 5), new Vector(7, 7));
 
         boolean covers = firstRectangle.covers(secondRectangle);
 
@@ -45,7 +45,7 @@ public class RectangleTest {
 
     @Test
     public void shouldReturnFalseWhenRectangleDoNotCoverOther() {
-        Rectangle secondRectangle = new Rectangle(new Point(5, 5), new Point(11, 11));
+        Rectangle secondRectangle = new Rectangle(new Vector(5, 5), new Vector(11, 11));
 
         boolean covers = firstRectangle.covers(secondRectangle);
 
@@ -54,8 +54,8 @@ public class RectangleTest {
 
     @Test
     public void shouldShiftRectangleCorrectlyWhenShifted() {
-        Point shift = new Point(1, 1);
-        Rectangle expected = new Rectangle(new Point(1, 1), new Point(11, 11));
+        Vector shift = new Vector(1, 1);
+        Rectangle expected = new Rectangle(new Vector(1, 1), new Vector(11, 11));
 
         firstRectangle.shift(shift);
 

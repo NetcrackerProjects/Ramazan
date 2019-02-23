@@ -4,20 +4,20 @@ import java.util.Objects;
 
 public class Rectangle {
 
-    private Point topLeft;
-    private Point bottomRight;
+    private final Vector topLeft;
+    private final Vector bottomRight;
 
-    public Rectangle(Point topLeft, Point bottomRight) {
+    public Rectangle(Vector topLeft, Vector bottomRight) {
         this.topLeft = topLeft;
         this.bottomRight = bottomRight;
     }
 
     public Rectangle(Rectangle rectangle) {
-        this.topLeft = new Point(rectangle.topLeft);
-        this.bottomRight = new Point(rectangle.bottomRight);
+        this.topLeft = new Vector(rectangle.topLeft);
+        this.bottomRight = new Vector(rectangle.bottomRight);
     }
 
-    public Point getTopLeft() {
+    public Vector getTopLeft() {
         return topLeft;
     }
 
@@ -61,7 +61,7 @@ public class Rectangle {
         return true;
     }
 
-    public void shift(Point shift) {
+    public void shift(Vector shift) {
         topLeft.shift(shift);
         bottomRight.shift(shift);
     }

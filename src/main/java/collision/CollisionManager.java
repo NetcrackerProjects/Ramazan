@@ -8,23 +8,22 @@ import java.util.HashSet;
 
 public class CollisionManager {
 
-    private Collection<Collision> collisions;
-    private GameObjectManager gameObjectManager;
+    private final Collection<Collision> collisions;
+    private final Collection<GameObject> gameObjects;
 
     public CollisionManager(GameObjectManager gameObjectManager) {
         this.collisions = new HashSet<>();
-        this.gameObjectManager = gameObjectManager;
+        this.gameObjects = gameObjectManager.getGameObjects();
     }
 
     public void processCollisions() {
         registerCollisions();
         intersectCollidedGameObjects();
-        clearRegisteredCollisions();
+        collisions.clear();
     }
 
     private void registerCollisions() {
-        collisions.clear();
-        for (GameObject gameObject : gameObjectManager.getGameObjects()) {
+        for (GameObject gameObject : gameObjects) {
             registerCollision(gameObject);
         }
     }
@@ -35,12 +34,8 @@ public class CollisionManager {
         }
     }
 
-    private void clearRegisteredCollisions() {
-        collisions.clear();
-    }
-
     private void registerCollision(GameObject gameObject) {
-        for (GameObject otherGameObject : gameObjectManager.getGameObjects()) {
+        for (GameObject otherGameObject : gameObjects) {
             if (otherGameObject.equals(gameObject)) {
                 continue;
             }
@@ -50,6 +45,4 @@ public class CollisionManager {
             }
         }
     }
-
-
 }

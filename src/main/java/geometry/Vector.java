@@ -1,21 +1,21 @@
 package geometry;
 
-public class Point {
+public class Vector {
 
     double x;
     double y;
 
-    public Point(double x, double y) {
+    public Vector(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    Point(Point point) {
-        this.x = point.x;
-        this.y = point.y;
+    Vector(Vector vector) {
+        this.x = vector.x;
+        this.y = vector.y;
     }
 
-    void shift(Point shift) {
+    void shift(Vector shift) {
         x += shift.x;
         y += shift.y;
     }
@@ -26,11 +26,11 @@ public class Point {
             return false;
         }
 
-        if (object.getClass() != Point.class) {
+        if (object.getClass() != Vector.class) {
             return false;
         }
 
-        Point p = (Point) object;
+        Vector p = (Vector) object;
         return (p.x == x && p.y == y);
     }
 }

@@ -6,8 +6,8 @@ import java.util.Objects;
 
 public class Collision {
 
-    private GameObject firstObject;
-    private GameObject secondObject;
+    private final GameObject firstObject;
+    private final GameObject secondObject;
 
     Collision(GameObject firstObject, GameObject secondObject) {
         this.firstObject = firstObject;

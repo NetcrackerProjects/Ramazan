@@ -5,10 +5,10 @@ import java.util.HashSet;
 
 public class GameObjectManager {
 
-    private Collection<GameObject> gameObjects;
+    private final Collection<GameObject> gameObjects;
 
     public GameObjectManager() {
-        gameObjects = new HashSet<>();
+        this.gameObjects = new HashSet<>();
     }
 
     public Collection<GameObject> getGameObjects() {

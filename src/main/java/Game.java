@@ -1,18 +1,18 @@
 import object.GameObject;
-import geometry.Point;
+import geometry.Vector;
 
 class Game extends Thread {
 
     private final static int MS_PER_UPDATE = 30;
     private volatile boolean running = true;
 
-    private GameField gameField;
+    private final GameField gameField;
 
     Game() {
-        this.gameField = new GameField(new Point(0, 0), new Point(100, 100));
+        this.gameField = new GameField(new Vector(0, 0), new Vector(100, 100));
 
         try {
-            gameField.addObject(new GameObject(new Point(10, 10), new Point(20, 20)));
+            gameField.addObject(new GameObject(new Vector(10, 10), new Vector(20, 20)));
         } catch (Exception e) {
             e.printStackTrace();
         }

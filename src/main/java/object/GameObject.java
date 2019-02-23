@@ -1,29 +1,29 @@
 package object;
 
-import geometry.Point;
+import geometry.Vector;
 import geometry.Rectangle;
 
 public class GameObject {
 
-    private Rectangle body;
-    private Point speed;
+    private final Rectangle body;
+    private Vector speed;
     private boolean permeable;
 
-    public GameObject(Point leftTop, Point rightBottom) {
+    public GameObject(Vector leftTop, Vector rightBottom) {
         this.body = new Rectangle(leftTop, rightBottom);
-        this.speed = new Point(0, 0);
+        this.speed = new Vector(0, 0);
         this.permeable = false;
     }
 
-    public Point getSpeed() {
+    public Vector getSpeed() {
         return speed;
     }
 
-    public void setSpeed(Point speed) {
+    public void setSpeed(Vector speed) {
         this.speed = speed;
     }
 
-    public Point getPos() {
+    public Vector getPosition() {
         return body.getTopLeft();
     }
 

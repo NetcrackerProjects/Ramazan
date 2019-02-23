@@ -1,18 +1,18 @@
 import collision.CollisionManager;
-import exception.FailedAddObjectException;
+import exception.ObjectAddException;
 import object.GameObject;
-import geometry.Point;
+import geometry.Vector;
 import geometry.Rectangle;
 import object.GameObjectManager;
 import physic.PhysicManager;
 
 class GameField {
 
-    private CollisionManager collisionManager;
-    private GameObjectManager gameObjectManager;
-    private PhysicManager physicManager;
+    private final CollisionManager collisionManager;
+    private final GameObjectManager gameObjectManager;
+    private final PhysicManager physicManager;
 
-    GameField(Point leftTop, Point rightBottom) {
+    GameField(Vector leftTop, Vector rightBottom) {
         this.gameObjectManager = new GameObjectManager();
         this.collisionManager = new CollisionManager(gameObjectManager);
 
@@ -20,9 +20,9 @@ class GameField {
         this.physicManager = new PhysicManager(field, gameObjectManager);
     }
 
-    void addObject(GameObject gameObject) throws FailedAddObjectException {
+    void addObject(GameObject gameObject) throws ObjectAddException {
         if (!physicManager.canAddObject(gameObject)) {
-            throw new FailedAddObjectException();
+            throw new ObjectAddException();
         }
 
         gameObjectManager.addObject(gameObject);

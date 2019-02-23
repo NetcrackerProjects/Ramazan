@@ -1,6 +1,6 @@
 package physic;
 
-import geometry.Point;
+import geometry.Vector;
 import geometry.Rectangle;
 import object.GameObject;
 import object.GameObjectManager;
@@ -18,13 +18,13 @@ public class PhysicManagerTest {
     @Before
     public void setup() {
         this.gameObjectManager = new GameObjectManager();
-        this.physicManager = new PhysicManager(new Rectangle(new Point(0, 0), new Point(10, 10)),
+        this.physicManager = new PhysicManager(new Rectangle(new Vector(0, 0), new Vector(10, 10)),
                 gameObjectManager);
     }
 
     @Test
     public void shouldReturnFalseWhenInsertedObjectOutOfBoundary() {
-        GameObject gameObject = new GameObject(new Point(9, 9), new Point(11, 11));
+        GameObject gameObject = new GameObject(new Vector(9, 9), new Vector(11, 11));
 
         boolean canAddObject = physicManager.canAddObject(gameObject);
 
@@ -33,8 +33,8 @@ public class PhysicManagerTest {
 
     @Test
     public void shouldReturnFalseWhenInsertedObjectIntersectsOthers() {
-        gameObjectManager.addObject(new GameObject(new Point(1, 1), new Point(3, 3)));
-        GameObject gameObject = new GameObject(new Point(2, 2), new Point(4, 4));
+        gameObjectManager.addObject(new GameObject(new Vector(1, 1), new Vector(3, 3)));
+        GameObject gameObject = new GameObject(new Vector(2, 2), new Vector(4, 4));
 
         boolean canAddObject = physicManager.canAddObject(gameObject);
 
@@ -43,13 +43,13 @@ public class PhysicManagerTest {
 
     @Test
     public void shouldMoveObjectWhenIsUpdated(){
-        GameObject gameObject = new GameObject(new Point(1, 1), new Point(2, 2));
-        gameObject.setSpeed(new Point(1, 1));
+        GameObject gameObject = new GameObject(new Vector(1, 1), new Vector(2, 2));
+        gameObject.setSpeed(new Vector(1, 1));
         gameObjectManager.addObject(gameObject);
-        Point expected = new Point(2, 2);
+        Vector expected = new Vector(2, 2);
 
         physicManager.move();
 
-        assertEquals(expected, gameObject.getPos());
+        assertEquals(expected, gameObject.getPosition());
     }
 }

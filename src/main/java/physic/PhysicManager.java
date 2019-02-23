@@ -1,6 +1,6 @@
 package physic;
 
-import geometry.Point;
+import geometry.Vector;
 import geometry.Rectangle;
 import object.GameObject;
 import object.GameObjectManager;
@@ -10,31 +10,29 @@ import java.util.HashSet;
 
 public class PhysicManager {
 
-    private Rectangle field;
+    private final Rectangle field;
 
-    private GameObjectManager gameObjectManager;
+    private final Collection<GameObject> gameObjects;
 
     public PhysicManager(Rectangle field, GameObjectManager gameObjectManager) {
         this.field = field;
-        this.gameObjectManager = gameObjectManager;
+        this.gameObjects = gameObjectManager.getGameObjects();
     }
 
     public void move() {
-        for (GameObject gameObject : gameObjectManager.getGameObjects()) {
-            if (canMove(gameObject)) {
+        for (GameObject gameObject : gameObjects) {
+            if (canMove(gameObject) || gameObject.isPermeable()) {
                 gameObject.move();
             }
         }
     }
 
     public boolean canAddObject(GameObject gameObject) {
-        Rectangle gameObjectBody = gameObject.getBody();
-
-        if (isOutOfGameField(gameObjectBody)) {
+        if (isOutOfGameField(gameObject.getBody())) {
             return false;
         }
 
-        if (doesIntersectsPermeableGameObjects(gameObjectBody, gameObjectManager.getGameObjects())) {
+        if (doesIntersectsGameObjects(gameObject, gameObjects)) {
             return false;
         }
 
@@ -42,11 +40,7 @@ public class PhysicManager {
     }
 
     private boolean canMove(GameObject gameObject) {
-        if (gameObject.isPermeable()) {
-            return true;
-        }
-
-        Point speed = gameObject.getSpeed();
+        Vector speed = gameObject.getSpeed();
 
         Rectangle objectMovedBody = new Rectangle(gameObject.getBody());
         objectMovedBody.shift(speed);
@@ -55,26 +49,26 @@ public class PhysicManager {
             return false;
         }
 
-        if (doesIntersectsPermeableGameObjectsExceptItself(gameObject)) {
+        if (doesIntersectsGameObjectsExcept(gameObject)) {
             return false;
         }
 
         return true;
     }
 
-    private boolean doesIntersectsPermeableGameObjectsExceptItself(GameObject gameObject) {
-        Collection<GameObject> gameObjectsWithoutException = new HashSet<>(gameObjectManager.getGameObjects());
+    private boolean doesIntersectsGameObjectsExcept(GameObject gameObject) {
+        Collection<GameObject> gameObjectsWithoutException = new HashSet<>(gameObjects);
         gameObjectsWithoutException.remove(gameObject);
 
-        return doesIntersectsPermeableGameObjects(gameObject.getBody(), gameObjectsWithoutException);
+        return doesIntersectsGameObjects(gameObject, gameObjectsWithoutException);
     }
 
-    private boolean doesIntersectsPermeableGameObjects(Rectangle rectangle, Collection<GameObject> objectsToIntersect) {
-        for (GameObject gameObject : objectsToIntersect) {
-            if (gameObject.isPermeable()) {
+    private boolean doesIntersectsGameObjects(GameObject gameObject, Collection<GameObject> objectsToIntersect) {
+        for (GameObject object : objectsToIntersect) {
+            if (object.isPermeable()) {
                 continue;
             }
-            if (gameObject.doesIntersect(rectangle)) {
+            if (object.doesIntersect(gameObject.getBody())) {
                 return true;
             }
         }
