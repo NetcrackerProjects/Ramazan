@@ -1,13 +1,14 @@
 package object;
 
+import bonus.Bonus;
 import geometry.Vector;
 import geometry.Rectangle;
 
-public class GameObject {
+public class GameObject implements Damageable, Projectile, BonusHolder, Deletable, BonusTolerable{
 
     private final Rectangle body;
     private Vector speed;
-    private boolean permeable;
+    private final boolean permeable;
 
     public GameObject(Vector leftTop, Vector rightBottom) {
         this.body = new Rectangle(leftTop, rightBottom);
@@ -43,6 +44,53 @@ public class GameObject {
         body.shift(speed);
     }
 
-    public void intersectGameObject() {
+    @Override
+    public void takeDamage(int damage) {
+
+    }
+
+    @Override
+    public boolean isBroken() {
+        return false;
+    }
+
+    @Override
+    public boolean isDamageable() {
+        return false;
+    }
+
+    @Override
+    public int getDamage() {
+        return 0;
+    }
+
+    @Override
+    public boolean isProjectile() {
+        return false;
+    }
+
+    @Override
+    public Bonus getBonus() {
+        return null;
+    }
+
+    @Override
+    public boolean isBonus() {
+        return false;
+    }
+
+    @Override
+    public boolean isMarkForDeletion() {
+        return false;
+    }
+
+    @Override
+    public void setOnDelete() {
+
+    }
+
+    @Override
+    public boolean isBonusTolerable() {
+        return false;
     }
 }

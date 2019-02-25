@@ -18,4 +18,8 @@ public class GameObjectManager {
     public void addObject(GameObject gameObject) {
         gameObjects.add(gameObject);
     }
+
+    public void removeDeletedObjects() {
+        gameObjects.removeIf(gameObject -> gameObject.isMarkForDeletion() || gameObject.isBroken());
+    }
 }

@@ -42,7 +42,7 @@ public class PhysicManagerTest {
     }
 
     @Test
-    public void shouldMoveObjectWhenIsUpdated(){
+    public void shouldMoveObjectWhenIsUpdated() {
         GameObject gameObject = new GameObject(new Vector(1, 1), new Vector(2, 2));
         gameObject.setSpeed(new Vector(1, 1));
         gameObjectManager.addObject(gameObject);

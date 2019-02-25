@@ -1,4 +1,5 @@
-import collision.CollisionManager;
+import action.ActionManager;
+import event.EventManager;
 import exception.ObjectAddException;
 import object.GameObject;
 import geometry.Vector;
@@ -8,16 +9,16 @@ import physic.PhysicManager;
 
 class GameField {
 
-    private final CollisionManager collisionManager;
+    private final EventManager eventManager;
     private final GameObjectManager gameObjectManager;
     private final PhysicManager physicManager;
+    private final ActionManager actionManager;
 
     GameField(Vector leftTop, Vector rightBottom) {
         this.gameObjectManager = new GameObjectManager();
-        this.collisionManager = new CollisionManager(gameObjectManager);
-
-        Rectangle field = new Rectangle(leftTop, rightBottom);
-        this.physicManager = new PhysicManager(field, gameObjectManager);
+        this.actionManager = new ActionManager();
+        this.eventManager = new EventManager(gameObjectManager);
+        this.physicManager = new PhysicManager(new Rectangle(leftTop, rightBottom), gameObjectManager);
     }
 
     void addObject(GameObject gameObject) throws ObjectAddException {
@@ -30,6 +31,7 @@ class GameField {
 
     void update() {
         physicManager.move();
-        collisionManager.processCollisions();
+        actionManager.processActions(eventManager.getActions());
+        gameObjectManager.removeDeletedObjects();
     }
 }
