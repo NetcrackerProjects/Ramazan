@@ -8,7 +8,7 @@ import object.GameObject;
 import java.util.Collection;
 import java.util.HashSet;
 
-class GameObjectInteractWithBonusEvent implements Event{
+class GameObjectInteractWithBonusEvent implements Event {
 
     private final GameObject gameObject;
     private final GameObject bonusHolder;

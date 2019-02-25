@@ -4,7 +4,7 @@ import bonus.Bonus;
 import geometry.Vector;
 import geometry.Rectangle;
 
-public class GameObject implements Damageable, Projectile, BonusHolder, Deletable, BonusTolerable{
+public class GameObject implements Damageable, Projectile, BonusHolder, Deletable, BonusTolerable {
 
     private final Rectangle body;
     private Vector speed;

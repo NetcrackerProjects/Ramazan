@@ -16,7 +16,7 @@ class EventDetector {
 
     Collection<Event> detectEvents() {
         Collection<Event> events = new HashSet<>();
-        for (GameObject gameObject: gameObjects) {
+        for (GameObject gameObject : gameObjects) {
             detectEventsForGameObject(events, gameObject);
         }
         return events;
@@ -33,7 +33,7 @@ class EventDetector {
     }
 
     private void detectEventsForDamageable(Collection<Event> events, GameObject damageable) {
-        for (GameObject otherGameObject: gameObjects) {
+        for (GameObject otherGameObject : gameObjects) {
             if (otherGameObject.isProjectile()) {
                 if (otherGameObject.doesIntersect(damageable.getBody())) {
                     events.add(new DamageableInteractWithProjectileEvent(damageable, otherGameObject));
@@ -43,7 +43,7 @@ class EventDetector {
     }
 
     private void detectEventsForBonusHolder(Collection<Event> events, GameObject bonusHolder) {
-        for (GameObject otherGameObject: gameObjects) {
+        for (GameObject otherGameObject : gameObjects) {
             if (otherGameObject.isBonusTolerable()) {
                 if (otherGameObject.doesIntersect(bonusHolder.getBody())) {
                     events.add(new GameObjectInteractWithBonusEvent(otherGameObject, bonusHolder));
@@ -51,7 +51,6 @@ class EventDetector {
             }
         }
     }
-
 
 
 }
