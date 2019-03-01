@@ -1,4 +1,3 @@
-import object.GameObject;
 import geometry.Vector;
 
 class Game extends Thread {
@@ -10,12 +9,7 @@ class Game extends Thread {
 
     Game() {
         this.gameField = new GameField(new Vector(0, 0), new Vector(100, 100));
-
-        try {
-            gameField.addObject(new GameObject(new Vector(10, 10), new Vector(20, 20)));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        GameInitializer.initialize(gameField);
     }
 
     @Override

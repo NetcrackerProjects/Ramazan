@@ -9,7 +9,7 @@ public class GameObjectTest {
 
     @Test
     public void shouldMoveObjectCorrectlyWhenMoved() {
-        GameObject gameObject = new GameObject(new Vector(0, 0), new Vector(1, 1));
+        GameObject gameObject = new GameObject(new Vector(0, 0), new Vector(1, 1), 0, 0);
         gameObject.setSpeed(new Vector(1, 1));
         Vector expected = new Vector(1, 1);
 

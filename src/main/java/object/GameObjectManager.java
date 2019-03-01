@@ -19,7 +19,7 @@ public class GameObjectManager {
         gameObjects.add(gameObject);
     }
 
-    public void removeDeletedObjects() {
-        gameObjects.removeIf(gameObject -> gameObject.isMarkForDeletion() || gameObject.isBroken());
+    public void removeObject(GameObject gameObject) {
+        gameObjects.remove(gameObject);
     }
 }

@@ -1,7 +1,7 @@
 package physic;
 
-import geometry.Vector;
 import geometry.Rectangle;
+import geometry.Vector;
 import object.GameObject;
 import object.GameObjectManager;
 import org.junit.Before;
@@ -24,7 +24,7 @@ public class PhysicManagerTest {
 
     @Test
     public void shouldReturnFalseWhenInsertedObjectOutOfBoundary() {
-        GameObject gameObject = new GameObject(new Vector(9, 9), new Vector(11, 11));
+        GameObject gameObject = new GameObject(new Vector(9, 9), new Vector(11, 11), 0, 0);
 
         boolean canAddObject = physicManager.canAddObject(gameObject);
 
@@ -33,8 +33,8 @@ public class PhysicManagerTest {
 
     @Test
     public void shouldReturnFalseWhenInsertedObjectIntersectsOthers() {
-        gameObjectManager.addObject(new GameObject(new Vector(1, 1), new Vector(3, 3)));
-        GameObject gameObject = new GameObject(new Vector(2, 2), new Vector(4, 4));
+        gameObjectManager.addObject(new GameObject(new Vector(1, 1), new Vector(3, 3), 0, 0));
+        GameObject gameObject = new GameObject(new Vector(2, 2), new Vector(4, 4), 0, 0);
 
         boolean canAddObject = physicManager.canAddObject(gameObject);
 
@@ -43,7 +43,7 @@ public class PhysicManagerTest {
 
     @Test
     public void shouldMoveObjectWhenIsUpdated() {
-        GameObject gameObject = new GameObject(new Vector(1, 1), new Vector(2, 2));
+        GameObject gameObject = new GameObject(new Vector(1, 1), new Vector(2, 2), 0, 0);
         gameObject.setSpeed(new Vector(1, 1));
         gameObjectManager.addObject(gameObject);
         Vector expected = new Vector(2, 2);

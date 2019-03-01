@@ -34,11 +34,7 @@ public class Rectangle {
             return false;
         }
 
-        if (rectangle.bottomRight.y < topLeft.y) {
-            return false;
-        }
-
-        return true;
+        return !(rectangle.bottomRight.y < topLeft.y);
     }
 
     public boolean covers(Rectangle rectangle) {
@@ -54,11 +50,7 @@ public class Rectangle {
             return false;
         }
 
-        if (rectangle.bottomRight.y > bottomRight.y) {
-            return false;
-        }
-
-        return true;
+        return !(rectangle.bottomRight.y > bottomRight.y);
     }
 
     public void shift(Vector shift) {

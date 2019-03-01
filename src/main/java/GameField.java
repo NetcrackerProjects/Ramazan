@@ -1,15 +1,19 @@
+import action.Action;
 import action.ActionManager;
-import event.EventManager;
 import exception.ObjectAddException;
-import object.GameObject;
-import geometry.Vector;
 import geometry.Rectangle;
+import geometry.Vector;
+import interaction.Interaction;
+import interaction.InteractionProcessor;
+import object.GameObject;
 import object.GameObjectManager;
 import physic.PhysicManager;
 
+import java.util.Collection;
+
 class GameField {
 
-    private final EventManager eventManager;
+    private final InteractionProcessor interactionProcessor;
     private final GameObjectManager gameObjectManager;
     private final PhysicManager physicManager;
     private final ActionManager actionManager;
@@ -17,7 +21,7 @@ class GameField {
     GameField(Vector leftTop, Vector rightBottom) {
         this.gameObjectManager = new GameObjectManager();
         this.actionManager = new ActionManager();
-        this.eventManager = new EventManager(gameObjectManager);
+        this.interactionProcessor = new InteractionProcessor(gameObjectManager);
         this.physicManager = new PhysicManager(new Rectangle(leftTop, rightBottom), gameObjectManager);
     }
 
@@ -30,8 +34,8 @@ class GameField {
     }
 
     void update() {
-        physicManager.move();
-        actionManager.processActions(eventManager.getActions());
-        gameObjectManager.removeDeletedObjects();
+        Collection<Interaction> interactions = physicManager.move();
+        Collection<Action> actions = interactionProcessor.processInteractions(interactions);
+        actionManager.processActions(actions);
     }
 }

@@ -4,7 +4,5 @@ public interface Damageable {
 
     void takeDamage(int damage);
 
-    boolean isBroken();
-
-    boolean isDamageable();
+    boolean isAlive();
 }

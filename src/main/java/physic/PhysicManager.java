@@ -1,7 +1,8 @@
 package physic;
 
-import geometry.Vector;
 import geometry.Rectangle;
+import geometry.Vector;
+import interaction.Interaction;
 import object.GameObject;
 import object.GameObjectManager;
 
@@ -11,7 +12,6 @@ import java.util.HashSet;
 public class PhysicManager {
 
     private final Rectangle field;
-
     private final Collection<GameObject> gameObjects;
 
     public PhysicManager(Rectangle field, GameObjectManager gameObjectManager) {
@@ -19,12 +19,15 @@ public class PhysicManager {
         this.gameObjects = gameObjectManager.getGameObjects();
     }
 
-    public void move() {
+    public Collection<Interaction> move() {
+        Collection<Interaction> events = new HashSet<>();
         for (GameObject gameObject : gameObjects) {
-            if (canMove(gameObject) || gameObject.isPermeable()) {
+
+            if (canMove(gameObject)) {
                 gameObject.move();
             }
         }
+        return events;
     }
 
     public boolean canAddObject(GameObject gameObject) {
@@ -32,11 +35,7 @@ public class PhysicManager {
             return false;
         }
 
-        if (doesIntersectsGameObjects(gameObject, gameObjects)) {
-            return false;
-        }
-
-        return true;
+        return !doesIntersectsGameObjects(gameObject.getBody(), gameObjects);
     }
 
     private boolean canMove(GameObject gameObject) {
@@ -49,26 +48,19 @@ public class PhysicManager {
             return false;
         }
 
-        if (doesIntersectsGameObjectsExcept(gameObject)) {
-            return false;
-        }
-
-        return true;
+        return !doesIntersectsGameObjectsExcept(gameObject, objectMovedBody);
     }
 
-    private boolean doesIntersectsGameObjectsExcept(GameObject gameObject) {
+    private boolean doesIntersectsGameObjectsExcept(GameObject gameObject, Rectangle gameBody) {
         Collection<GameObject> gameObjectsWithoutException = new HashSet<>(gameObjects);
         gameObjectsWithoutException.remove(gameObject);
 
-        return doesIntersectsGameObjects(gameObject, gameObjectsWithoutException);
+        return doesIntersectsGameObjects(gameBody, gameObjectsWithoutException);
     }
 
-    private boolean doesIntersectsGameObjects(GameObject gameObject, Collection<GameObject> objectsToIntersect) {
+    private boolean doesIntersectsGameObjects(Rectangle gameBody, Collection<GameObject> objectsToIntersect) {
         for (GameObject object : objectsToIntersect) {
-            if (object.isPermeable()) {
-                continue;
-            }
-            if (object.doesIntersect(gameObject.getBody())) {
+            if (object.doesIntersect(gameBody)) {
                 return true;
             }
         }

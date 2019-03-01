@@ -1,17 +1,20 @@
 package action;
 
-import object.Deletable;
+import object.GameObject;
+import object.GameObjectManager;
 
 public class DeleteObjectAction implements Action {
 
-    private final Deletable deletable;
+    private final GameObject gameObject;
+    private final GameObjectManager gameObjectManager;
 
-    public DeleteObjectAction(Deletable deletable) {
-        this.deletable = deletable;
+    public DeleteObjectAction(GameObject gameObject, GameObjectManager gameObjectManager) {
+        this.gameObject = gameObject;
+        this.gameObjectManager = gameObjectManager;
     }
 
     @Override
     public void doAction() {
-        deletable.setOnDelete();
+        gameObjectManager.removeObject(gameObject);
     }
 }
