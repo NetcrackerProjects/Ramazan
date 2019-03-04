@@ -3,12 +3,12 @@ package action;
 import object.GameObject;
 import object.GameObjectManager;
 
-public class DeleteObjectAction implements Action {
+public class DeleteAction implements Action {
 
     private final GameObject gameObject;
     private final GameObjectManager gameObjectManager;
 
-    public DeleteObjectAction(GameObject gameObject, GameObjectManager gameObjectManager) {
+    public DeleteAction(GameObject gameObject, GameObjectManager gameObjectManager) {
         this.gameObject = gameObject;
         this.gameObjectManager = gameObjectManager;
     }

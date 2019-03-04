@@ -1,8 +1,8 @@
 package interaction.rule;
 
 import action.Action;
-import action.BonusObjectAction;
-import action.DeleteObjectAction;
+import action.BonusAction;
+import action.DeleteAction;
 import bonus.Bonus;
 import exception.InteractionRuleException;
 import object.BonusHolder;
@@ -34,8 +34,8 @@ public class BonusTankInteractionRule implements InteractionRule {
             }
 
             Collection<Action> actions = new HashSet<>();
-            actions.add(new BonusObjectAction(tank, bonus));
-            actions.add(new DeleteObjectAction(bonusHolder, gameObjectManager));
+            actions.add(new BonusAction(tank, bonus));
+            actions.add(new DeleteAction(bonusHolder, gameObjectManager));
             return actions;
         } catch (InteractionRuleException e) {
             e.printStackTrace();

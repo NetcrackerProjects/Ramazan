@@ -1,8 +1,8 @@
 package interaction.rule;
 
 import action.Action;
-import action.DamageObjectAction;
-import action.DeleteObjectAction;
+import action.DamageAction;
+import action.DeleteAction;
 import exception.InteractionRuleException;
 import object.Bullet;
 import object.GameObject;
@@ -27,8 +27,8 @@ public class TankBulletInteractionRule implements InteractionRule {
             Tank tank = getTank(firstObject, secondObject);
             Bullet bullet = getBullet(firstObject, secondObject);
             Collection<Action> actions = new HashSet<>();
-            actions.add(new DamageObjectAction(tank, bullet.getDamage()));
-            actions.add(new DeleteObjectAction(bullet, gameObjectManager));
+            actions.add(new DamageAction(tank, bullet.getDamage()));
+            actions.add(new DeleteAction(bullet, gameObjectManager));
             return actions;
         } catch (InteractionRuleException e) {
             e.printStackTrace();

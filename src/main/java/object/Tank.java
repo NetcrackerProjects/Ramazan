@@ -10,7 +10,7 @@ public class Tank extends GameObject implements Damageable {
 
     private int health;
 
-    public Tank(Vector leftTop, Vector rightBottom, int id) {
+    Tank(Vector leftTop, Vector rightBottom, int id) {
         super(leftTop, rightBottom, id, TYPE_ID);
         this.health = MAX_HEALTH;
     }

@@ -18,7 +18,6 @@ public class GameObjectFactory {
     }
 
     private static int getNewId() {
-        currentId++;
-        return currentId - 1;
+        return currentId++;
     }
 }

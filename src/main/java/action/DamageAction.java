@@ -2,12 +2,12 @@ package action;
 
 import object.Damageable;
 
-public class DamageObjectAction implements Action {
+public class DamageAction implements Action {
 
     private final Damageable damageable;
     private final int damageAmount;
 
-    public DamageObjectAction(Damageable damageable, int damageAmount) {
+    public DamageAction(Damageable damageable, int damageAmount) {
         this.damageable = damageable;
         this.damageAmount = damageAmount;
     }

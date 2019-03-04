@@ -5,7 +5,11 @@ import interaction.rule.BonusTankInteractionRule;
 import interaction.rule.InteractionRule;
 import interaction.rule.NoInteractionRule;
 import interaction.rule.TankBulletInteractionRule;
-import object.*;
+import object.BonusHolder;
+import object.Bullet;
+import object.GameObjectManager;
+import object.Tank;
+import object.GameObject;
 
 import java.util.Collection;
 import java.util.HashMap;
