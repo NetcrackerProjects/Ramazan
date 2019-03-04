@@ -1,18 +1,19 @@
 package physic;
 
 import geometry.Rectangle;
-import geometry.Vector;
 import interaction.Interaction;
 import object.GameObject;
 import object.GameObjectManager;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 public class PhysicManager {
 
     private final Rectangle field;
     private final Collection<GameObject> gameObjects;
+    private Set<Interaction> interactions;
 
     public PhysicManager(Rectangle field, GameObjectManager gameObjectManager) {
         this.field = field;
@@ -20,14 +21,11 @@ public class PhysicManager {
     }
 
     public Collection<Interaction> move() {
-        Collection<Interaction> events = new HashSet<>();
+        this.interactions = new HashSet<>();
         for (GameObject gameObject : gameObjects) {
-
-            if (canMove(gameObject)) {
-                gameObject.move();
-            }
+            tryMoveOrRegisterInteractions(gameObject);
         }
-        return events;
+        return interactions;
     }
 
     public boolean canAddObject(GameObject gameObject) {
@@ -38,24 +36,27 @@ public class PhysicManager {
         return !doesIntersectsGameObjects(gameObject.getBody(), gameObjects);
     }
 
-    private boolean canMove(GameObject gameObject) {
-        Vector speed = gameObject.getSpeed();
-
-        Rectangle objectMovedBody = new Rectangle(gameObject.getBody());
-        objectMovedBody.shift(speed);
+    private void tryMoveOrRegisterInteractions(GameObject gameObject) {
+        Rectangle objectMovedBody = gameObject.getMovedBody();
 
         if (isOutOfGameField(objectMovedBody)) {
-            return false;
+            return;
         }
 
-        return !doesIntersectsGameObjectsExcept(gameObject, objectMovedBody);
+        Collection<GameObject> intersectedObjects = getIntersectedGameObjects(gameObject, objectMovedBody);
+
+        if (intersectedObjects.size() == 0) {
+            gameObject.move();
+            return;
+        }
+
+        addNewInteractions(gameObject, intersectedObjects);
     }
 
-    private boolean doesIntersectsGameObjectsExcept(GameObject gameObject, Rectangle gameBody) {
-        Collection<GameObject> gameObjectsWithoutException = new HashSet<>(gameObjects);
-        gameObjectsWithoutException.remove(gameObject);
-
-        return doesIntersectsGameObjects(gameBody, gameObjectsWithoutException);
+    private void addNewInteractions(GameObject gameObject, Collection<GameObject> intersectedObjects) {
+        for (GameObject intersectedObject : intersectedObjects) {
+            interactions.add(new Interaction(gameObject, intersectedObject));
+        }
     }
 
     private boolean doesIntersectsGameObjects(Rectangle gameBody, Collection<GameObject> objectsToIntersect) {
@@ -65,6 +66,20 @@ public class PhysicManager {
             }
         }
         return false;
+    }
+
+    private Collection<GameObject> getIntersectedGameObjects(GameObject movingObject, Rectangle movedBody) {
+        Collection<GameObject> intersected = new HashSet<>();
+        for (GameObject object : gameObjects) {
+            if (object == movingObject) {
+                continue;
+            }
+
+            if (object.doesIntersect(movedBody)) {
+                intersected.add(object);
+            }
+        }
+        return intersected;
     }
 
     private boolean isOutOfGameField(Rectangle objectBody) {

@@ -17,10 +17,6 @@ public class GameObject implements Identifiable {
         this.typeId = typeId;
     }
 
-    public Vector getSpeed() {
-        return speed;
-    }
-
     public void setSpeed(Vector speed) {
         this.speed = speed;
     }
@@ -35,6 +31,12 @@ public class GameObject implements Identifiable {
 
     public boolean doesIntersect(Rectangle rectangle) {
         return body.intersects(rectangle);
+    }
+
+    public Rectangle getMovedBody() {
+        Rectangle movedBody = new Rectangle(body);
+        movedBody.shift(speed);
+        return movedBody;
     }
 
     public void move() {
