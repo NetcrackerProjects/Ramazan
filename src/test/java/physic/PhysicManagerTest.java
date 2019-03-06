@@ -4,7 +4,7 @@ import geometry.Rectangle;
 import geometry.Vector;
 import interaction.GameObjectInteraction;
 import object.GameObject;
-import object.GameObjectManager;
+import object.manager.PhysicObjectManager;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,14 +15,14 @@ import static org.junit.Assert.assertFalse;
 
 public class PhysicManagerTest {
 
-    private GameObjectManager gameObjectManager;
+    private PhysicObjectManager physicObjectManager;
     private PhysicManager physicManager;
 
     @Before
     public void setup() {
-        this.gameObjectManager = new GameObjectManager();
+        this.physicObjectManager = new PhysicObjectManager();
         this.physicManager = new PhysicManager(new Rectangle(new Vector(0, 0), new Vector(10, 10)),
-                gameObjectManager);
+                physicObjectManager);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class PhysicManagerTest {
 
     @Test
     public void shouldReturnFalseWhenInsertedObjectIntersectsOthers() {
-        gameObjectManager.addObject(new GameObject(new Vector(1, 1), new Vector(3, 3), 0, 0));
+        physicObjectManager.addObject(new GameObject(new Vector(1, 1), new Vector(3, 3), 0, 0));
         GameObject gameObject = new GameObject(new Vector(2, 2), new Vector(4, 4), 0, 0);
 
         boolean canAddObject = physicManager.canAddObject(gameObject);
@@ -48,7 +48,7 @@ public class PhysicManagerTest {
     public void shouldMoveObjectWhenIsUpdated() {
         GameObject gameObject = new GameObject(new Vector(1, 1), new Vector(2, 2), 0, 0);
         gameObject.setSpeed(new Vector(1, 1));
-        gameObjectManager.addObject(gameObject);
+        physicObjectManager.addObject(gameObject);
         Vector expected = new Vector(2, 2);
 
         physicManager.move();
@@ -60,8 +60,8 @@ public class PhysicManagerTest {
     public void shouldReturnSingleInteractionWhenObjectsInteract() {
         GameObject gameObject = new GameObject(new Vector(1, 1), new Vector(2, 2), 0, 0);
         gameObject.setSpeed(new Vector(0.5, 0.5));
-        gameObjectManager.addObject(gameObject);
-        gameObjectManager.addObject(new GameObject(new Vector(2.1, 2.1), new Vector(3, 3), 1, 0));
+        physicObjectManager.addObject(gameObject);
+        physicObjectManager.addObject(new GameObject(new Vector(2.1, 2.1), new Vector(3, 3), 1, 0));
 
         Collection<GameObjectInteraction> interactions = physicManager.move();
 

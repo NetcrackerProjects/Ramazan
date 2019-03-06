@@ -1,7 +1,7 @@
 package action;
 
 import object.GameObject;
-import object.GameObjectManager;
+import object.manager.GameObjectManager;
 
 public class DeleteAction implements Action {
 

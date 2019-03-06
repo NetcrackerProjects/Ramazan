@@ -1,15 +1,44 @@
+import action.Action;
+import action.ActionManager;
+import geometry.Rectangle;
 import geometry.Vector;
+import interaction.GameObjectInteraction;
+import interaction.InteractionProcessor;
+import interaction.InteractionRuleBase;
+import interaction.InteractionType;
+import interaction.rule.BonusTankInteractionRule;
+import interaction.rule.TankBulletInteractionRule;
+import object.Type;
+import object.manager.GameObjectManager;
+import physic.PhysicManager;
+
+import java.util.Collection;
 
 class Game extends Thread {
 
     private final static int MS_PER_UPDATE = 30;
     private volatile boolean running = true;
 
-    private final GameField gameField;
+    private final PhysicManager physicManager;
+    private final InteractionProcessor interactionProcessor;
+    private final ActionManager actionManager;
 
     Game() {
-        this.gameField = new GameField(new Vector(0, 0), new Vector(100, 100));
-        GameInitializer.initialize(gameField);
+        GameObjectManager gameObjectManager = new GameObjectManager();
+        this.physicManager = new PhysicManager(new Rectangle(new Vector(0, 0), new Vector(100, 100)),
+                gameObjectManager.getPhysicObjectManager());
+        this.actionManager = new ActionManager();
+
+        InteractionRuleBase interactionRuleBase = new InteractionRuleBase();
+
+        interactionRuleBase.addRule(new InteractionType(Type.TANK, Type.BULLET),
+                new TankBulletInteractionRule(gameObjectManager));
+        interactionRuleBase.addRule(new InteractionType(Type.TANK, Type.BONUS),
+                new BonusTankInteractionRule(gameObjectManager));
+
+        this.interactionProcessor = new InteractionProcessor(interactionRuleBase);
+
+        GameInitializer.initialize(physicManager, gameObjectManager);
     }
 
     @Override
@@ -40,7 +69,9 @@ class Game extends Thread {
     }
 
     private void update() {
-        gameField.update();
+        Collection<GameObjectInteraction> interactions = physicManager.move();
+        Collection<Action> actions = interactionProcessor.processInteractions(interactions);
+        actionManager.processActions(actions);
     }
 
     private double getCurrentTime() {

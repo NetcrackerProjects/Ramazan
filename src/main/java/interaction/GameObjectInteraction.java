@@ -8,10 +8,12 @@ public class GameObjectInteraction {
 
     private final GameObject first;
     private final GameObject second;
+    private final InteractionType interactionType;
 
     public GameObjectInteraction(GameObject first, GameObject second) {
         this.first = first;
         this.second = second;
+        this.interactionType = new InteractionType(first.getTypeId(), second.getTypeId());
     }
 
     public GameObject getFirst() {
@@ -39,5 +41,9 @@ public class GameObjectInteraction {
         res = res * 31 + Math.min(first.hashCode(), second.hashCode());
         res = res * 31 + Math.max(first.hashCode(), second.hashCode());
         return res;
+    }
+
+    InteractionType getInteractionType() {
+        return interactionType;
     }
 }

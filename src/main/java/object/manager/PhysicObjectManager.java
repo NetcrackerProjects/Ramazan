@@ -1,13 +1,15 @@
-package object;
+package object.manager;
+
+import object.GameObject;
 
 import java.util.Collection;
 import java.util.HashSet;
 
-public class GameObjectManager {
+public class PhysicObjectManager {
 
     private final Collection<GameObject> gameObjects;
 
-    public GameObjectManager() {
+    public PhysicObjectManager() {
         this.gameObjects = new HashSet<>();
     }
 
@@ -19,7 +21,7 @@ public class GameObjectManager {
         gameObjects.add(gameObject);
     }
 
-    public void removeObject(GameObject gameObject) {
+    void removeObject(GameObject gameObject) {
         gameObjects.remove(gameObject);
     }
 }

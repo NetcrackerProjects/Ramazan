@@ -3,7 +3,7 @@ package physic;
 import geometry.Rectangle;
 import interaction.GameObjectInteraction;
 import object.GameObject;
-import object.GameObjectManager;
+import object.manager.PhysicObjectManager;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -15,9 +15,9 @@ public class PhysicManager {
     private final Collection<GameObject> gameObjects;
     private Set<GameObjectInteraction> interactions;
 
-    public PhysicManager(Rectangle field, GameObjectManager gameObjectManager) {
+    public PhysicManager(Rectangle field, PhysicObjectManager physicObjectManager) {
         this.field = field;
-        this.gameObjects = gameObjectManager.getGameObjects();
+        this.gameObjects = physicObjectManager.getGameObjects();
     }
 
     public Collection<GameObjectInteraction> move() {

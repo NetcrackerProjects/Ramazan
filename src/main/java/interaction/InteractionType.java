@@ -1,11 +1,11 @@
 package interaction;
 
-class InteractionType {
+public class InteractionType {
 
     private final int firstTypeId;
     private final int secondTypeId;
 
-    InteractionType(int firstTypeId, int secondTypeId) {
+    public InteractionType(int firstTypeId, int secondTypeId) {
         this.firstTypeId = firstTypeId;
         this.secondTypeId = secondTypeId;
     }

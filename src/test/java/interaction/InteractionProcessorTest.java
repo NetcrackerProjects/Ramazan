@@ -1,11 +1,13 @@
 package interaction;
 
 import action.Action;
-import exception.GameObjectFactoryException;
 import geometry.Vector;
-import object.GameObject;
+import interaction.rule.TankBulletInteractionRule;
+import object.Bullet;
 import object.GameObjectFactory;
-import object.GameObjectManager;
+import object.Tank;
+import object.Type;
+import object.manager.GameObjectManager;
 import org.junit.Test;
 
 import java.util.Collection;
@@ -16,13 +18,16 @@ import static junit.framework.TestCase.assertEquals;
 public class InteractionProcessorTest {
 
     @Test
-    public void shouldWhen() throws GameObjectFactoryException {
+    public void shouldWhen() {
         GameObjectManager gameObjectManager = new GameObjectManager();
-        GameObject tank = GameObjectFactory.create("tank", new Vector(1, 1), new Vector(2, 2));
-        GameObject bullet = GameObjectFactory.create("bullet", new Vector(3, 3), new Vector(4, 4));
-        gameObjectManager.addObject(tank);
-        gameObjectManager.addObject(bullet);
-        InteractionProcessor interactionProcessor = new InteractionProcessor(gameObjectManager);
+        Tank tank = GameObjectFactory.createTank(new Vector(1, 1), new Vector(2, 2));
+        Bullet bullet = GameObjectFactory.createBullet(new Vector(3, 3), new Vector(4, 4));
+        gameObjectManager.addTank(tank);
+        gameObjectManager.addBullet(bullet);
+        InteractionRuleBase interactionRuleBase = new InteractionRuleBase();
+        interactionRuleBase.addRule(new InteractionType(Type.TANK, Type.BULLET),
+                new TankBulletInteractionRule(gameObjectManager));
+        InteractionProcessor interactionProcessor = new InteractionProcessor(interactionRuleBase);
         Collection<GameObjectInteraction> interactions = new HashSet<>();
         interactions.add(new GameObjectInteraction(tank, bullet));
 

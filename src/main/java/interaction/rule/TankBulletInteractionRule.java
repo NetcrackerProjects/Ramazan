@@ -4,12 +4,15 @@ import action.Action;
 import action.DamageAction;
 import action.DeleteAction;
 import exception.InteractionRuleException;
+import exception.WrongObjectIdException;
 import interaction.GameObjectInteraction;
 import object.GameObject;
-import object.GameObjectManager;
+import object.manager.BulletObjectManager;
+import object.manager.GameObjectManager;
 import object.Tank;
 import object.Bullet;
 import object.Type;
+import object.manager.TankObjectManager;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -18,9 +21,13 @@ import java.util.HashSet;
 public class TankBulletInteractionRule implements InteractionRule {
 
     private final GameObjectManager gameObjectManager;
+    private final TankObjectManager tankObjectManager;
+    private final BulletObjectManager bulletObjectManager;
 
     public TankBulletInteractionRule(GameObjectManager gameObjectManager) {
         this.gameObjectManager = gameObjectManager;
+        this.tankObjectManager = gameObjectManager.getTankObjectManager();
+        this.bulletObjectManager = gameObjectManager.getBulletObjectManager();
     }
 
     @Override
@@ -37,31 +44,31 @@ public class TankBulletInteractionRule implements InteractionRule {
             actions.add(new DeleteAction(bullet, gameObjectManager));
 
             return actions;
-        } catch (InteractionRuleException e) {
+        } catch (InteractionRuleException | WrongObjectIdException e) {
             e.printStackTrace();
         }
         return Collections.emptySet();
     }
 
-    private Tank getTank(GameObject first, GameObject second) throws InteractionRuleException {
+    private Tank getTank(GameObject first, GameObject second) throws InteractionRuleException, WrongObjectIdException {
         if (first.getTypeId() == Type.TANK) {
-            return (Tank) first;
+            return tankObjectManager.getObjectById(first.getId());
         }
 
         if (second.getTypeId() == Type.TANK) {
-            return (Tank) second;
+            return tankObjectManager.getObjectById(second.getId());
         }
 
         throw new InteractionRuleException();
     }
 
-    private Bullet getBullet(GameObject first, GameObject second) throws InteractionRuleException {
+    private Bullet getBullet(GameObject first, GameObject second) throws InteractionRuleException, WrongObjectIdException {
         if (first.getTypeId() == Type.BULLET) {
-            return (Bullet) first;
+            return bulletObjectManager.getObjectById(first.getId());
         }
 
         if (second.getTypeId() == Type.BULLET) {
-            return (Bullet) second;
+            return bulletObjectManager.getObjectById(second.getId());
         }
 
         throw new InteractionRuleException();
