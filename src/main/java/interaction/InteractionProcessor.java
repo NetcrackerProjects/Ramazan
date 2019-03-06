@@ -5,11 +5,9 @@ import interaction.rule.BonusTankInteractionRule;
 import interaction.rule.InteractionRule;
 import interaction.rule.NoInteractionRule;
 import interaction.rule.TankBulletInteractionRule;
-import object.BonusHolder;
-import object.Bullet;
 import object.GameObjectManager;
-import object.Tank;
 import object.GameObject;
+import object.Type;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -36,10 +34,10 @@ public class InteractionProcessor {
     }
 
     private void initializeInteractionsRules(GameObjectManager gameObjectManager) {
-        interactionRuleMap.put(new InteractionType(Tank.TYPE_ID, Bullet.TYPE_ID),
+        interactionRuleMap.put(new InteractionType(Type.TANK, Type.BULLET),
                 new TankBulletInteractionRule(gameObjectManager));
 
-        interactionRuleMap.put(new InteractionType(Tank.TYPE_ID, BonusHolder.TYPE_ID),
+        interactionRuleMap.put(new InteractionType(Type.TANK, Type.BONUS),
                 new BonusTankInteractionRule(gameObjectManager));
     }
 

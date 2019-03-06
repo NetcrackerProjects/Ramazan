@@ -17,8 +17,8 @@ class InteractionType {
         InteractionType that = (InteractionType) o;
         return (firstTypeId == that.firstTypeId &&
                 secondTypeId == that.secondTypeId) ||
-               (firstTypeId == that.secondTypeId &&
-                secondTypeId == that.firstTypeId);
+                (firstTypeId == that.secondTypeId &&
+                        secondTypeId == that.firstTypeId);
     }
 
     // https://stackoverflow.com/questions/15877914/java-overriding-equals-and-hashcode-for-two-interchangeable-integers

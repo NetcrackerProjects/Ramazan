@@ -10,6 +10,8 @@ import object.BonusHolder;
 import object.GameObject;
 import object.GameObjectManager;
 import object.Tank;
+import object.Type;
+
 
 import java.util.Collection;
 import java.util.Collections;
@@ -51,11 +53,11 @@ public class BonusTankInteractionRule implements InteractionRule {
 
 
     private Tank getTank(GameObject first, GameObject second) throws InteractionRuleException {
-        if (first.getTypeId() == Tank.TYPE_ID) {
+        if (first.getTypeId() == Type.TANK) {
             return (Tank) first;
         }
 
-        if (second.getTypeId() == Tank.TYPE_ID) {
+        if (second.getTypeId() == Type.TANK) {
             return (Tank) second;
         }
 
@@ -63,11 +65,11 @@ public class BonusTankInteractionRule implements InteractionRule {
     }
 
     private BonusHolder getBonusHolder(GameObject first, GameObject second) throws InteractionRuleException {
-        if (first.getTypeId() == BonusHolder.TYPE_ID) {
+        if (first.getTypeId() == Type.BONUS) {
             return (BonusHolder) first;
         }
 
-        if (second.getTypeId() == BonusHolder.TYPE_ID) {
+        if (second.getTypeId() == Type.BONUS) {
             return (BonusHolder) second;
         }
 

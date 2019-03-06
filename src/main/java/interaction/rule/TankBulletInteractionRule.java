@@ -5,10 +5,11 @@ import action.DamageAction;
 import action.DeleteAction;
 import exception.InteractionRuleException;
 import interaction.GameObjectInteraction;
-import object.Bullet;
 import object.GameObject;
 import object.GameObjectManager;
 import object.Tank;
+import object.Bullet;
+import object.Type;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -43,11 +44,11 @@ public class TankBulletInteractionRule implements InteractionRule {
     }
 
     private Tank getTank(GameObject first, GameObject second) throws InteractionRuleException {
-        if (first.getTypeId() == Tank.TYPE_ID) {
+        if (first.getTypeId() == Type.TANK) {
             return (Tank) first;
         }
 
-        if (second.getTypeId() == Tank.TYPE_ID) {
+        if (second.getTypeId() == Type.TANK) {
             return (Tank) second;
         }
 
@@ -55,11 +56,11 @@ public class TankBulletInteractionRule implements InteractionRule {
     }
 
     private Bullet getBullet(GameObject first, GameObject second) throws InteractionRuleException {
-        if (first.getTypeId() == Bullet.TYPE_ID) {
+        if (first.getTypeId() == Type.BULLET) {
             return (Bullet) first;
         }
 
-        if (second.getTypeId() == Bullet.TYPE_ID) {
+        if (second.getTypeId() == Type.BULLET) {
             return (Bullet) second;
         }
 
