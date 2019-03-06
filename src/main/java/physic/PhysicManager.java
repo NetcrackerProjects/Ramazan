@@ -1,7 +1,7 @@
 package physic;
 
 import geometry.Rectangle;
-import interaction.Interaction;
+import interaction.GameObjectInteraction;
 import object.GameObject;
 import object.GameObjectManager;
 
@@ -13,14 +13,14 @@ public class PhysicManager {
 
     private final Rectangle field;
     private final Collection<GameObject> gameObjects;
-    private Set<Interaction> interactions;
+    private Set<GameObjectInteraction> interactions;
 
     public PhysicManager(Rectangle field, GameObjectManager gameObjectManager) {
         this.field = field;
         this.gameObjects = gameObjectManager.getGameObjects();
     }
 
-    public Collection<Interaction> move() {
+    public Collection<GameObjectInteraction> move() {
         this.interactions = new HashSet<>();
         for (GameObject gameObject : gameObjects) {
             tryMoveOrRegisterInteractions(gameObject);
@@ -55,7 +55,7 @@ public class PhysicManager {
 
     private void addNewInteractions(GameObject gameObject, Collection<GameObject> intersectedObjects) {
         for (GameObject intersectedObject : intersectedObjects) {
-            interactions.add(new Interaction(gameObject, intersectedObject));
+            interactions.add(new GameObjectInteraction(gameObject, intersectedObject));
         }
     }
 

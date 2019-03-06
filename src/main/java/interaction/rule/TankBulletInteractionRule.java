@@ -4,6 +4,7 @@ import action.Action;
 import action.DamageAction;
 import action.DeleteAction;
 import exception.InteractionRuleException;
+import interaction.GameObjectInteraction;
 import object.Bullet;
 import object.GameObject;
 import object.GameObjectManager;
@@ -22,13 +23,18 @@ public class TankBulletInteractionRule implements InteractionRule {
     }
 
     @Override
-    public Collection<Action> getActions(GameObject firstObject, GameObject secondObject) {
+    public Collection<Action> getActions(GameObjectInteraction interaction) {
         try {
+            GameObject firstObject = interaction.getFirst();
+            GameObject secondObject = interaction.getSecond();
+
             Tank tank = getTank(firstObject, secondObject);
             Bullet bullet = getBullet(firstObject, secondObject);
+
             Collection<Action> actions = new HashSet<>();
             actions.add(new DamageAction(tank, bullet.getDamage()));
             actions.add(new DeleteAction(bullet, gameObjectManager));
+
             return actions;
         } catch (InteractionRuleException e) {
             e.printStackTrace();

@@ -2,7 +2,7 @@ package physic;
 
 import geometry.Rectangle;
 import geometry.Vector;
-import interaction.Interaction;
+import interaction.GameObjectInteraction;
 import object.GameObject;
 import object.GameObjectManager;
 import org.junit.Before;
@@ -63,7 +63,7 @@ public class PhysicManagerTest {
         gameObjectManager.addObject(gameObject);
         gameObjectManager.addObject(new GameObject(new Vector(2.1, 2.1), new Vector(3, 3), 1, 0));
 
-        Collection<Interaction> interactions = physicManager.move();
+        Collection<GameObjectInteraction> interactions = physicManager.move();
 
         assertEquals(1, interactions.size());
     }

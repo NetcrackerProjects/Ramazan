@@ -21,15 +21,17 @@ public class InteractionProcessor {
     private final Map<InteractionType, InteractionRule> interactionRuleMap;
 
     public InteractionProcessor(GameObjectManager gameObjectManager) {
-        interactionRuleMap = new HashMap<>();
+        this.interactionRuleMap = new HashMap<>();
         initializeInteractionsRules(gameObjectManager);
     }
 
-    public Collection<Action> processInteractions(Collection<Interaction> interactions) {
+    public Collection<Action> processInteractions(Collection<GameObjectInteraction> interactions) {
         Collection<Action> actions = new HashSet<>();
-        for (Interaction interaction : interactions) {
+
+        for (GameObjectInteraction interaction : interactions) {
             actions.addAll(getActions(interaction));
         }
+
         return actions;
     }
 
@@ -41,11 +43,11 @@ public class InteractionProcessor {
                 new BonusTankInteractionRule(gameObjectManager));
     }
 
-    private Collection<Action> getActions(Interaction interaction) {
+    private Collection<Action> getActions(GameObjectInteraction interaction) {
         GameObject first = interaction.getFirst();
         GameObject second = interaction.getSecond();
         InteractionRule interactionRule = getInteractionRule(first.getTypeId(), second.getTypeId());
-        return interactionRule.getActions(first, second);
+        return interactionRule.getActions(interaction);
     }
 
     private InteractionRule getInteractionRule(int firstTypeId, int secondTypeId) {

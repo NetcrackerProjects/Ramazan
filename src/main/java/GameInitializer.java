@@ -11,6 +11,5 @@ class GameInitializer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }

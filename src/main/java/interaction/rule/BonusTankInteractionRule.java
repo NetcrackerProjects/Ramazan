@@ -5,6 +5,7 @@ import action.BonusAction;
 import action.DeleteAction;
 import bonus.Bonus;
 import exception.InteractionRuleException;
+import interaction.GameObjectInteraction;
 import object.BonusHolder;
 import object.GameObject;
 import object.GameObjectManager;
@@ -23,10 +24,14 @@ public class BonusTankInteractionRule implements InteractionRule {
     }
 
     @Override
-    public Collection<Action> getActions(GameObject firstObject, GameObject secondObject) {
+    public Collection<Action> getActions(GameObjectInteraction interaction) {
         try {
+            GameObject firstObject = interaction.getFirst();
+            GameObject secondObject = interaction.getSecond();
+
             Tank tank = getTank(firstObject, secondObject);
             BonusHolder bonusHolder = getBonusHolder(firstObject, secondObject);
+
             Bonus bonus = bonusHolder.getBonus();
 
             if (!bonus.canApplyBonus(tank)) {
@@ -36,6 +41,7 @@ public class BonusTankInteractionRule implements InteractionRule {
             Collection<Action> actions = new HashSet<>();
             actions.add(new BonusAction(tank, bonus));
             actions.add(new DeleteAction(bonusHolder, gameObjectManager));
+
             return actions;
         } catch (InteractionRuleException e) {
             e.printStackTrace();

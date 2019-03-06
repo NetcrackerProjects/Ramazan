@@ -4,21 +4,21 @@ import object.GameObject;
 
 import java.util.Objects;
 
-public class Interaction {
+public class GameObjectInteraction {
 
     private final GameObject first;
     private final GameObject second;
 
-    public Interaction(GameObject first, GameObject second) {
+    public GameObjectInteraction(GameObject first, GameObject second) {
         this.first = first;
         this.second = second;
     }
 
-    GameObject getFirst() {
+    public GameObject getFirst() {
         return first;
     }
 
-    GameObject getSecond() {
+    public GameObject getSecond() {
         return second;
     }
 
@@ -26,7 +26,7 @@ public class Interaction {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Interaction that = (Interaction) o;
+        GameObjectInteraction that = (GameObjectInteraction) o;
         return (Objects.equals(first, that.first) &&
                 Objects.equals(second, that.second)) ||
                 (Objects.equals(first, that.second) &&

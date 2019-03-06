@@ -3,7 +3,7 @@ import action.ActionManager;
 import exception.ObjectAddException;
 import geometry.Rectangle;
 import geometry.Vector;
-import interaction.Interaction;
+import interaction.GameObjectInteraction;
 import interaction.InteractionProcessor;
 import object.GameObject;
 import object.GameObjectManager;
@@ -34,7 +34,7 @@ class GameField {
     }
 
     void update() {
-        Collection<Interaction> interactions = physicManager.move();
+        Collection<GameObjectInteraction> interactions = physicManager.move();
         Collection<Action> actions = interactionProcessor.processInteractions(interactions);
         actionManager.processActions(actions);
     }

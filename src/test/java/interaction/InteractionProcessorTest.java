@@ -23,8 +23,8 @@ public class InteractionProcessorTest {
         gameObjectManager.addObject(tank);
         gameObjectManager.addObject(bullet);
         InteractionProcessor interactionProcessor = new InteractionProcessor(gameObjectManager);
-        Collection<Interaction> interactions = new HashSet<>();
-        interactions.add(new Interaction(tank, bullet));
+        Collection<GameObjectInteraction> interactions = new HashSet<>();
+        interactions.add(new GameObjectInteraction(tank, bullet));
 
         Collection<Action> actions = interactionProcessor.processInteractions(interactions);
 
