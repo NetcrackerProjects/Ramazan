@@ -18,7 +18,7 @@ import static junit.framework.TestCase.assertEquals;
 public class InteractionProcessorTest {
 
     @Test
-    public void shouldWhen() {
+    public void shouldReturnTwoActionsWhenProcessTankBulletInteraction() {
         GameObjectManager gameObjectManager = new GameObjectManager();
         Tank tank = GameObjectFactory.createTank(new Vector(1, 1), new Vector(2, 2));
         Bullet bullet = GameObjectFactory.createBullet(new Vector(3, 3), new Vector(4, 4));

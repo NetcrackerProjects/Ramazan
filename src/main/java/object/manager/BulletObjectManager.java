@@ -17,7 +17,7 @@ public class BulletObjectManager implements ObjectManager<Bullet> {
 
     @Override
     public Bullet getObjectById(int id) throws WrongObjectIdException {
-        Bullet bullet = bulletMap.getOrDefault(id, null);
+        Bullet bullet = bulletMap.get(id);
 
         if (bullet == null) {
             throw new WrongObjectIdException();

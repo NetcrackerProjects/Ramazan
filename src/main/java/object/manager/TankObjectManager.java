@@ -17,7 +17,7 @@ public class TankObjectManager implements ObjectManager<Tank> {
 
     @Override
     public Tank getObjectById(int id) throws WrongObjectIdException {
-        Tank tank = tankMap.getOrDefault(id, null);
+        Tank tank = tankMap.get(id);
 
         if (tank == null) {
             throw new WrongObjectIdException();

@@ -17,7 +17,7 @@ public class BonusObjectManager implements ObjectManager<BonusHolder> {
 
     @Override
     public BonusHolder getObjectById(int id) throws WrongObjectIdException {
-        BonusHolder bonusHolder = bonusMap.getOrDefault(id, null);
+        BonusHolder bonusHolder = bonusMap.get(id);
 
         if (bonusHolder == null) {
             throw new WrongObjectIdException();

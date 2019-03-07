@@ -25,6 +25,7 @@ class Game extends Thread {
 
     Game() {
         GameObjectManager gameObjectManager = new GameObjectManager();
+
         this.physicManager = new PhysicManager(new Rectangle(new Vector(0, 0), new Vector(100, 100)),
                 gameObjectManager.getPhysicObjectManager());
         this.actionManager = new ActionManager();
@@ -38,7 +39,8 @@ class Game extends Thread {
 
         this.interactionProcessor = new InteractionProcessor(interactionRuleBase);
 
-        GameInitializer.initialize(physicManager, gameObjectManager);
+        GameInitializer gameInitializer = new GameInitializer();
+        gameInitializer.initialize(gameObjectManager, physicManager);
     }
 
     @Override
