@@ -1,54 +1,46 @@
 package physic;
 
+import exception.AddObjectException;
 import geometry.Rectangle;
 import geometry.Vector;
 import interaction.GameObjectInteraction;
 import object.GameObject;
-import object.manager.PhysicObjectManager;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 public class PhysicManagerTest {
 
-    private PhysicObjectManager physicObjectManager;
     private PhysicManager physicManager;
 
     @Before
     public void setup() {
-        this.physicObjectManager = new PhysicObjectManager();
-        this.physicManager = new PhysicManager(new Rectangle(new Vector(0, 0), new Vector(10, 10)),
-                physicObjectManager);
+        this.physicManager = new PhysicManager(new Rectangle(new Vector(0, 0), new Vector(10, 10)));
     }
 
-    @Test
-    public void shouldReturnFalseWhenInsertedObjectOutOfBoundary() {
+    @Test(expected = AddObjectException.class)
+    public void shouldThrowWhenInsertedObjectOutOfBoundary() throws AddObjectException {
         GameObject gameObject = new GameObject(new Vector(9, 9), new Vector(11, 11), 0, 0);
 
-        boolean canAddObject = physicManager.canAddObject(gameObject);
-
-        assertFalse(canAddObject);
+        physicManager.addPhysicObject(gameObject);
     }
 
-    @Test
-    public void shouldReturnFalseWhenInsertedObjectIntersectsOthers() {
-        physicObjectManager.addObject(new GameObject(new Vector(1, 1), new Vector(3, 3), 0, 0));
+    @Test(expected = AddObjectException.class)
+    public void shouldThrowWhenInsertedObjectIntersectsOthers() throws AddObjectException {
+        physicManager.addPhysicObject(new GameObject(new Vector(1, 1), new Vector(3, 3), 0, 0));
         GameObject gameObject = new GameObject(new Vector(2, 2), new Vector(4, 4), 0, 0);
 
-        boolean canAddObject = physicManager.canAddObject(gameObject);
-
-        assertFalse(canAddObject);
+        physicManager.addPhysicObject(gameObject);
     }
 
     @Test
-    public void shouldMoveObjectWhenIsUpdated() {
+    public void shouldMoveObjectWhenIsUpdated() throws AddObjectException {
         GameObject gameObject = new GameObject(new Vector(1, 1), new Vector(2, 2), 0, 0);
         gameObject.setSpeed(new Vector(1, 1));
-        physicObjectManager.addObject(gameObject);
+        physicManager.addPhysicObject(gameObject);
         Vector expected = new Vector(2, 2);
 
         physicManager.move();
@@ -57,11 +49,11 @@ public class PhysicManagerTest {
     }
 
     @Test
-    public void shouldReturnSingleInteractionWhenObjectsInteract() {
+    public void shouldReturnSingleInteractionWhenObjectsInteract() throws AddObjectException {
         GameObject gameObject = new GameObject(new Vector(1, 1), new Vector(2, 2), 0, 0);
         gameObject.setSpeed(new Vector(0.5, 0.5));
-        physicObjectManager.addObject(gameObject);
-        physicObjectManager.addObject(new GameObject(new Vector(2.1, 2.1), new Vector(3, 3), 1, 0));
+        physicManager.addPhysicObject(gameObject);
+        physicManager.addPhysicObject(new GameObject(new Vector(2.1, 2.1), new Vector(3, 3), 1, 0));
 
         Collection<GameObjectInteraction> interactions = physicManager.move();
 

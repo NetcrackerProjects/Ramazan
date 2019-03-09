@@ -9,11 +9,9 @@ import exception.WrongObjectIdException;
 import interaction.GameObjectInteraction;
 import object.BonusHolder;
 import object.GameObject;
-import object.manager.BonusObjectManager;
-import object.manager.GameObjectManager;
 import object.Tank;
 import object.Type;
-import object.manager.TankObjectManager;
+import object.manager.ObjectManager;
 
 
 import java.util.Collection;
@@ -22,14 +20,13 @@ import java.util.HashSet;
 
 public class BonusTankInteractionRule implements InteractionRule {
 
-    private final BonusObjectManager bonusObjectManager;
-    private final TankObjectManager tankObjectManager;
-    private final GameObjectManager gameObjectManager;
+    private final ObjectManager<BonusHolder> bonusObjectManager;
+    private final ObjectManager<Tank> tankObjectManager;
 
-    public BonusTankInteractionRule(GameObjectManager gameObjectManager) {
-        this.bonusObjectManager = gameObjectManager.getBonusObjectManager();
-        this.tankObjectManager = gameObjectManager.getTankObjectManager();
-        this.gameObjectManager = gameObjectManager;
+    public BonusTankInteractionRule(ObjectManager<BonusHolder> bonusObjectManager,
+                                    ObjectManager<Tank> tankObjectManager) {
+        this.bonusObjectManager = bonusObjectManager;
+        this.tankObjectManager = tankObjectManager;
     }
 
     @Override
@@ -49,7 +46,7 @@ public class BonusTankInteractionRule implements InteractionRule {
 
             Collection<Action> actions = new HashSet<>();
             actions.add(new BonusAction(tank, bonus));
-            actions.add(new DeleteAction(bonusHolder, gameObjectManager));
+            actions.add(new DeleteAction<>(bonusHolder, bonusObjectManager));
 
             return actions;
         } catch (InteractionRuleException | WrongObjectIdException e) {

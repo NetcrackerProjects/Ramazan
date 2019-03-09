@@ -4,12 +4,6 @@ import geometry.Rectangle;
 import geometry.Vector;
 import interaction.GameObjectInteraction;
 import interaction.InteractionProcessor;
-import interaction.InteractionRuleBase;
-import interaction.InteractionType;
-import interaction.rule.BonusTankInteractionRule;
-import interaction.rule.TankBulletInteractionRule;
-import object.Type;
-import object.manager.GameObjectManager;
 import physic.PhysicManager;
 
 import java.util.Collection;
@@ -24,23 +18,11 @@ class Game extends Thread {
     private final ActionManager actionManager;
 
     Game() {
-        GameObjectManager gameObjectManager = new GameObjectManager();
-
-        this.physicManager = new PhysicManager(new Rectangle(new Vector(0, 0), new Vector(100, 100)),
-                gameObjectManager.getPhysicObjectManager());
-        this.actionManager = new ActionManager();
-
-        InteractionRuleBase interactionRuleBase = new InteractionRuleBase();
-
-        interactionRuleBase.addRule(new InteractionType(Type.TANK, Type.BULLET),
-                new TankBulletInteractionRule(gameObjectManager));
-        interactionRuleBase.addRule(new InteractionType(Type.TANK, Type.BONUS),
-                new BonusTankInteractionRule(gameObjectManager));
-
-        this.interactionProcessor = new InteractionProcessor(interactionRuleBase);
-
-        GameInitializer gameInitializer = new GameInitializer();
-        gameInitializer.initialize(gameObjectManager, physicManager);
+        GameFacade gameFacade = new GameFacade();
+        gameFacade.createGame(new Rectangle(new Vector(0, 0), new Vector(100, 100)));
+        this.actionManager = gameFacade.getActionManager();
+        this.physicManager = gameFacade.getPhysicManager();
+        this.interactionProcessor = gameFacade.getInteractionProcess();
     }
 
     @Override

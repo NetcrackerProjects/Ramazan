@@ -1,20 +1,20 @@
 package action;
 
 import object.GameObject;
-import object.manager.GameObjectManager;
+import object.manager.ObjectManager;
 
-public class DeleteAction implements Action {
+public class DeleteAction<T extends GameObject> implements Action {
 
-    private final GameObject gameObject;
-    private final GameObjectManager gameObjectManager;
+    private final T gameObject;
+    private final ObjectManager<T> objectManager;
 
-    public DeleteAction(GameObject gameObject, GameObjectManager gameObjectManager) {
+    public DeleteAction(T gameObject, ObjectManager<T> objectManager) {
         this.gameObject = gameObject;
-        this.gameObjectManager = gameObjectManager;
+        this.objectManager = objectManager;
     }
 
     @Override
     public void doAction() {
-        gameObjectManager.removeObject(gameObject);
+        objectManager.removeObject(gameObject);
     }
 }

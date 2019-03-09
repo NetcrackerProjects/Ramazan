@@ -1,9 +1,9 @@
 package physic;
 
+import exception.AddObjectException;
 import geometry.Rectangle;
 import interaction.GameObjectInteraction;
 import object.GameObject;
-import object.manager.PhysicObjectManager;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -15,9 +15,9 @@ public class PhysicManager {
     private final Collection<GameObject> gameObjects;
     private Set<GameObjectInteraction> interactions;
 
-    public PhysicManager(Rectangle field, PhysicObjectManager physicObjectManager) {
+    public PhysicManager(Rectangle field) {
         this.field = field;
-        this.gameObjects = physicObjectManager.getGameObjects();
+        this.gameObjects = new HashSet<>();
     }
 
     public Collection<GameObjectInteraction> move() {
@@ -28,7 +28,21 @@ public class PhysicManager {
         return interactions;
     }
 
-    public boolean canAddObject(GameObject gameObject) {
+    public void removePhysicalObject(GameObject gameObject) {
+        gameObjects.remove(gameObject);
+    }
+
+    public void addPhysicObject(GameObject gameObject) throws AddObjectException {
+        if (canAddObject(gameObject)) {
+            gameObjects.add(gameObject);
+            return;
+        }
+
+        throw new AddObjectException();
+
+    }
+
+    private boolean canAddObject(GameObject gameObject) {
         if (isOutOfGameField(gameObject.getBody())) {
             return false;
         }

@@ -1,15 +1,45 @@
 package object.manager;
 
+import exception.AddObjectException;
 import exception.WrongObjectIdException;
 import object.GameObject;
+import physic.PhysicManager;
 
-interface ObjectManager<T extends GameObject> {
+import java.util.HashMap;
+import java.util.Map;
 
-    T getObjectById(int id) throws WrongObjectIdException;
+public class ObjectManager<T extends GameObject> {
 
-    void addObject(T object);
+    private final PhysicManager physicManager;
 
-    void removeById(int id);
+    private final Map<Integer, T> gameObjectMap;
 
-    int getTypeId();
+    public ObjectManager(PhysicManager physicManager) {
+        this.gameObjectMap = new HashMap<>();
+        this.physicManager = physicManager;
+    }
+
+    public T getObjectById(int id) throws WrongObjectIdException {
+        T gameObject = gameObjectMap.get(id);
+
+        if (gameObject == null) {
+            throw new WrongObjectIdException();
+        }
+
+        return gameObject;
+    }
+
+    public void addObject(T object) {
+        try {
+            physicManager.addPhysicObject(object);
+        } catch (AddObjectException e) {
+            return;
+        }
+        gameObjectMap.put(object.getId(), object);
+    }
+
+    public void removeObject(GameObject gameObject) {
+        physicManager.removePhysicalObject(gameObject);
+        gameObjectMap.remove(gameObject.getId());
+    }
 }

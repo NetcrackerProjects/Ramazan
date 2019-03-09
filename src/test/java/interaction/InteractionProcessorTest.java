@@ -1,14 +1,16 @@
 package interaction;
 
 import action.Action;
+import geometry.Rectangle;
 import geometry.Vector;
 import interaction.rule.TankBulletInteractionRule;
 import object.Bullet;
 import object.GameObjectFactory;
 import object.Tank;
 import object.Type;
-import object.manager.GameObjectManager;
+import object.manager.ObjectManager;
 import org.junit.Test;
+import physic.PhysicManager;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -19,14 +21,17 @@ public class InteractionProcessorTest {
 
     @Test
     public void shouldReturnTwoActionsWhenProcessTankBulletInteraction() {
-        GameObjectManager gameObjectManager = new GameObjectManager();
+        PhysicManager physicManager = new PhysicManager(new Rectangle(new Vector(0, 0),
+                new Vector(10, 10)));
+        ObjectManager<Tank> tankObjectManager = new ObjectManager<>(physicManager);
+        ObjectManager<Bullet> bulletObjectManager = new ObjectManager<>(physicManager);
         Tank tank = GameObjectFactory.createTank(new Vector(1, 1), new Vector(2, 2));
         Bullet bullet = GameObjectFactory.createBullet(new Vector(3, 3), new Vector(4, 4));
-        gameObjectManager.addTank(tank);
-        gameObjectManager.addBullet(bullet);
+        tankObjectManager.addObject(tank);
+        bulletObjectManager.addObject(bullet);
         InteractionRuleBase interactionRuleBase = new InteractionRuleBase();
         interactionRuleBase.addRule(new InteractionType(Type.TANK, Type.BULLET),
-                new TankBulletInteractionRule(gameObjectManager));
+                new TankBulletInteractionRule(tankObjectManager, bulletObjectManager));
         InteractionProcessor interactionProcessor = new InteractionProcessor(interactionRuleBase);
         Collection<GameObjectInteraction> interactions = new HashSet<>();
         interactions.add(new GameObjectInteraction(tank, bullet));

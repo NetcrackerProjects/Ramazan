@@ -7,12 +7,10 @@ import exception.InteractionRuleException;
 import exception.WrongObjectIdException;
 import interaction.GameObjectInteraction;
 import object.GameObject;
-import object.manager.BulletObjectManager;
-import object.manager.GameObjectManager;
 import object.Tank;
 import object.Bullet;
 import object.Type;
-import object.manager.TankObjectManager;
+import object.manager.ObjectManager;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -20,14 +18,13 @@ import java.util.HashSet;
 
 public class TankBulletInteractionRule implements InteractionRule {
 
-    private final GameObjectManager gameObjectManager;
-    private final TankObjectManager tankObjectManager;
-    private final BulletObjectManager bulletObjectManager;
+    private final ObjectManager<Tank> tankObjectManager;
+    private final ObjectManager<Bullet> bulletObjectManager;
 
-    public TankBulletInteractionRule(GameObjectManager gameObjectManager) {
-        this.gameObjectManager = gameObjectManager;
-        this.tankObjectManager = gameObjectManager.getTankObjectManager();
-        this.bulletObjectManager = gameObjectManager.getBulletObjectManager();
+    public TankBulletInteractionRule(ObjectManager<Tank> tankObjectManager,
+                                     ObjectManager<Bullet> bulletObjectManager) {
+        this.tankObjectManager = tankObjectManager;
+        this.bulletObjectManager = bulletObjectManager;
     }
 
     @Override
@@ -41,7 +38,7 @@ public class TankBulletInteractionRule implements InteractionRule {
 
             Collection<Action> actions = new HashSet<>();
             actions.add(new DamageAction(tank, bullet.getDamage()));
-            actions.add(new DeleteAction(bullet, gameObjectManager));
+            actions.add(new DeleteAction<>(bullet, bulletObjectManager));
 
             return actions;
         } catch (InteractionRuleException | WrongObjectIdException e) {
