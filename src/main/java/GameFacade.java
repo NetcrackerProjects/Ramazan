@@ -18,7 +18,7 @@ class GameFacade {
     private PhysicManager physicManager;
     private InteractionProcessor interactionProcessor;
 
-    void createGame(Rectangle fieldRectangle) {
+    void setupGameElements(Rectangle fieldRectangle) {
         this.actionManager = new ActionManager();
         this.physicManager = new PhysicManager(fieldRectangle);
 

@@ -6,6 +6,7 @@ import interaction.GameObjectInteraction;
 import object.GameObject;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,7 +24,8 @@ public class PhysicManager {
     public Collection<GameObjectInteraction> move() {
         this.interactions = new HashSet<>();
         for (GameObject gameObject : gameObjects) {
-            tryMoveOrRegisterInteractions(gameObject);
+            Collection<GameObject> intersectedObjects = moveGameObject(gameObject);
+            addNewInteractions(gameObject, intersectedObjects);
         }
         return interactions;
     }
@@ -50,21 +52,20 @@ public class PhysicManager {
         return !doesIntersectsGameObjects(gameObject.getBody(), gameObjects);
     }
 
-    private void tryMoveOrRegisterInteractions(GameObject gameObject) {
+    private Collection<GameObject> moveGameObject(GameObject gameObject) {
         Rectangle objectMovedBody = gameObject.getMovedBody();
 
         if (isOutOfGameField(objectMovedBody)) {
-            return;
+            return Collections.emptySet();
         }
 
         Collection<GameObject> intersectedObjects = getIntersectedGameObjects(gameObject, objectMovedBody);
 
-        if (intersectedObjects.size() == 0) {
+        if (intersectedObjects.isEmpty()) {
             gameObject.move();
-            return;
         }
 
-        addNewInteractions(gameObject, intersectedObjects);
+        return intersectedObjects;
     }
 
     private void addNewInteractions(GameObject gameObject, Collection<GameObject> intersectedObjects) {
@@ -84,6 +85,7 @@ public class PhysicManager {
 
     private Collection<GameObject> getIntersectedGameObjects(GameObject movingObject, Rectangle movedBody) {
         Collection<GameObject> intersected = new HashSet<>();
+
         for (GameObject object : gameObjects) {
             if (object == movingObject) {
                 continue;
@@ -93,6 +95,7 @@ public class PhysicManager {
                 intersected.add(object);
             }
         }
+
         return intersected;
     }
 

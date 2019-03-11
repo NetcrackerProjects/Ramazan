@@ -19,7 +19,7 @@ class Game extends Thread {
 
     Game() {
         GameFacade gameFacade = new GameFacade();
-        gameFacade.createGame(new Rectangle(new Vector(0, 0), new Vector(100, 100)));
+        gameFacade.setupGameElements(new Rectangle(new Vector(0, 0), new Vector(100, 100)));
         this.actionManager = gameFacade.getActionManager();
         this.physicManager = gameFacade.getPhysicManager();
         this.interactionProcessor = gameFacade.getInteractionProcess();
