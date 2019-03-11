@@ -1,11 +1,17 @@
 package interaction.rule;
 
 import action.Action;
-import interaction.GameObjectInteraction;
+import exception.WrongObjectIdException;
+import interaction.Interaction;
+import object.GameObject;
 
 import java.util.Collection;
 
-public interface InteractionRule {
+public interface InteractionRule<T extends GameObject, V extends GameObject> {
 
-    Collection<Action> getActions(GameObjectInteraction interaction);
+    Collection<Action> getActions(Interaction interaction);
+
+    T getFirstObject(Interaction interaction) throws WrongObjectIdException;
+
+    V getSecondObject(Interaction interaction) throws WrongObjectIdException;
 }

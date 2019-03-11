@@ -4,9 +4,8 @@ import action.Action;
 import action.BonusAction;
 import action.DeleteAction;
 import bonus.Bonus;
-import exception.InteractionRuleException;
 import exception.WrongObjectIdException;
-import interaction.GameObjectInteraction;
+import interaction.Interaction;
 import object.BonusHolder;
 import object.GameObject;
 import object.Tank;
@@ -18,7 +17,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 
-public class BonusTankInteractionRule implements InteractionRule {
+public class BonusTankInteractionRule implements InteractionRule<BonusHolder, Tank> {
 
     private final ObjectManager<BonusHolder> bonusObjectManager;
     private final ObjectManager<Tank> tankObjectManager;
@@ -30,13 +29,10 @@ public class BonusTankInteractionRule implements InteractionRule {
     }
 
     @Override
-    public Collection<Action> getActions(GameObjectInteraction interaction) {
+    public Collection<Action> getActions(Interaction interaction) {
         try {
-            GameObject firstObject = interaction.getFirst();
-            GameObject secondObject = interaction.getSecond();
-
-            Tank tank = getTank(firstObject, secondObject);
-            BonusHolder bonusHolder = getBonusHolder(firstObject, secondObject);
+            BonusHolder bonusHolder = getFirstObject(interaction);
+            Tank tank = getSecondObject(interaction);
 
             Bonus bonus = bonusHolder.getBonus();
 
@@ -49,34 +45,31 @@ public class BonusTankInteractionRule implements InteractionRule {
             actions.add(new DeleteAction<>(bonusHolder, bonusObjectManager));
 
             return actions;
-        } catch (InteractionRuleException | WrongObjectIdException e) {
+        } catch (WrongObjectIdException e) {
             e.printStackTrace();
         }
         return Collections.emptySet();
     }
 
-
-    private Tank getTank(GameObject first, GameObject second) throws InteractionRuleException, WrongObjectIdException {
-        if (first.getTypeId() == Type.TANK) {
-            return tankObjectManager.getObjectById(first.getId());
-        }
-
-        if (second.getTypeId() == Type.TANK) {
-            return tankObjectManager.getObjectById(second.getId());
-        }
-
-        throw new InteractionRuleException();
-    }
-
-    private BonusHolder getBonusHolder(GameObject first, GameObject second) throws InteractionRuleException, WrongObjectIdException {
+    @Override
+    public BonusHolder getFirstObject(Interaction interaction) throws WrongObjectIdException {
+        GameObject first = interaction.getFirst();
+        GameObject second = interaction.getSecond();
         if (first.getTypeId() == Type.BONUS) {
             return bonusObjectManager.getObjectById(first.getId());
-        }
-
-        if (second.getTypeId() == Type.BONUS) {
+        } else {
             return bonusObjectManager.getObjectById(second.getId());
         }
+    }
 
-        throw new InteractionRuleException();
+    @Override
+    public Tank getSecondObject(Interaction interaction) throws WrongObjectIdException {
+        GameObject first = interaction.getFirst();
+        GameObject second = interaction.getSecond();
+        if (first.getTypeId() == Type.TANK) {
+            return tankObjectManager.getObjectById(first.getId());
+        } else {
+            return tankObjectManager.getObjectById(second.getId());
+        }
     }
 }

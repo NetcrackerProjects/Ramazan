@@ -2,7 +2,7 @@ import action.Action;
 import action.ActionManager;
 import geometry.Rectangle;
 import geometry.Vector;
-import interaction.GameObjectInteraction;
+import interaction.Interaction;
 import interaction.InteractionProcessor;
 import physic.PhysicManager;
 
@@ -53,7 +53,7 @@ class Game extends Thread {
     }
 
     private void update() {
-        Collection<GameObjectInteraction> interactions = physicManager.move();
+        Collection<Interaction> interactions = physicManager.move();
         Collection<Action> actions = interactionProcessor.processInteractions(interactions);
         actionManager.processActions(actions);
     }

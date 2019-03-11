@@ -2,7 +2,7 @@ package physic;
 
 import exception.AddObjectException;
 import geometry.Rectangle;
-import interaction.GameObjectInteraction;
+import interaction.Interaction;
 import object.GameObject;
 
 import java.util.Collection;
@@ -14,14 +14,14 @@ public class PhysicManager {
 
     private final Rectangle field;
     private final Collection<GameObject> gameObjects;
-    private Set<GameObjectInteraction> interactions;
+    private Set<Interaction> interactions;
 
     public PhysicManager(Rectangle field) {
         this.field = field;
         this.gameObjects = new HashSet<>();
     }
 
-    public Collection<GameObjectInteraction> move() {
+    public Collection<Interaction> move() {
         this.interactions = new HashSet<>();
         for (GameObject gameObject : gameObjects) {
             Collection<GameObject> intersectedObjects = moveGameObject(gameObject);
@@ -70,7 +70,7 @@ public class PhysicManager {
 
     private void addNewInteractions(GameObject gameObject, Collection<GameObject> intersectedObjects) {
         for (GameObject intersectedObject : intersectedObjects) {
-            interactions.add(new GameObjectInteraction(gameObject, intersectedObject));
+            interactions.add(new Interaction(gameObject, intersectedObject));
         }
     }
 

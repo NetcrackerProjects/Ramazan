@@ -14,17 +14,18 @@ public class InteractionProcessor {
         this.interactionRuleBase = interactionRuleBase;
     }
 
-    public Collection<Action> processInteractions(Collection<GameObjectInteraction> interactions) {
+    public Collection<Action> processInteractions(Collection<Interaction> interactions) {
         Collection<Action> actions = new HashSet<>();
 
-        for (GameObjectInteraction interaction : interactions) {
+        for (Interaction interaction : interactions) {
             actions.addAll(getActions(interaction));
         }
 
         return actions;
     }
 
-    private Collection<Action> getActions(GameObjectInteraction interaction) {
+    @SuppressWarnings("unchecked")
+    private Collection<Action> getActions(Interaction interaction) {
         InteractionRule interactionRule = getInteractionRule(interaction.getInteractionType());
         return interactionRule.getActions(interaction);
     }

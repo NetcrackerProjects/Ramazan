@@ -33,8 +33,8 @@ public class InteractionProcessorTest {
         interactionRuleBase.addRule(new InteractionType(Type.TANK, Type.BULLET),
                 new TankBulletInteractionRule(tankObjectManager, bulletObjectManager));
         InteractionProcessor interactionProcessor = new InteractionProcessor(interactionRuleBase);
-        Collection<GameObjectInteraction> interactions = new HashSet<>();
-        interactions.add(new GameObjectInteraction(tank, bullet));
+        Collection<Interaction> interactions = new HashSet<>();
+        interactions.add(new Interaction(tank, bullet));
 
         Collection<Action> actions = interactionProcessor.processInteractions(interactions);
 

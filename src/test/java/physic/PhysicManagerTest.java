@@ -3,7 +3,7 @@ package physic;
 import exception.AddObjectException;
 import geometry.Rectangle;
 import geometry.Vector;
-import interaction.GameObjectInteraction;
+import interaction.Interaction;
 import object.GameObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,7 +55,7 @@ public class PhysicManagerTest {
         physicManager.addPhysicObject(gameObject);
         physicManager.addPhysicObject(new GameObject(new Vector(2.1, 2.1), new Vector(3, 3), 1, 0));
 
-        Collection<GameObjectInteraction> interactions = physicManager.move();
+        Collection<Interaction> interactions = physicManager.move();
 
         assertEquals(1, interactions.size());
     }
