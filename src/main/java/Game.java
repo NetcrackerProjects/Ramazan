@@ -1,9 +1,18 @@
 import action.Action;
 import action.ActionManager;
-import geometry.Rectangle;
 import geometry.Vector;
 import interaction.Interaction;
 import interaction.InteractionProcessor;
+import interaction.InteractionRuleBase;
+import interaction.InteractionType;
+import interaction.rule.BonusTankInteractionRule;
+import interaction.rule.TankBulletInteractionRule;
+import object.GameObjectFactory;
+import object.Tank;
+import object.Bullet;
+import object.Bonus;
+import object.Type;
+import object.manager.ObjectManager;
 import physic.PhysicManager;
 
 import java.util.Collection;
@@ -18,11 +27,28 @@ class Game extends Thread {
     private final ActionManager actionManager;
 
     Game() {
-        GameFacade gameFacade = new GameFacade();
-        gameFacade.setupGameElements(new Rectangle(new Vector(0, 0), new Vector(100, 100)));
-        this.actionManager = gameFacade.getActionManager();
-        this.physicManager = gameFacade.getPhysicManager();
-        this.interactionProcessor = gameFacade.getInteractionProcess();
+        this.actionManager = new ActionManager();
+        this.physicManager = new PhysicManager(GameObjectFactory.createGameField(new Vector(0, 0),
+                new Vector(10, 10)));
+
+        ObjectManager<Tank> tankObjectManager = new ObjectManager<>(physicManager);
+        ObjectManager<Bullet> bulletObjectManager = new ObjectManager<>(physicManager);
+        ObjectManager<Bonus> bonusHolderObjectManager = new ObjectManager<>(physicManager);
+
+        GameObjectInitializer gameObjectInitializer = new GameObjectInitializer();
+
+        gameObjectInitializer.createTanks(tankObjectManager);
+        gameObjectInitializer.createBullets(bulletObjectManager);
+        gameObjectInitializer.createBonuses(bonusHolderObjectManager);
+
+        InteractionRuleBase interactionRuleBase = new InteractionRuleBase();
+
+        interactionRuleBase.addRule(new InteractionType(Type.TANK, Type.BULLET),
+                new TankBulletInteractionRule(tankObjectManager, bulletObjectManager));
+        interactionRuleBase.addRule(new InteractionType(Type.BONUS, Type.TANK),
+                new BonusTankInteractionRule(bonusHolderObjectManager, tankObjectManager));
+
+        this.interactionProcessor = new InteractionProcessor(interactionRuleBase);
     }
 
     @Override

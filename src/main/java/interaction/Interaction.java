@@ -24,6 +24,10 @@ public class Interaction {
         return second;
     }
 
+    InteractionType getInteractionType() {
+        return interactionType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -41,9 +45,5 @@ public class Interaction {
         res = res * 31 + Math.min(first.hashCode(), second.hashCode());
         res = res * 31 + Math.max(first.hashCode(), second.hashCode());
         return res;
-    }
-
-    InteractionType getInteractionType() {
-        return interactionType;
     }
 }

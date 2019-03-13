@@ -1,10 +1,10 @@
 package physic;
 
 import exception.AddObjectException;
-import geometry.Rectangle;
 import geometry.Vector;
 import interaction.Interaction;
 import object.GameObject;
+import object.GameObjectFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,7 +18,8 @@ public class PhysicManagerTest {
 
     @Before
     public void setup() {
-        this.physicManager = new PhysicManager(new Rectangle(new Vector(0, 0), new Vector(10, 10)));
+        this.physicManager = new PhysicManager(GameObjectFactory.createGameField(new Vector(0, 0),
+                new Vector(10, 10)));
     }
 
     @Test(expected = AddObjectException.class)

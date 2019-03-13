@@ -18,6 +18,10 @@ public class GameObjectFactory {
         return new Bonus(leftTop, rightBottom, 5, getNewId());
     }
 
+    public static GameField createGameField(Vector leftTop, Vector rightBottom) {
+        return new GameField(leftTop, rightBottom, getNewId());
+    }
+
     private static int getNewId() {
         return currentId++;
     }

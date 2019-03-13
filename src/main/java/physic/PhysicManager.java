@@ -3,6 +3,7 @@ package physic;
 import exception.AddObjectException;
 import geometry.Rectangle;
 import interaction.Interaction;
+import object.GameField;
 import object.GameObject;
 
 import java.util.Collection;
@@ -12,21 +13,23 @@ import java.util.Set;
 
 public class PhysicManager {
 
-    private final Rectangle field;
+    private final GameField field;
     private final Collection<GameObject> gameObjects;
     private Set<Interaction> interactions;
 
-    public PhysicManager(Rectangle field) {
+    public PhysicManager(GameField field) {
         this.field = field;
         this.gameObjects = new HashSet<>();
     }
 
     public Collection<Interaction> move() {
         this.interactions = new HashSet<>();
+
         for (GameObject gameObject : gameObjects) {
             Collection<GameObject> intersectedObjects = moveGameObject(gameObject);
             addNewInteractions(gameObject, intersectedObjects);
         }
+
         return interactions;
     }
 
@@ -80,6 +83,7 @@ public class PhysicManager {
                 return true;
             }
         }
+
         return false;
     }
 

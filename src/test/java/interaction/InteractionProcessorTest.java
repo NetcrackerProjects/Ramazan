@@ -1,7 +1,6 @@
 package interaction;
 
 import action.Action;
-import geometry.Rectangle;
 import geometry.Vector;
 import interaction.rule.TankBulletInteractionRule;
 import object.Bullet;
@@ -21,7 +20,7 @@ public class InteractionProcessorTest {
 
     @Test
     public void shouldReturnTwoActionsWhenProcessTankBulletInteraction() {
-        PhysicManager physicManager = new PhysicManager(new Rectangle(new Vector(0, 0),
+        PhysicManager physicManager = new PhysicManager(GameObjectFactory.createGameField(new Vector(0, 0),
                 new Vector(10, 10)));
         ObjectManager<Tank> tankObjectManager = new ObjectManager<>(physicManager);
         ObjectManager<Bullet> bulletObjectManager = new ObjectManager<>(physicManager);

@@ -35,6 +35,7 @@ public class ObjectManager<T extends GameObject> {
         } catch (AddObjectException e) {
             return;
         }
+
         gameObjectMap.put(object.getId(), object);
     }
 
