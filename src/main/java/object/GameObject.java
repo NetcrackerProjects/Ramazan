@@ -3,6 +3,8 @@ package object;
 import geometry.Rectangle;
 import geometry.Vector;
 
+import java.util.Objects;
+
 public class GameObject implements Identifiable {
 
     private final Rectangle body;
@@ -51,5 +53,10 @@ public class GameObject implements Identifiable {
     @Override
     public int getTypeId() {
         return typeId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
