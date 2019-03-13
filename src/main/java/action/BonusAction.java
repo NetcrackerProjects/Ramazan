@@ -1,20 +1,20 @@
 package action;
 
-import bonus.Bonus;
-import object.GameObject;
+import object.Bonus;
+import object.Tank;
 
 public class BonusAction implements Action {
 
-    private final GameObject gameObject;
+    private final Tank tank;
     private final Bonus bonus;
 
-    public BonusAction(GameObject gameObject, Bonus bonus) {
-        this.gameObject = gameObject;
+    public BonusAction(Tank tank, Bonus bonus) {
+        this.tank = tank;
         this.bonus = bonus;
     }
 
     @Override
     public void doAction() {
-        bonus.applyBonus(gameObject);
+        bonus.applyBonus(tank);
     }
 }

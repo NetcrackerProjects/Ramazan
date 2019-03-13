@@ -22,4 +22,8 @@ public class Tank extends GameObject implements Damageable {
     public boolean isAlive() {
         return health > 0;
     }
+
+    void heal(int amount) {
+        health = Math.min(health + amount, MAX_HEALTH);
+    }
 }

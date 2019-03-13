@@ -5,7 +5,7 @@ import interaction.InteractionRuleBase;
 import interaction.InteractionType;
 import interaction.rule.BonusTankInteractionRule;
 import interaction.rule.TankBulletInteractionRule;
-import object.BonusHolder;
+import object.Bonus;
 import object.Bullet;
 import object.Tank;
 import object.Type;
@@ -22,14 +22,15 @@ class GameFacade {
         this.actionManager = new ActionManager();
         this.physicManager = new PhysicManager(fieldRectangle);
 
-        GameObjectInitializer gameObjectInitializer = new GameObjectInitializer();
-
         ObjectManager<Tank> tankObjectManager = new ObjectManager<>(physicManager);
         ObjectManager<Bullet> bulletObjectManager = new ObjectManager<>(physicManager);
-        ObjectManager<BonusHolder> bonusHolderObjectManager = new ObjectManager<>(physicManager);
+        ObjectManager<Bonus> bonusHolderObjectManager = new ObjectManager<>(physicManager);
+
+        GameObjectInitializer gameObjectInitializer = new GameObjectInitializer();
 
         gameObjectInitializer.createTanks(tankObjectManager);
         gameObjectInitializer.createBullets(bulletObjectManager);
+        gameObjectInitializer.createBonuses(bonusHolderObjectManager);
 
         InteractionRuleBase interactionRuleBase = new InteractionRuleBase();
 

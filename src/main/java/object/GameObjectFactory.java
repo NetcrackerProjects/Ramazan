@@ -14,6 +14,10 @@ public class GameObjectFactory {
         return new Bullet(leftTop, rightBottom, 1, getNewId());
     }
 
+    public static Bonus createBonus(Vector leftTop, Vector rightBottom) {
+        return new Bonus(leftTop, rightBottom, 5, getNewId());
+    }
+
     private static int getNewId() {
         return currentId++;
     }

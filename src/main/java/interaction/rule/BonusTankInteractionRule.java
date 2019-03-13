@@ -3,10 +3,9 @@ package interaction.rule;
 import action.Action;
 import action.BonusAction;
 import action.DeleteAction;
-import bonus.Bonus;
 import exception.WrongObjectIdException;
 import interaction.Interaction;
-import object.BonusHolder;
+import object.Bonus;
 import object.GameObject;
 import object.Tank;
 import object.Type;
@@ -17,12 +16,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 
-public class BonusTankInteractionRule implements InteractionRule<BonusHolder, Tank> {
+public class BonusTankInteractionRule implements InteractionRule<Bonus, Tank> {
 
-    private final ObjectManager<BonusHolder> bonusObjectManager;
+    private final ObjectManager<Bonus> bonusObjectManager;
     private final ObjectManager<Tank> tankObjectManager;
 
-    public BonusTankInteractionRule(ObjectManager<BonusHolder> bonusObjectManager,
+    public BonusTankInteractionRule(ObjectManager<Bonus> bonusObjectManager,
                                     ObjectManager<Tank> tankObjectManager) {
         this.bonusObjectManager = bonusObjectManager;
         this.tankObjectManager = tankObjectManager;
@@ -31,18 +30,12 @@ public class BonusTankInteractionRule implements InteractionRule<BonusHolder, Ta
     @Override
     public Collection<Action> getActions(Interaction interaction) {
         try {
-            BonusHolder bonusHolder = getFirstObject(interaction);
+            Bonus bonus = getFirstObject(interaction);
             Tank tank = getSecondObject(interaction);
-
-            Bonus bonus = bonusHolder.getBonus();
-
-            if (!bonus.canApplyBonus(tank)) {
-                return Collections.emptySet();
-            }
 
             Collection<Action> actions = new HashSet<>();
             actions.add(new BonusAction(tank, bonus));
-            actions.add(new DeleteAction<>(bonusHolder, bonusObjectManager));
+            actions.add(new DeleteAction<>(bonus, bonusObjectManager));
 
             return actions;
         } catch (WrongObjectIdException e) {
@@ -52,7 +45,7 @@ public class BonusTankInteractionRule implements InteractionRule<BonusHolder, Ta
     }
 
     @Override
-    public BonusHolder getFirstObject(Interaction interaction) throws WrongObjectIdException {
+    public Bonus getFirstObject(Interaction interaction) throws WrongObjectIdException {
         GameObject first = interaction.getFirst();
         GameObject second = interaction.getSecond();
         if (first.getTypeId() == Type.BONUS) {
