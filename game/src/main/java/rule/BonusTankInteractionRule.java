@@ -1,10 +1,11 @@
-package interaction.rule;
+package rule;
 
 import action.Action;
 import action.BonusAction;
 import action.DeleteAction;
 import exception.WrongObjectIdException;
 import interaction.Interaction;
+import interaction.rule.InteractionRule;
 import object.Bonus;
 import object.GameObject;
 import object.Tank;

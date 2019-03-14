@@ -3,8 +3,8 @@ package physic;
 import exception.AddObjectException;
 import geometry.Vector;
 import interaction.Interaction;
+import object.GameField;
 import object.GameObject;
-import object.GameObjectFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ public class PhysicManagerTest {
 
     @Before
     public void setup() {
-        this.physicManager = new PhysicManager(GameObjectFactory.createGameField(new Vector(0, 0),
+        this.physicManager = new PhysicManager(new GameField(new Vector(0, 0),
                 new Vector(10, 10)));
     }
 

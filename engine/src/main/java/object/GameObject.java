@@ -7,6 +7,8 @@ import java.util.Objects;
 
 public class GameObject implements Identifiable {
 
+    public static final int NO_ID = -1;
+
     private final Rectangle body;
     private Vector speed;
     private final int id;

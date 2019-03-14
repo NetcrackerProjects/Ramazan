@@ -5,13 +5,9 @@ import interaction.Interaction;
 import interaction.InteractionProcessor;
 import interaction.InteractionRuleBase;
 import interaction.InteractionType;
-import interaction.rule.BonusTankInteractionRule;
-import interaction.rule.TankBulletInteractionRule;
-import object.GameObjectFactory;
-import object.Tank;
-import object.Bullet;
-import object.Bonus;
-import object.Type;
+import object.*;
+import rule.BonusTankInteractionRule;
+import rule.TankBulletInteractionRule;
 import object.manager.ObjectManager;
 import physic.PhysicManager;
 
@@ -28,7 +24,7 @@ class Game extends Thread {
 
     Game() {
         this.actionManager = new ActionManager();
-        this.physicManager = new PhysicManager(GameObjectFactory.createGameField(new Vector(0, 0),
+        this.physicManager = new PhysicManager(new GameField(new Vector(0, 0),
                 new Vector(10, 10)));
 
         ObjectManager<Tank> tankObjectManager = new ObjectManager<>(physicManager);

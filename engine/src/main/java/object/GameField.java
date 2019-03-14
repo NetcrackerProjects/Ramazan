@@ -5,8 +5,8 @@ import geometry.Vector;
 
 public class GameField extends GameObject {
 
-    GameField(Vector leftTop, Vector rightBottom, int id) {
-        super(leftTop, rightBottom, id, Type.FIELD);
+    public GameField(Vector leftTop, Vector rightBottom) {
+        super(leftTop, rightBottom, GameObject.NO_ID, Type.FIELD);
     }
 
     public boolean covers(Rectangle rectangle) {

@@ -8,11 +8,12 @@
     <artifactId>netgame</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>netgame</name>
 
     <modules>
             <module>game</module>
+            <module>engine</module>
     </modules>
 </project>

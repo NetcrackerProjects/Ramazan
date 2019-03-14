@@ -1,11 +1,12 @@
-package interaction.rule;
+package rule;
 
 import action.Action;
 import geometry.Vector;
 import interaction.Interaction;
-import object.Bonus;
-import object.GameObjectFactory;
+import object.GameField;
 import object.Tank;
+import object.Bullet;
+import object.GameObjectFactory;
 import object.manager.ObjectManager;
 import org.junit.Test;
 import physic.PhysicManager;
@@ -14,20 +15,20 @@ import java.util.Collection;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class BonusTankInteractionRuleTest {
+public class TankBulletInteractionRuleTest {
 
     @Test
     public void shouldReturnTwoActionWhenGivenTankBulletInteraction() {
-        PhysicManager physicManager = new PhysicManager(GameObjectFactory.createGameField(new Vector(0, 0),
+        PhysicManager physicManager = new PhysicManager(new GameField(new Vector(0, 0),
                 new Vector(10, 10)));
         ObjectManager<Tank> tankObjectManager = new ObjectManager<>(physicManager);
-        ObjectManager<Bonus> bonusObjectManager = new ObjectManager<>(physicManager);
+        ObjectManager<Bullet> bulletObjectManager = new ObjectManager<>(physicManager);
         Tank tank = GameObjectFactory.createTank(new Vector(1, 1), new Vector(2, 2));
-        Bonus bonus = GameObjectFactory.createBonus(new Vector(3, 3), new Vector(4, 4));
+        Bullet bullet = GameObjectFactory.createBullet(new Vector(3, 3), new Vector(4, 4));
         tankObjectManager.addObject(tank);
-        bonusObjectManager.addObject(bonus);
-        Interaction interaction = new Interaction(tank, bonus);
-        BonusTankInteractionRule rule = new BonusTankInteractionRule(bonusObjectManager, tankObjectManager);
+        bulletObjectManager.addObject(bullet);
+        Interaction interaction = new Interaction(tank, bullet);
+        TankBulletInteractionRule rule = new TankBulletInteractionRule(tankObjectManager, bulletObjectManager);
 
         Collection<Action> actions = rule.getActions(interaction);
 
