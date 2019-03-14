@@ -44,8 +44,7 @@ public class BonusTankInteractionRule implements InteractionRule<Bonus, Tank> {
         return Collections.emptySet();
     }
 
-    @Override
-    public Bonus getFirstObject(Interaction interaction) throws WrongObjectIdException {
+    private Bonus getFirstObject(Interaction interaction) throws WrongObjectIdException {
         GameObject first = interaction.getFirst();
         GameObject second = interaction.getSecond();
         if (first.getTypeId() == Type.BONUS) {
@@ -55,8 +54,7 @@ public class BonusTankInteractionRule implements InteractionRule<Bonus, Tank> {
         }
     }
 
-    @Override
-    public Tank getSecondObject(Interaction interaction) throws WrongObjectIdException {
+    private Tank getSecondObject(Interaction interaction) throws WrongObjectIdException {
         GameObject first = interaction.getFirst();
         GameObject second = interaction.getSecond();
         if (first.getTypeId() == Type.TANK) {

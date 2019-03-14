@@ -43,8 +43,7 @@ public class TankBulletInteractionRule implements InteractionRule<Tank, Bullet> 
         return Collections.emptySet();
     }
 
-    @Override
-    public Tank getFirstObject(Interaction interaction) throws WrongObjectIdException {
+    private Tank getFirstObject(Interaction interaction) throws WrongObjectIdException {
         GameObject first = interaction.getFirst();
         GameObject second = interaction.getSecond();
         if (first.getTypeId() == Type.TANK) {
@@ -54,8 +53,7 @@ public class TankBulletInteractionRule implements InteractionRule<Tank, Bullet> 
         }
     }
 
-    @Override
-    public Bullet getSecondObject(Interaction interaction) throws WrongObjectIdException {
+    private Bullet getSecondObject(Interaction interaction) throws WrongObjectIdException {
         GameObject first = interaction.getFirst();
         GameObject second = interaction.getSecond();
         if (first.getTypeId() == Type.BULLET) {
