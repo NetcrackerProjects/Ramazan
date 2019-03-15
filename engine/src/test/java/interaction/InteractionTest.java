@@ -1,12 +1,14 @@
 package interaction;
 
-import junit.framework.TestCase;
 import object.GameObject;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class InteractionTest {
 
@@ -16,12 +18,12 @@ public class InteractionTest {
 
     @Before
     public void setup() {
-        this.first = Mockito.mock(GameObject.class);
-        this.second = Mockito.mock(GameObject.class);
-        this.third = Mockito.mock(GameObject.class);
-        Mockito.when(first.getTypeId()).thenReturn(0);
-        Mockito.when(second.getTypeId()).thenReturn(1);
-        Mockito.when(third.getTypeId()).thenReturn(2);
+        this.first = mock(GameObject.class);
+        this.second = mock(GameObject.class);
+        this.third = mock(GameObject.class);
+        when(first.getTypeId()).thenReturn(0);
+        when(second.getTypeId()).thenReturn(1);
+        when(third.getTypeId()).thenReturn(2);
     }
 
     @Test
@@ -31,7 +33,7 @@ public class InteractionTest {
 
         boolean equals = firstInteraction.equals(secondInteraction);
 
-        TestCase.assertTrue(equals);
+        assertTrue(equals);
     }
 
     @Test
@@ -41,7 +43,7 @@ public class InteractionTest {
 
         boolean equals = firstInteraction.equals(secondInteraction);
 
-        TestCase.assertTrue(equals);
+        assertTrue(equals);
     }
 
     @Test
@@ -62,6 +64,6 @@ public class InteractionTest {
 
         int swappedHashCode = secondInteraction.hashCode();
 
-        TestCase.assertEquals(expectedHashCode, swappedHashCode);
+        assertEquals(expectedHashCode, swappedHashCode);
     }
 }

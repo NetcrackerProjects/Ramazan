@@ -1,10 +1,13 @@
 package action;
 
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.util.Collection;
 import java.util.HashSet;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 
 public class ActionManagerTest {
 
@@ -12,11 +15,11 @@ public class ActionManagerTest {
     public void shouldCallDoActionWhenProcessActions() {
         ActionManager actionManager = new ActionManager();
         Collection<Action> actions = new HashSet<>();
-        Action action = Mockito.mock(Action.class);
+        Action action = mock(Action.class);
         actions.add(action);
 
         actionManager.processActions(actions);
 
-        Mockito.verify(action, Mockito.times(1)).doAction();
+        verify(action, times(1)).doAction();
     }
 }

@@ -2,18 +2,21 @@ package action;
 
 import object.Damageable;
 import org.junit.Test;
-import org.mockito.Mockito;
+
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 
 public class DamageActionTest {
 
     @Test
-    public void shouldCallTakeDamageWhenDoAction() {
-        Damageable damageable = Mockito.mock(Damageable.class);
-        int expectedDamage = 1;
-        DamageAction damageAction = new DamageAction(damageable, expectedDamage);
+    public void shouldCallTakeDamageWhenDamageActionIsInvoked() {
+        Damageable damageable = mock(Damageable.class);
+        DamageAction damageAction = new DamageAction(damageable, 1);
 
         damageAction.doAction();
 
-        Mockito.verify(damageable, Mockito.times(1)).takeDamage(expectedDamage);
+        verify(damageable, times(1)).takeDamage(anyInt());
     }
 }

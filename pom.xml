@@ -13,7 +13,7 @@
     <name>netgame</name>
 
     <modules>
-            <module>game</module>
-            <module>engine</module>
+        <module>game</module>
+        <module>engine</module>
     </modules>
 </project>
