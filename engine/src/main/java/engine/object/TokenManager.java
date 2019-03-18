@@ -8,7 +8,7 @@ public class TokenManager {
         this.currentId = 0;
     }
 
-    public int getNewId() {
+    public int nextId() {
         return currentId++;
     }
 }

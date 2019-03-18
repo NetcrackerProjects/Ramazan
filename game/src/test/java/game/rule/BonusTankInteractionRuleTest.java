@@ -22,7 +22,7 @@ public class BonusTankInteractionRuleTest {
     public void shouldReturnTwoActionWhenGivenTankBulletInteraction() {
         TokenManager tokenManager = new TokenManager();
         PhysicManager physicManager = new PhysicManager(new GameField(new Vector(0, 0),
-                new Vector(10, 10), tokenManager.getNewId()));
+                new Vector(10, 10), tokenManager.nextId()));
         ObjectManager<Tank> tankObjectManager = new ObjectManager<>(physicManager);
         ObjectManager<Bonus> bonusObjectManager = new ObjectManager<>(physicManager);
         GameObjectFactory gameObjectFactory = new GameObjectFactory(tokenManager);

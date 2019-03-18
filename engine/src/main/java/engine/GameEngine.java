@@ -32,7 +32,7 @@ public class GameEngine extends Thread {
         this.tokenManager = new TokenManager();
 
         this.physicManager = new PhysicManager(new GameField(new Vector(0, 0),
-                new Vector(10, 10), tokenManager.getNewId()));
+                new Vector(10, 10), tokenManager.nextId()));
 
         this.interactionRuleBase = new InteractionRuleBase();
         this.interactionProcessor = new InteractionProcessor(interactionRuleBase);
