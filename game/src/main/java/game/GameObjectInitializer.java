@@ -30,4 +30,10 @@ class GameObjectInitializer {
         bonusObjectManager.addObject(
                 gameObjectFactory.createBonus(new Vector(5, 5), new Vector(6, 6)));
     }
+
+    Tank createPlayer(ObjectManager<Tank> tankObjectManager) {
+        Tank tank = gameObjectFactory.createTank(new Vector(9, 0), new Vector(10, 1));
+        tankObjectManager.addObject(tank);
+        return tank;
+    }
 }

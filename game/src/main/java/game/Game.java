@@ -1,7 +1,9 @@
 package game;
 
 import engine.GameEngine;
+import engine.geometry.Direction;
 import engine.interaction.InteractionType;
+import game.command.TankMoveCommand;
 import game.object.Tank;
 import game.object.Bullet;
 import game.object.Bonus;
@@ -11,9 +13,14 @@ import game.rule.TankBulletInteractionRule;
 import engine.object.manager.ObjectManager;
 import engine.physic.PhysicManager;
 
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
 class Game {
 
     private final GameEngine gameEngine;
+
+    private final Tank player;
 
     private Game() {
         this.gameEngine = new GameEngine();
@@ -35,6 +42,13 @@ class Game {
 
         gameEngine.addInteractionRule(new InteractionType(Type.BONUS, Type.TANK),
                 new BonusTankInteractionRule(bonusHolderObjectManager, tankObjectManager));
+
+        this.player = gameObjectInitializer.createPlayer(tankObjectManager);
+    }
+
+    private void randomCommand() {
+        Random random = ThreadLocalRandom.current();
+        gameEngine.addCommand(new TankMoveCommand(player, Direction.Type.values()[random.nextInt(4)]));
     }
 
     private void start() {
@@ -48,6 +62,8 @@ class Game {
     public static void main(String[] argv) {
         Game game = new Game();
         game.start();
+
+        game.randomCommand();
 
         try {
             game.terminate();
