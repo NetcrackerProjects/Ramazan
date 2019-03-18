@@ -10,14 +10,24 @@ public class Vector {
         this.y = y;
     }
 
-    Vector(Vector vector) {
+    public Vector(Vector vector) {
         this.x = vector.x;
         this.y = vector.y;
     }
 
-    void shift(Vector shift) {
+    public void shift(Vector shift) {
         x += shift.x;
         y += shift.y;
+    }
+
+    public void setToZero() {
+        x = 0;
+        y = 0;
+    }
+
+    public void multiply(double alpha) {
+        x *= alpha;
+        y *= alpha;
     }
 
     @Override

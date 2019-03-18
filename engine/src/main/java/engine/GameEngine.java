@@ -75,6 +75,7 @@ public class GameEngine extends Thread {
     }
 
     private void update() {
+        physicManager.applyForces();
         Collection<Interaction> interactions = physicManager.move();
         Collection<Action> actions = interactionProcessor.processInteractions(interactions);
         actionManager.processActions(actions);

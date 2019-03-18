@@ -23,6 +23,10 @@ public class GameObject implements Identifiable {
         this.speed = speed;
     }
 
+    public Vector getSpeed() {
+        return speed;
+    }
+
     public Vector getPosition() {
         return body.getTopLeft();
     }
@@ -39,6 +43,10 @@ public class GameObject implements Identifiable {
         Rectangle movedBody = new Rectangle(body);
         movedBody.shift(speed);
         return movedBody;
+    }
+
+    public void applyAcceleration(Vector acceleration) {
+        speed.shift(acceleration);
     }
 
     public void move() {
