@@ -7,20 +7,20 @@ public class Direction {
     }
 
     public static Vector getVector(Type type) {
-        Vector result = null;
+        Vector result = new Vector(0, 0);
 
         switch (type) {
             case UP:
-                result = new Vector(0, -1);
+                result.y = -1;
                 break;
             case DOWN:
-                result = new Vector(0, 1);
+                result.y = 1;
                 break;
             case LEFT:
-                result = new Vector(-1, 0);
+                result.x = -1;
                 break;
             case RIGHT:
-                result = new Vector(0, -1);
+                result.x = 1;
                 break;
         }
 
