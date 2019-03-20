@@ -7,23 +7,17 @@ public class Direction {
     }
 
     public static Vector getVector(Type type) {
-        Vector result = new Vector(0, 0);
-
         switch (type) {
             case UP:
-                result.y = -1;
-                break;
+                return new Vector(0, -1);
             case DOWN:
-                result.y = 1;
-                break;
+                return new Vector(0, 1);
             case LEFT:
-                result.x = -1;
-                break;
+                return new Vector(-1, 0);
             case RIGHT:
-                result.x = 1;
-                break;
+                return new Vector(1, 0);
         }
 
-        return result;
+        throw new IllegalArgumentException("unrecognized type");
     }
 }
