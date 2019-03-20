@@ -45,7 +45,7 @@ public class GameObject implements Identifiable {
         return movedBody;
     }
 
-    public void applyAcceleration(Vector acceleration) {
+    public void accelerate(Vector acceleration) {
         speed.shift(acceleration);
     }
 

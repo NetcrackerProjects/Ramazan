@@ -4,13 +4,13 @@ import engine.action.Action;
 import engine.geometry.Vector;
 import engine.interaction.Interaction;
 import engine.object.GameField;
-import game.object.Tank;
-import game.object.Bullet;
-import game.object.GameObjectFactory;
 import engine.object.TokenManager;
 import engine.object.manager.ObjectManager;
-import org.junit.Test;
 import engine.physic.PhysicManager;
+import game.object.Bullet;
+import game.object.GameObjectFactory;
+import game.object.Tank;
+import org.junit.Test;
 
 import java.util.Collection;
 

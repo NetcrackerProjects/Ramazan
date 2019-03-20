@@ -3,14 +3,14 @@ package game.rule;
 import engine.action.Action;
 import engine.geometry.Vector;
 import engine.interaction.Interaction;
-import game.object.Bonus;
 import engine.object.GameField;
-import game.object.GameObjectFactory;
-import game.object.Tank;
 import engine.object.TokenManager;
 import engine.object.manager.ObjectManager;
-import org.junit.Test;
 import engine.physic.PhysicManager;
+import game.object.Bonus;
+import game.object.GameObjectFactory;
+import game.object.Tank;
+import org.junit.Test;
 
 import java.util.Collection;
 

@@ -12,7 +12,7 @@ public class TankMoveCommand implements Command {
     private final Tank tank;
     private final Direction.Type direction;
 
-    private static final double speedModule = 1;
+    private static final double TANK_SPEED_MODULE = 1;
 
     public TankMoveCommand(Tank tank, Direction.Type direction) {
         this.tank = tank;
@@ -22,7 +22,7 @@ public class TankMoveCommand implements Command {
     @Override
     public Action getAction() {
         Vector newSpeed = Direction.getVector(direction);
-        newSpeed.multiply(speedModule);
+        newSpeed.scale(TANK_SPEED_MODULE);
         return new ChangeSpeedAction(tank, newSpeed);
     }
 }

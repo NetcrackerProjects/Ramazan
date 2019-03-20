@@ -1,12 +1,12 @@
 package game;
 
 import engine.geometry.Vector;
-import game.object.Tank;
-import game.object.Bullet;
-import game.object.Bonus;
 import engine.object.TokenManager;
-import game.object.GameObjectFactory;
 import engine.object.manager.ObjectManager;
+import game.object.Bonus;
+import game.object.Bullet;
+import game.object.GameObjectFactory;
+import game.object.Tank;
 
 class GameObjectInitializer {
 

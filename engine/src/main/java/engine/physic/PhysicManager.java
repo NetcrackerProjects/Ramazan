@@ -17,18 +17,18 @@ public class PhysicManager {
     private final GameField field;
     private final Collection<GameObject> gameObjects;
     private Set<Interaction> interactions;
-    private final double frictionCoefficient;
 
     public PhysicManager(GameField field) {
         this.field = field;
         this.gameObjects = new HashSet<>();
-        this.frictionCoefficient = 0.1;
     }
 
     public void applyForces() {
         for (GameObject gameObject : gameObjects) {
-            Vector friction = getFriction(gameObject);
-            gameObject.applyAcceleration(friction);
+            Vector friction = new Vector(gameObject.getSpeed());
+            friction.scale(GameField.frictionCoefficient);
+
+            gameObject.accelerate(friction);
         }
     }
 
@@ -54,13 +54,6 @@ public class PhysicManager {
         }
 
         throw new AddObjectException();
-
-    }
-
-    private Vector getFriction(GameObject gameObject) {
-        Vector friction = new Vector(gameObject.getSpeed());
-        friction.multiply(frictionCoefficient);
-        return friction;
     }
 
     private boolean canAddObject(GameObject gameObject) {

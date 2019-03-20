@@ -20,12 +20,7 @@ public class Vector {
         y += shift.y;
     }
 
-    public void setToZero() {
-        x = 0;
-        y = 0;
-    }
-
-    public void multiply(double alpha) {
+    public void scale(double alpha) {
         x *= alpha;
         y *= alpha;
     }
