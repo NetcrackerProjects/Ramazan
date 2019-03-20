@@ -1,7 +1,6 @@
 package game;
 
 import engine.geometry.Vector;
-import engine.object.TokenManager;
 import engine.object.manager.ObjectManager;
 import game.object.Bonus;
 import game.object.Bullet;
@@ -12,8 +11,8 @@ class GameObjectInitializer {
 
     private final GameObjectFactory gameObjectFactory;
 
-    GameObjectInitializer(TokenManager tokenManager) {
-        this.gameObjectFactory = new GameObjectFactory(tokenManager);
+    GameObjectInitializer(GameObjectFactory gameObjectFactory) {
+        this.gameObjectFactory = gameObjectFactory;
     }
 
     void createTanks(ObjectManager<Tank> tankObjectManager) {
@@ -29,11 +28,5 @@ class GameObjectInitializer {
     void createBonuses(ObjectManager<Bonus> bonusObjectManager) {
         bonusObjectManager.addObject(
                 gameObjectFactory.createBonus(new Vector(5, 5), new Vector(6, 6)));
-    }
-
-    Tank createPlayer(ObjectManager<Tank> tankObjectManager) {
-        Tank tank = gameObjectFactory.createTank(new Vector(9, 0), new Vector(10, 1));
-        tankObjectManager.addObject(tank);
-        return tank;
     }
 }

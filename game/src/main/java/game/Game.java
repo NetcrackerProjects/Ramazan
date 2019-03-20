@@ -1,26 +1,27 @@
 package game;
 
 import engine.GameEngine;
-import engine.geometry.Direction;
+import game.exception.CorruptPlayerCommandException;
 import engine.interaction.InteractionType;
 import engine.object.manager.ObjectManager;
 import engine.physic.PhysicManager;
-import game.command.TankMoveCommand;
 import game.object.Bonus;
 import game.object.Bullet;
+import game.object.GameObjectFactory;
 import game.object.Tank;
 import game.object.Type;
+import game.player.PlayerCommand;
+import game.player.PlayerCommandProcessor;
+import game.player.PlayerFactory;
+import game.player.PlayerManager;
 import game.rule.BonusTankInteractionRule;
 import game.rule.TankBulletInteractionRule;
-
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 class Game {
 
     private final GameEngine gameEngine;
 
-    private final Tank player;
+    private final PlayerCommandProcessor playerCommandProcessor;
 
     private Game() {
         this.gameEngine = new GameEngine();
@@ -31,7 +32,8 @@ class Game {
         ObjectManager<Bullet> bulletObjectManager = new ObjectManager<>(physicManager);
         ObjectManager<Bonus> bonusHolderObjectManager = new ObjectManager<>(physicManager);
 
-        GameObjectInitializer gameObjectInitializer = new GameObjectInitializer(gameEngine.getTokenManager());
+        GameObjectFactory gameObjectFactory = new GameObjectFactory(gameEngine.getTokenManager());
+        GameObjectInitializer gameObjectInitializer = new GameObjectInitializer(gameObjectFactory);
 
         gameObjectInitializer.createTanks(tankObjectManager);
         gameObjectInitializer.createBullets(bulletObjectManager);
@@ -43,12 +45,16 @@ class Game {
         gameEngine.addInteractionRule(new InteractionType(Type.BONUS, Type.TANK),
                 new BonusTankInteractionRule(bonusHolderObjectManager, tankObjectManager));
 
-        this.player = gameObjectInitializer.createPlayer(tankObjectManager);
+        PlayerManager playerManager = new PlayerManager();
+        this.playerCommandProcessor = new PlayerCommandProcessor(playerManager);
+
+        PlayerFactory playerFactory = new PlayerFactory(gameObjectFactory, tankObjectManager);
+
+        playerManager.addPlayer(playerFactory.createPlayer());
     }
 
-    private void randomCommand() {
-        Random random = ThreadLocalRandom.current();
-        gameEngine.addCommand(new TankMoveCommand(player, Direction.Type.values()[random.nextInt(4)]));
+    private void processCommand(PlayerCommand playerCommand) throws CorruptPlayerCommandException {
+        gameEngine.addCommand(playerCommandProcessor.getCommand(playerCommand));
     }
 
     private void start() {
@@ -63,7 +69,11 @@ class Game {
         Game game = new Game();
         game.start();
 
-        game.randomCommand();
+        try {
+            game.processCommand(new PlayerCommand(0, 1));
+        } catch (CorruptPlayerCommandException e) {
+            e.printStackTrace();
+        }
 
         try {
             game.terminate();
