@@ -1,4 +1,4 @@
-package game.player;
+package engine.player;
 
 import engine.exception.WrongObjectIdException;
 

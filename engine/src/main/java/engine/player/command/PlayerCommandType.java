@@ -1,4 +1,4 @@
-package game.player.command;
+package engine.player.command;
 
 public class PlayerCommandType {
 

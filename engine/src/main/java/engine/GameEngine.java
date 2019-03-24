@@ -1,7 +1,6 @@
 package engine;
 
 import engine.action.ActionManager;
-import engine.command.EngineCommand;
 import engine.command.EngineCommandProcessor;
 import engine.geometry.Vector;
 import engine.interaction.Interaction;
@@ -12,6 +11,10 @@ import engine.interaction.rule.InteractionRule;
 import engine.object.GameField;
 import engine.object.TokenManager;
 import engine.physic.PhysicManager;
+import engine.player.Player;
+import engine.player.PlayerManager;
+import engine.player.command.PlayerCommand;
+import engine.player.command.PlayerCommandProcessor;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -24,13 +27,16 @@ public class GameEngine extends Thread {
     private final PhysicManager physicManager;
     private final InteractionProcessor interactionProcessor;
     private final ActionManager actionManager;
+    private final PlayerManager playerManager;
+
     private final EngineCommandProcessor engineCommandProcessor;
+    private final PlayerCommandProcessor playerCommandProcessor;
 
     private final InteractionRuleBase interactionRuleBase;
 
     private final TokenManager tokenManager;
 
-    private final Collection<EngineCommand> engineCommands;
+    private final Collection<PlayerCommand> playerCommands;
 
     public GameEngine() {
         this.actionManager = new ActionManager();
@@ -42,8 +48,12 @@ public class GameEngine extends Thread {
         this.interactionRuleBase = new InteractionRuleBase();
         this.interactionProcessor = new InteractionProcessor(interactionRuleBase);
 
-        this.engineCommands = new HashSet<>();
         this.engineCommandProcessor = new EngineCommandProcessor();
+
+        this.playerManager = new PlayerManager();
+
+        this.playerCommands = new HashSet<>();
+        this.playerCommandProcessor = new PlayerCommandProcessor(playerManager);
     }
 
     @Override
@@ -82,8 +92,12 @@ public class GameEngine extends Thread {
         return tokenManager;
     }
 
-    public void addCommand(EngineCommand engineCommand) {
-        engineCommands.add(engineCommand);
+    public void addPlayerCommand(PlayerCommand playerCommand) {
+        playerCommands.add(playerCommand);
+    }
+
+    public void addPlayer(Player player) {
+        playerManager.addPlayer(player);
     }
 
     private void update() {
@@ -92,7 +106,7 @@ public class GameEngine extends Thread {
 
         actionManager.processActions(interactionProcessor.processInteractions(interactions));
 
-        actionManager.processActions(engineCommandProcessor.processCommands(engineCommands));
+        actionManager.processActions(engineCommandProcessor.processCommands(playerCommandProcessor.processPlayerCommands(playerCommands)));
     }
 
     private double getCurrentTime() {

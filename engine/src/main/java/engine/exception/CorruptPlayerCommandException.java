@@ -1,4 +1,4 @@
-package game.exception;
+package engine.exception;
 
 public class CorruptPlayerCommandException extends Exception {
 }

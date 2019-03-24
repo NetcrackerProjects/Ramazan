@@ -1,7 +1,6 @@
 package game;
 
 import engine.GameEngine;
-import game.exception.CorruptPlayerCommandException;
 import engine.interaction.InteractionType;
 import engine.object.manager.ObjectManager;
 import engine.physic.PhysicManager;
@@ -10,19 +9,15 @@ import game.object.Bullet;
 import game.object.GameObjectFactory;
 import game.object.Tank;
 import game.object.Type;
-import game.player.command.PlayerCommand;
-import game.player.command.PlayerCommandFactory;
-import game.player.PlayerFactory;
-import game.player.PlayerManager;
-import game.player.command.PlayerCommandType;
+import engine.player.command.PlayerCommand;
+import game.player.UserPlayerFactory;
+import engine.player.command.PlayerCommandType;
 import game.rule.BonusTankInteractionRule;
 import game.rule.TankBulletInteractionRule;
 
 class Game {
 
     private final GameEngine gameEngine;
-
-    private final PlayerCommandFactory playerCommandFactory;
 
     private Game() {
         this.gameEngine = new GameEngine();
@@ -46,16 +41,13 @@ class Game {
         gameEngine.addInteractionRule(new InteractionType(Type.BONUS, Type.TANK),
                 new BonusTankInteractionRule(bonusHolderObjectManager, tankObjectManager));
 
-        PlayerManager playerManager = new PlayerManager();
-        this.playerCommandFactory = new PlayerCommandFactory(playerManager);
+        UserPlayerFactory userPlayerFactory = new UserPlayerFactory(gameObjectFactory, tankObjectManager);
 
-        PlayerFactory playerFactory = new PlayerFactory(gameObjectFactory, tankObjectManager);
-
-        playerManager.addPlayer(playerFactory.createPlayer());
+        gameEngine.addPlayer(userPlayerFactory.createPlayer());
     }
 
-    private void processCommand(PlayerCommand playerCommand) throws CorruptPlayerCommandException {
-        gameEngine.addCommand(playerCommandFactory.createEngineCommand(playerCommand));
+    private void processCommand(PlayerCommand playerCommand) {
+        gameEngine.addPlayerCommand(playerCommand);
     }
 
     private void start() {
@@ -70,11 +62,7 @@ class Game {
         Game game = new Game();
         game.start();
 
-        try {
-            game.processCommand(new PlayerCommand(0, PlayerCommandType.Type.MOVE_DOWN));
-        } catch (CorruptPlayerCommandException e) {
-            e.printStackTrace();
-        }
+        game.processCommand(new PlayerCommand(0, PlayerCommandType.Type.MOVE_DOWN));
 
         try {
             game.terminate();
