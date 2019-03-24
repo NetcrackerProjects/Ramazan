@@ -2,7 +2,7 @@ package engine.command;
 
 import engine.action.Action;
 
-public interface Command {
+public interface EngineCommand {
 
     Action getAction();
 }

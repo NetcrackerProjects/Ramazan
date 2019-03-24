@@ -17,7 +17,7 @@ public class PlayerManager {
         playerMap.put(player.getId(), player);
     }
 
-    Player getPlayer(int playerId) throws WrongObjectIdException {
+    public Player getPlayer(int playerId) throws WrongObjectIdException {
         Player player = playerMap.get(playerId);
 
         if (player == null) {

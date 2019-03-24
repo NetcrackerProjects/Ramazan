@@ -1,8 +1,8 @@
 package engine;
 
 import engine.action.ActionManager;
-import engine.command.Command;
-import engine.command.CommandProcessor;
+import engine.command.EngineCommand;
+import engine.command.EngineCommandProcessor;
 import engine.geometry.Vector;
 import engine.interaction.Interaction;
 import engine.interaction.InteractionProcessor;
@@ -24,13 +24,13 @@ public class GameEngine extends Thread {
     private final PhysicManager physicManager;
     private final InteractionProcessor interactionProcessor;
     private final ActionManager actionManager;
-    private final CommandProcessor commandProcessor;
+    private final EngineCommandProcessor engineCommandProcessor;
 
     private final InteractionRuleBase interactionRuleBase;
 
     private final TokenManager tokenManager;
 
-    private final Collection<Command> commands;
+    private final Collection<EngineCommand> engineCommands;
 
     public GameEngine() {
         this.actionManager = new ActionManager();
@@ -42,8 +42,8 @@ public class GameEngine extends Thread {
         this.interactionRuleBase = new InteractionRuleBase();
         this.interactionProcessor = new InteractionProcessor(interactionRuleBase);
 
-        this.commands = new HashSet<>();
-        this.commandProcessor = new CommandProcessor();
+        this.engineCommands = new HashSet<>();
+        this.engineCommandProcessor = new EngineCommandProcessor();
     }
 
     @Override
@@ -82,8 +82,8 @@ public class GameEngine extends Thread {
         return tokenManager;
     }
 
-    public void addCommand(Command command) {
-        commands.add(command);
+    public void addCommand(EngineCommand engineCommand) {
+        engineCommands.add(engineCommand);
     }
 
     private void update() {
@@ -92,7 +92,7 @@ public class GameEngine extends Thread {
 
         actionManager.processActions(interactionProcessor.processInteractions(interactions));
 
-        actionManager.processActions(commandProcessor.processCommands(commands));
+        actionManager.processActions(engineCommandProcessor.processCommands(engineCommands));
     }
 
     private double getCurrentTime() {

@@ -1,20 +1,20 @@
 package game.command;
 
 import engine.action.Action;
-import engine.command.Command;
+import engine.command.EngineCommand;
 import engine.geometry.Direction;
 import engine.geometry.Vector;
 import game.action.ChangeSpeedAction;
 import game.object.Tank;
 
-public class TankMoveCommand implements Command {
+public class TankMoveEngineCommand implements EngineCommand {
 
     private final Tank tank;
     private final Direction.Type direction;
 
     private static final double TANK_SPEED_MODULE = 1;
 
-    public TankMoveCommand(Tank tank, Direction.Type direction) {
+    public TankMoveEngineCommand(Tank tank, Direction.Type direction) {
         this.tank = tank;
         this.direction = direction;
     }

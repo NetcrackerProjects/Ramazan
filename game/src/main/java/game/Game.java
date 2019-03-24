@@ -10,10 +10,11 @@ import game.object.Bullet;
 import game.object.GameObjectFactory;
 import game.object.Tank;
 import game.object.Type;
-import game.player.PlayerCommand;
-import game.player.PlayerCommandProcessor;
+import game.player.command.PlayerCommand;
+import game.player.command.PlayerCommandFactory;
 import game.player.PlayerFactory;
 import game.player.PlayerManager;
+import game.player.command.PlayerCommandType;
 import game.rule.BonusTankInteractionRule;
 import game.rule.TankBulletInteractionRule;
 
@@ -21,7 +22,7 @@ class Game {
 
     private final GameEngine gameEngine;
 
-    private final PlayerCommandProcessor playerCommandProcessor;
+    private final PlayerCommandFactory playerCommandFactory;
 
     private Game() {
         this.gameEngine = new GameEngine();
@@ -46,7 +47,7 @@ class Game {
                 new BonusTankInteractionRule(bonusHolderObjectManager, tankObjectManager));
 
         PlayerManager playerManager = new PlayerManager();
-        this.playerCommandProcessor = new PlayerCommandProcessor(playerManager);
+        this.playerCommandFactory = new PlayerCommandFactory(playerManager);
 
         PlayerFactory playerFactory = new PlayerFactory(gameObjectFactory, tankObjectManager);
 
@@ -54,7 +55,7 @@ class Game {
     }
 
     private void processCommand(PlayerCommand playerCommand) throws CorruptPlayerCommandException {
-        gameEngine.addCommand(playerCommandProcessor.getCommand(playerCommand));
+        gameEngine.addCommand(playerCommandFactory.createEngineCommand(playerCommand));
     }
 
     private void start() {
@@ -70,7 +71,7 @@ class Game {
         game.start();
 
         try {
-            game.processCommand(new PlayerCommand(0, 1));
+            game.processCommand(new PlayerCommand(0, PlayerCommandType.Type.MOVE_DOWN));
         } catch (CorruptPlayerCommandException e) {
             e.printStackTrace();
         }
