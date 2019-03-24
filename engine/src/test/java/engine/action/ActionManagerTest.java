@@ -5,7 +5,9 @@ import org.junit.Test;
 import java.util.Collection;
 import java.util.HashSet;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 public class ActionManagerTest {
 
