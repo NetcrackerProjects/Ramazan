@@ -1,3 +1,5 @@
 *.iml
-.git/
-.idea/
+*.kotlin_module
+**/.idea/
+**/target/
+game/src/main/java/TestGraphic.java

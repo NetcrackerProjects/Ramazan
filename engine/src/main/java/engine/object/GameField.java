@@ -5,6 +5,8 @@ import engine.geometry.Vector;
 
 public class GameField extends GameObject {
 
+    public static final double frictionCoefficient = 0.1;
+
     private static final int FIELD_TYPE = 0;
 
     public GameField(Vector leftTop, Vector rightBottom, int id) {
@@ -15,5 +17,4 @@ public class GameField extends GameObject {
         Rectangle body = getBody();
         return body.covers(rectangle);
     }
-
 }

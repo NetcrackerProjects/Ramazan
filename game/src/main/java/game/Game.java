@@ -2,14 +2,18 @@ package game;
 
 import engine.GameEngine;
 import engine.interaction.InteractionType;
-import game.object.Tank;
-import game.object.Bullet;
-import game.object.Bonus;
-import game.object.Type;
-import game.rule.BonusTankInteractionRule;
-import game.rule.TankBulletInteractionRule;
 import engine.object.manager.ObjectManager;
 import engine.physic.PhysicManager;
+import game.object.Bonus;
+import game.object.Bullet;
+import game.object.GameObjectFactory;
+import game.object.Tank;
+import game.object.Type;
+import engine.player.command.PlayerCommand;
+import game.player.UserPlayerFactory;
+import engine.player.command.PlayerCommandType;
+import game.rule.BonusTankInteractionRule;
+import game.rule.TankBulletInteractionRule;
 
 class Game {
 
@@ -24,7 +28,8 @@ class Game {
         ObjectManager<Bullet> bulletObjectManager = new ObjectManager<>(physicManager);
         ObjectManager<Bonus> bonusHolderObjectManager = new ObjectManager<>(physicManager);
 
-        GameObjectInitializer gameObjectInitializer = new GameObjectInitializer(gameEngine.getTokenManager());
+        GameObjectFactory gameObjectFactory = new GameObjectFactory(gameEngine.getTokenManager());
+        GameObjectInitializer gameObjectInitializer = new GameObjectInitializer(gameObjectFactory);
 
         gameObjectInitializer.createTanks(tankObjectManager);
         gameObjectInitializer.createBullets(bulletObjectManager);
@@ -35,6 +40,14 @@ class Game {
 
         gameEngine.addInteractionRule(new InteractionType(Type.BONUS, Type.TANK),
                 new BonusTankInteractionRule(bonusHolderObjectManager, tankObjectManager));
+
+        UserPlayerFactory userPlayerFactory = new UserPlayerFactory(gameObjectFactory, tankObjectManager);
+
+        gameEngine.addPlayer(userPlayerFactory.createPlayer());
+    }
+
+    private void processCommand(PlayerCommand playerCommand) {
+        gameEngine.addPlayerCommand(playerCommand);
     }
 
     private void start() {
@@ -48,6 +61,8 @@ class Game {
     public static void main(String[] argv) {
         Game game = new Game();
         game.start();
+
+        game.processCommand(new PlayerCommand(0, PlayerCommandType.Type.MOVE_DOWN));
 
         try {
             game.terminate();

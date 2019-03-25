@@ -1,17 +1,16 @@
 package game.rule;
 
 import engine.action.Action;
-import game.action.BonusAction;
-import game.action.DeleteAction;
 import engine.exception.WrongObjectIdException;
 import engine.interaction.Interaction;
 import engine.interaction.rule.InteractionRule;
-import game.object.Bonus;
 import engine.object.GameObject;
+import engine.object.manager.ObjectManager;
+import game.action.BonusAction;
+import game.action.DeleteAction;
+import game.object.Bonus;
 import game.object.Tank;
 import game.object.Type;
-import engine.object.manager.ObjectManager;
-
 
 import java.util.Collection;
 import java.util.Collections;

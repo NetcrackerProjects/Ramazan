@@ -2,6 +2,7 @@ package engine.physic;
 
 import engine.exception.AddObjectException;
 import engine.geometry.Rectangle;
+import engine.geometry.Vector;
 import engine.interaction.Interaction;
 import engine.object.GameField;
 import engine.object.GameObject;
@@ -20,6 +21,15 @@ public class PhysicManager {
     public PhysicManager(GameField field) {
         this.field = field;
         this.gameObjects = new HashSet<>();
+    }
+
+    public void applyForces() {
+        for (GameObject gameObject : gameObjects) {
+            Vector friction = new Vector(gameObject.getSpeed());
+            friction.scale(GameField.frictionCoefficient);
+
+            gameObject.accelerate(friction);
+        }
     }
 
     public Collection<Interaction> move() {
@@ -44,7 +54,6 @@ public class PhysicManager {
         }
 
         throw new AddObjectException();
-
     }
 
     private boolean canAddObject(GameObject gameObject) {
