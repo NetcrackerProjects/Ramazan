@@ -10,6 +10,7 @@ public class Bonus extends GameObject {
     Bonus(Vector leftTop, Vector rightBottom, int heal, int id) {
         super(leftTop, rightBottom, id, Type.BONUS);
         this.heal = heal;
+        setSolid(false);
     }
 
     public void applyBonus(Tank tank) {

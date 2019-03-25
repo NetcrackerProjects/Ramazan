@@ -10,6 +10,7 @@ public class Bullet extends GameObject {
     Bullet(Vector leftTop, Vector rightBottom, int damage, int id) {
         super(leftTop, rightBottom, id, Type.BULLET);
         this.damage = damage;
+        setSolid(false);
     }
 
     public int getDamage() {

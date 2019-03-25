@@ -11,6 +11,7 @@ import org.junit.Test;
 import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class PhysicManagerTest {
 
@@ -30,11 +31,27 @@ public class PhysicManagerTest {
     }
 
     @Test(expected = AddObjectException.class)
-    public void shouldThrowWhenInsertedObjectIntersectsOthers() throws AddObjectException {
-        physicManager.addPhysicObject(new GameObject(new Vector(1, 1), new Vector(3, 3), 0, 0));
-        GameObject gameObject = new GameObject(new Vector(2, 2), new Vector(4, 4), 0, 0);
-
+    public void shouldThrowWhenInsertedSolidObjectIntersectsOthersSolidObjects() throws AddObjectException {
+        GameObject gameObject = new GameObject(new Vector(1, 1), new Vector(3, 3), 0, 0);
+        gameObject.setSolid(true);
         physicManager.addPhysicObject(gameObject);
+        GameObject otherObject = new GameObject(new Vector(2, 2), new Vector(4, 4), 0, 0);
+        otherObject.setSolid(true);
+
+        physicManager.addPhysicObject(otherObject);
+    }
+
+    @Test
+    public void shouldNotThrowWhenInsertedObjectIsNotSolid() {
+        GameObject gameObject = new GameObject(new Vector(1, 1), new Vector(2, 2), 0, 0);
+        gameObject.setSolid(false);
+
+        try {
+            physicManager.addPhysicObject(gameObject);
+
+        } catch (AddObjectException e) {
+            fail();
+        }
     }
 
     @Test
@@ -59,5 +76,19 @@ public class PhysicManagerTest {
         Collection<Interaction> interactions = physicManager.move();
 
         assertEquals(1, interactions.size());
+    }
+
+    @Test
+    public void shouldMoveWhenIntersectAndNotSolid() throws AddObjectException {
+        GameObject gameObject = new GameObject(new Vector(1, 1), new Vector(2, 2), 0, 0);
+        gameObject.setSpeed(new Vector(0.5, 0.5));
+        gameObject.setSolid(false);
+        physicManager.addPhysicObject(gameObject);
+        physicManager.addPhysicObject(new GameObject(new Vector(2.1, 2.1), new Vector(3, 3), 1, 0));
+        Vector expected = new Vector(1.5, 1.5);
+
+        physicManager.move();
+
+        assertEquals(expected, gameObject.getPosition());
     }
 }

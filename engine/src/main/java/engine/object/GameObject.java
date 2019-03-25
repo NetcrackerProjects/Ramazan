@@ -11,12 +11,14 @@ public class GameObject implements Identifiable {
     private Vector speed;
     private final int id;
     private final int typeId;
+    private boolean solid;
 
     public GameObject(Vector leftTop, Vector rightBottom, int id, int typeId) {
         this.body = new Rectangle(leftTop, rightBottom);
         this.speed = new Vector(0, 0);
         this.id = id;
         this.typeId = typeId;
+        this.solid = false;
     }
 
     public void setSpeed(Vector speed) {
@@ -66,5 +68,13 @@ public class GameObject implements Identifiable {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public boolean isSolid() {
+        return solid;
+    }
+
+    public void setSolid(boolean solid) {
+        this.solid = solid;
     }
 }
