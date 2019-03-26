@@ -14,7 +14,7 @@ public class GameObjectFactory {
     }
 
     public Tank createTank(Vector leftTop, Vector rightBottom) {
-        return new Tank(leftTop, rightBottom, tokenManager.nextId());
+        return new Tank(leftTop, rightBottom, this, tokenManager.nextId());
     }
 
     public Bullet createBullet(Vector leftTop, Vector rightBottom) {

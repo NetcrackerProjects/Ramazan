@@ -27,6 +27,6 @@ public class UserPlayerFactory {
         Tank tank = gameObjectFactory.createTank(new Vector(0, 0), new Vector(1, 1));
         tankObjectManager.addObject(tank);
 
-        return new UserPlayer(tank, gameObjectFactory, bulletObjectManager, tokenManager.nextId());
+        return new UserPlayer(tank, bulletObjectManager, tokenManager.nextId());
     }
 }

@@ -8,7 +8,6 @@ import engine.player.command.PlayerCommandType;
 import game.command.TankMoveEngineCommand;
 import game.command.TankShootEngineCommand;
 import game.object.Bullet;
-import game.object.GameObjectFactory;
 import game.object.tank.Tank;
 
 public class UserPlayer implements Player {
@@ -17,13 +16,11 @@ public class UserPlayer implements Player {
 
     private final int id;
 
-    private final GameObjectFactory gameObjectFactory;
     private final ObjectManager<Bullet> bulletObjectManager;
 
-    UserPlayer(Tank tank, GameObjectFactory gameObjectFactory, ObjectManager<Bullet> bulletObjectManager, int id) {
+    UserPlayer(Tank tank, ObjectManager<Bullet> bulletObjectManager, int id) {
         this.tank = tank;
         this.id = id;
-        this.gameObjectFactory = gameObjectFactory;
         this.bulletObjectManager = bulletObjectManager;
     }
 
@@ -48,7 +45,7 @@ public class UserPlayer implements Player {
             case MOVE_DOWN:
                 return new TankMoveEngineCommand(tank, Direction.Type.DOWN);
             case SHOOT:
-                return new TankShootEngineCommand(tank, bulletObjectManager, gameObjectFactory);
+                return new TankShootEngineCommand(tank, bulletObjectManager);
         }
 
         throw new IllegalArgumentException("unrecognized command id");

@@ -2,6 +2,9 @@ package game.object.tank;
 
 import engine.geometry.Rectangle;
 import engine.geometry.Vector;
+import engine.geometry.VectorUtils;
+import game.object.Bullet;
+import game.object.GameObjectFactory;
 
 public class TankWeapon {
 
@@ -11,28 +14,37 @@ public class TankWeapon {
     private final Rectangle tankBody;
     private final Vector tankSpeed;
 
-    TankWeapon(Rectangle tankBody, Vector tankSpeed) {
+    private final GameObjectFactory gameObjectFactory;
+
+    TankWeapon(Rectangle tankBody, Vector tankSpeed, GameObjectFactory gameObjectFactory) {
         this.tankBody = tankBody;
         this.tankSpeed = tankSpeed;
+        this.gameObjectFactory = gameObjectFactory;
     }
 
-    public Rectangle getNewBulletBody() {
+    public Bullet nextBullet() {
+        Bullet bullet = gameObjectFactory.createBullet(getNewBulletBody());
+        bullet.setSpeed(getBulletSpeed());
+        return bullet;
+    }
+
+    private Rectangle getNewBulletBody() {
         Vector topLeft = tankBody.getTopLeft();
         Vector bottomRight = tankBody.getBottomRight();
 
-        Vector tankSize = Vector.subtract(bottomRight, topLeft);
+        Vector tankSize = VectorUtils.subtract(bottomRight, topLeft);
 
-        Vector bulletSize = Vector.scale(tankSize, RELATIVE_BULLET_SIZE);
+        Vector bulletSize = VectorUtils.scale(tankSize, RELATIVE_BULLET_SIZE);
 
-        Vector relativeBulletPos = Vector.scale(tankSize, (1 - RELATIVE_BULLET_SIZE) / 2);
+        Vector relativeBulletPos = VectorUtils.scale(tankSize, (1 - RELATIVE_BULLET_SIZE) / 2);
 
-        Vector bulletLeftTop = Vector.sum(topLeft, relativeBulletPos);
-        Vector bulletRightBottom = Vector.sum(bulletLeftTop, bulletSize);
+        Vector bulletLeftTop = VectorUtils.sum(topLeft, relativeBulletPos);
+        Vector bulletRightBottom = VectorUtils.sum(bulletLeftTop, bulletSize);
 
         return new Rectangle(bulletLeftTop, bulletRightBottom);
     }
 
-    public Vector getBulletSpeed() {
-        return Vector.scale(tankSpeed, BULLET_MAX_SPEED / tankSpeed.absolute());
+    private Vector getBulletSpeed() {
+        return VectorUtils.scale(tankSpeed, BULLET_MAX_SPEED / tankSpeed.norm());
     }
 }

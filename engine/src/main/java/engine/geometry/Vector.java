@@ -25,7 +25,7 @@ public class Vector {
         y *= alpha;
     }
 
-    public double absolute() {
+    public double norm() {
         return Math.sqrt(x * x + y * y);
     }
 
@@ -41,17 +41,5 @@ public class Vector {
 
         Vector p = (Vector) object;
         return (p.x == x && p.y == y);
-    }
-
-    public static Vector subtract(Vector a, Vector b) {
-        return new Vector(a.x - b.x, a.y - b.y);
-    }
-
-    public static Vector sum(Vector a, Vector b) {
-        return new Vector(a.x + b.x, a.y + b.y);
-    }
-
-    public static Vector scale(Vector a, double alpha) {
-        return new Vector(a.x * alpha, a.y * alpha);
     }
 }
