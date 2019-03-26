@@ -24,7 +24,7 @@ public class TankWeapon {
 
         Vector bulletSize = Vector.scale(tankSize, RELATIVE_BULLET_SIZE);
 
-        Vector relativeBulletPos = Vector.scale(tankSize, (1 - RELATIVE_BULLET_SIZE)/2);
+        Vector relativeBulletPos = Vector.scale(tankSize, (1 - RELATIVE_BULLET_SIZE) / 2);
 
         Vector bulletLeftTop = Vector.sum(topLeft, relativeBulletPos);
         Vector bulletRightBottom = Vector.sum(bulletLeftTop, bulletSize);
@@ -33,6 +33,6 @@ public class TankWeapon {
     }
 
     public Vector getBulletSpeed() {
-        return Vector.scale(tankSpeed, BULLET_MAX_SPEED/tankSpeed.absolute());
+        return Vector.scale(tankSpeed, BULLET_MAX_SPEED / tankSpeed.absolute());
     }
 }

@@ -17,8 +17,8 @@ public class UserPlayer implements Player {
 
     private final int id;
 
-    private GameObjectFactory gameObjectFactory;
-    private ObjectManager<Bullet> bulletObjectManager;
+    private final GameObjectFactory gameObjectFactory;
+    private final ObjectManager<Bullet> bulletObjectManager;
 
     UserPlayer(Tank tank, GameObjectFactory gameObjectFactory, ObjectManager<Bullet> bulletObjectManager, int id) {
         this.tank = tank;

@@ -11,7 +11,7 @@ public class Tank extends GameObject implements Damageable {
 
     private int health;
 
-    private TankWeapon tankWeapon;
+    private final TankWeapon tankWeapon;
 
     public Tank(Vector leftTop, Vector rightBottom, int id) {
         super(leftTop, rightBottom, true, id, Type.TANK);
