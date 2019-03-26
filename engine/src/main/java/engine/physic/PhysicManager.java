@@ -61,7 +61,13 @@ public class PhysicManager {
             return false;
         }
 
-        return !doesIntersectsGameObjects(gameObject.getBody(), gameObjects);
+        if (!gameObject.isSolid()) {
+            return true;
+        }
+
+        Collection<GameObject> intersectedObjects = getIntersectedGameObjects(gameObject, gameObject.getBody());
+
+        return !(containsSolid(intersectedObjects) && gameObject.isSolid());
     }
 
     private Collection<GameObject> moveGameObject(GameObject gameObject) {
@@ -73,11 +79,22 @@ public class PhysicManager {
 
         Collection<GameObject> intersectedObjects = getIntersectedGameObjects(gameObject, objectMovedBody);
 
-        if (intersectedObjects.isEmpty()) {
+        if (intersectedObjects.isEmpty() ||
+                (!containsSolid(intersectedObjects) || !gameObject.isSolid())) {
             gameObject.move();
         }
 
         return intersectedObjects;
+    }
+
+    private boolean containsSolid(Collection<GameObject> gameObjects) {
+        for (GameObject gameObject : gameObjects) {
+            if (gameObject.isSolid()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void addNewInteractions(GameObject gameObject, Collection<GameObject> intersectedObjects) {
@@ -86,25 +103,15 @@ public class PhysicManager {
         }
     }
 
-    private boolean doesIntersectsGameObjects(Rectangle gameBody, Collection<GameObject> objectsToIntersect) {
-        for (GameObject object : objectsToIntersect) {
-            if (object.doesIntersect(gameBody)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private Collection<GameObject> getIntersectedGameObjects(GameObject movingObject, Rectangle movedBody) {
+    private Collection<GameObject> getIntersectedGameObjects(GameObject intersectedObject, Rectangle objectBody) {
         Collection<GameObject> intersected = new HashSet<>();
 
         for (GameObject object : gameObjects) {
-            if (object == movingObject) {
+            if (object == intersectedObject) {
                 continue;
             }
 
-            if (object.doesIntersect(movedBody)) {
+            if (object.doesIntersect(objectBody)) {
                 intersected.add(object);
             }
         }

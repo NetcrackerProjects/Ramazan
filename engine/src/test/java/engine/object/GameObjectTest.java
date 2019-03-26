@@ -13,7 +13,7 @@ public class GameObjectTest {
 
     @Before
     public void setup() {
-        this.gameObject = new GameObject(new Vector(0, 0), new Vector(1, 1), 0, 0);
+        this.gameObject = new GameObject(new Vector(0, 0), new Vector(1, 1), true, 0, 0);
         gameObject.setSpeed(new Vector(1, 1));
     }
 

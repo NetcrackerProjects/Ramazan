@@ -8,7 +8,7 @@ public class Bullet extends GameObject {
     private final int damage;
 
     Bullet(Vector leftTop, Vector rightBottom, int damage, int id) {
-        super(leftTop, rightBottom, id, Type.BULLET);
+        super(leftTop, rightBottom, false, id, Type.BULLET);
         this.damage = damage;
     }
 
