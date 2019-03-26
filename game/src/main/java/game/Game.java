@@ -7,7 +7,7 @@ import engine.physic.PhysicManager;
 import game.object.Bonus;
 import game.object.Bullet;
 import game.object.GameObjectFactory;
-import game.object.Tank;
+import game.object.tank.Tank;
 import game.object.Type;
 import engine.player.command.PlayerCommand;
 import game.player.UserPlayerFactory;
@@ -41,7 +41,7 @@ class Game {
         gameEngine.addInteractionRule(new InteractionType(Type.BONUS, Type.TANK),
                 new BonusTankInteractionRule(bonusHolderObjectManager, tankObjectManager));
 
-        UserPlayerFactory userPlayerFactory = new UserPlayerFactory(gameObjectFactory, tankObjectManager);
+        UserPlayerFactory userPlayerFactory = new UserPlayerFactory(gameObjectFactory, tankObjectManager, bulletObjectManager);
 
         gameEngine.addPlayer(userPlayerFactory.createPlayer());
     }

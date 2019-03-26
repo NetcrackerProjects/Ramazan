@@ -21,6 +21,10 @@ public class Rectangle {
         return topLeft;
     }
 
+    public Vector getBottomRight() {
+        return bottomRight;
+    }
+
     public boolean intersects(Rectangle rectangle) {
         if (rectangle.topLeft.x > bottomRight.x) {
             return false;

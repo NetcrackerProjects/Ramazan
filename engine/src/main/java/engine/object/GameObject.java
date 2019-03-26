@@ -21,6 +21,14 @@ public class GameObject implements Identifiable {
         this.solid = solid;
     }
 
+    public GameObject(Rectangle body, boolean solid, int id, int typeId) {
+        this.body = body;
+        this.speed = new Vector(0, 0);
+        this.id = id;
+        this.typeId = typeId;
+        this.solid = solid;
+    }
+
     public void setSpeed(Vector speed) {
         this.speed = speed;
     }

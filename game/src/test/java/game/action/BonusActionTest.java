@@ -1,7 +1,7 @@
 package game.action;
 
 import game.object.Bonus;
-import game.object.Tank;
+import game.object.tank.Tank;
 import org.junit.Test;
 
 import static org.mockito.Mockito.mock;

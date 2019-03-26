@@ -2,7 +2,7 @@ package game.action;
 
 import engine.action.Action;
 import game.object.Bonus;
-import game.object.Tank;
+import game.object.tank.Tank;
 
 public class BonusAction implements Action {
 

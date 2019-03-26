@@ -5,7 +5,7 @@ import engine.object.manager.ObjectManager;
 import game.object.Bonus;
 import game.object.Bullet;
 import game.object.GameObjectFactory;
-import game.object.Tank;
+import game.object.tank.Tank;
 
 class GameObjectInitializer {
 
