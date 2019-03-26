@@ -13,12 +13,12 @@ public class GameObject implements Identifiable {
     private final int typeId;
     private boolean solid;
 
-    public GameObject(Vector leftTop, Vector rightBottom, int id, int typeId) {
+    public GameObject(Vector leftTop, Vector rightBottom, boolean solid, int id, int typeId) {
         this.body = new Rectangle(leftTop, rightBottom);
         this.speed = new Vector(0, 0);
         this.id = id;
         this.typeId = typeId;
-        this.solid = false;
+        this.solid = solid;
     }
 
     public void setSpeed(Vector speed) {

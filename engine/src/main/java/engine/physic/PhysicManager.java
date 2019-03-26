@@ -67,7 +67,7 @@ public class PhysicManager {
 
         Collection<GameObject> intersectedObjects = getIntersectedGameObjects(gameObject, gameObject.getBody());
 
-        return !(isThereSolid(intersectedObjects) && gameObject.isSolid());
+        return !(containsSolid(intersectedObjects) && gameObject.isSolid());
     }
 
     private Collection<GameObject> moveGameObject(GameObject gameObject) {
@@ -80,16 +80,18 @@ public class PhysicManager {
         Collection<GameObject> intersectedObjects = getIntersectedGameObjects(gameObject, objectMovedBody);
 
         if (intersectedObjects.isEmpty() ||
-                (!isThereSolid(intersectedObjects) || !gameObject.isSolid())) {
+                (!containsSolid(intersectedObjects) || !gameObject.isSolid())) {
             gameObject.move();
         }
 
         return intersectedObjects;
     }
 
-    private boolean isThereSolid(Collection<GameObject> gameObjects) {
+    private boolean containsSolid(Collection<GameObject> gameObjects) {
         for (GameObject gameObject : gameObjects) {
-            if (gameObject.isSolid()) return true;
+            if (gameObject.isSolid()) {
+                return true;
+            }
         }
 
         return false;
