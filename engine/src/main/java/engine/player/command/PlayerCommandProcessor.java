@@ -12,7 +12,7 @@ import java.util.concurrent.BlockingQueue;
 
 public class PlayerCommandProcessor {
 
-    private static final int RETRIEVE_AMOUNT_PER_TERN = 100;
+    private static final int RETRIEVE_AMOUNT_PER_UPDATE = 100;
 
     private final PlayerManager playerManager;
 
@@ -23,21 +23,14 @@ public class PlayerCommandProcessor {
     public Collection<EngineCommand> processPlayerCommands(BlockingQueue<PlayerCommand> playerCommands) {
         Collection<EngineCommand> engineCommands = new HashSet<>();
 
-        int i = 0;
+        Collection<PlayerCommand> commandsToProcess = new HashSet<>();
+        playerCommands.drainTo(commandsToProcess, RETRIEVE_AMOUNT_PER_UPDATE);
 
-        while (playerCommands.size() > 0 && i < RETRIEVE_AMOUNT_PER_TERN) {
+        for(PlayerCommand playerCommand: commandsToProcess) {
             try {
-                PlayerCommand playerCommand = playerCommands.poll();
-
-                if (playerCommand == null) {
-                    break;
-                }
-
                 engineCommands.add(createEngineCommand(playerCommand));
             } catch (CorruptPlayerCommandException ignored) {
             }
-
-            i++;
         }
 
         return engineCommands;
