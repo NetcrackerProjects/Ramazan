@@ -17,7 +17,8 @@ import engine.player.command.PlayerCommand;
 import engine.player.command.PlayerCommandProcessor;
 
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class GameEngine extends Thread {
 
@@ -36,7 +37,7 @@ public class GameEngine extends Thread {
 
     private final TokenManager tokenManager;
 
-    private final Collection<PlayerCommand> playerCommands;
+    private final BlockingQueue<PlayerCommand> playerCommands;
 
     public GameEngine() {
         this.actionManager = new ActionManager();
@@ -52,7 +53,7 @@ public class GameEngine extends Thread {
 
         this.playerManager = new PlayerManager();
 
-        this.playerCommands = new HashSet<>();
+        this.playerCommands = new LinkedBlockingQueue<>();
         this.playerCommandProcessor = new PlayerCommandProcessor(playerManager);
     }
 

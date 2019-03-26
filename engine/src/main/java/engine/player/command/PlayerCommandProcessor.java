@@ -8,8 +8,11 @@ import engine.exception.WrongObjectIdException;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.concurrent.BlockingQueue;
 
 public class PlayerCommandProcessor {
+
+    private static final int RETRIEVE_AMOUNT_PER_UPDATE = 100;
 
     private final PlayerManager playerManager;
 
@@ -17,14 +20,16 @@ public class PlayerCommandProcessor {
         this.playerManager = playerManager;
     }
 
-    public Collection<EngineCommand> processPlayerCommands(Collection<PlayerCommand> playerCommands) {
+    public Collection<EngineCommand> processPlayerCommands(BlockingQueue<PlayerCommand> playerCommands) {
         Collection<EngineCommand> engineCommands = new HashSet<>();
 
-        for (PlayerCommand playerCommand : playerCommands) {
+        Collection<PlayerCommand> commandsToProcess = new HashSet<>();
+        playerCommands.drainTo(commandsToProcess, RETRIEVE_AMOUNT_PER_UPDATE);
+
+        for(PlayerCommand playerCommand: commandsToProcess) {
             try {
                 engineCommands.add(createEngineCommand(playerCommand));
             } catch (CorruptPlayerCommandException ignored) {
-
             }
         }
 
