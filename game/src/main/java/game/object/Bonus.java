@@ -2,6 +2,7 @@ package game.object;
 
 import engine.geometry.Vector;
 import engine.object.GameObject;
+import game.object.tank.Tank;
 
 public class Bonus extends GameObject {
 

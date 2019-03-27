@@ -1,7 +1,10 @@
-package game.object;
+package game.object.tank;
 
 import engine.geometry.Vector;
 import engine.object.GameObject;
+import game.object.Damageable;
+import game.object.GameObjectFactory;
+import game.object.Type;
 
 public class Tank extends GameObject implements Damageable {
 
@@ -9,9 +12,12 @@ public class Tank extends GameObject implements Damageable {
 
     private int health;
 
-    Tank(Vector leftTop, Vector rightBottom, int id) {
+    private final TankWeapon tankWeapon;
+
+    public Tank(Vector leftTop, Vector rightBottom, GameObjectFactory gameObjectFactory, int id) {
         super(leftTop, rightBottom, true, id, Type.TANK);
         this.health = MAX_HEALTH;
+        this.tankWeapon = new TankWeapon(getBody(), getSpeed(), gameObjectFactory);
     }
 
     @Override
@@ -24,7 +30,11 @@ public class Tank extends GameObject implements Damageable {
         return health > 0;
     }
 
-    void heal(int amount) {
+    public void heal(int amount) {
         health = Math.min(health + amount, MAX_HEALTH);
+    }
+
+    public TankWeapon getTankWeapon() {
+        return tankWeapon;
     }
 }

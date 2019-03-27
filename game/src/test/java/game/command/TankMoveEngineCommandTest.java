@@ -3,7 +3,7 @@ package game.command;
 import engine.action.Action;
 import engine.geometry.Direction;
 import game.action.ChangeSpeedAction;
-import game.object.Tank;
+import game.object.tank.Tank;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;

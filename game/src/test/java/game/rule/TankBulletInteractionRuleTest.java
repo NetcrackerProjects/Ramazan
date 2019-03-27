@@ -9,7 +9,7 @@ import engine.object.manager.ObjectManager;
 import engine.physic.PhysicManager;
 import game.object.Bullet;
 import game.object.GameObjectFactory;
-import game.object.Tank;
+import game.object.tank.Tank;
 import org.junit.Test;
 
 import java.util.Collection;

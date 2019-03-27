@@ -5,7 +5,7 @@ import engine.command.EngineCommand;
 import engine.geometry.Direction;
 import engine.geometry.Vector;
 import game.action.ChangeSpeedAction;
-import game.object.Tank;
+import game.object.tank.Tank;
 
 public class TankMoveEngineCommand implements EngineCommand {
 

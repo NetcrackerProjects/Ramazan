@@ -26,7 +26,7 @@ public class PlayerCommandProcessor {
         Collection<PlayerCommand> commandsToProcess = new HashSet<>();
         playerCommands.drainTo(commandsToProcess, RETRIEVE_AMOUNT_PER_UPDATE);
 
-        for(PlayerCommand playerCommand: commandsToProcess) {
+        for (PlayerCommand playerCommand : commandsToProcess) {
             try {
                 engineCommands.add(createEngineCommand(playerCommand));
             } catch (CorruptPlayerCommandException ignored) {

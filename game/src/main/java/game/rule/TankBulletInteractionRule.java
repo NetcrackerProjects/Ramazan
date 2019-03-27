@@ -9,7 +9,7 @@ import engine.object.manager.ObjectManager;
 import game.action.DamageAction;
 import game.action.DeleteAction;
 import game.object.Bullet;
-import game.object.Tank;
+import game.object.tank.Tank;
 import game.object.Type;
 
 import java.util.Collection;

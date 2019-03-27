@@ -25,6 +25,10 @@ public class Vector {
         y *= alpha;
     }
 
+    public double norm() {
+        return Math.sqrt(x * x + y * y);
+    }
+
     @Override
     public boolean equals(Object object) {
         if (object == null) {
