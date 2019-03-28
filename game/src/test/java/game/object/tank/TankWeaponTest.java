@@ -6,13 +6,10 @@ import game.object.Bullet;
 import game.object.GameObjectFactory;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 public class TankWeaponTest {
 
@@ -22,9 +19,9 @@ public class TankWeaponTest {
 
     @Before
     public void setup() {
-        this.gameObjectFactory = mock(GameObjectFactory.class);
-        this.bullet = mock(Bullet.class);
-        when(gameObjectFactory.createBullet(any(Rectangle.class))).thenReturn(bullet);
+        this.gameObjectFactory = Mockito.mock(GameObjectFactory.class);
+        this.bullet = Mockito.mock(Bullet.class);
+        Mockito.when(gameObjectFactory.createBullet(any(Rectangle.class))).thenReturn(bullet);
 
         Rectangle tankBody = new Rectangle(new Vector(2, 4), new Vector(12, 24));
         Vector tankSpeed = new Vector(3, 0);
@@ -44,7 +41,7 @@ public class TankWeaponTest {
 
         tankWeapon.nextBullet();
 
-        verify(gameObjectFactory, times(1)).createBullet(expected);
+        Mockito.verify(gameObjectFactory, Mockito.times(1)).createBullet(expected);
     }
 
     @Test
@@ -53,6 +50,6 @@ public class TankWeaponTest {
 
         tankWeapon.nextBullet();
 
-        verify(bullet, times(1)).setSpeed(expected);
+        Mockito.verify(bullet, Mockito.times(1)).setSpeed(expected);
     }
 }

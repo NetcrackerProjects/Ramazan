@@ -16,5 +16,6 @@
         <module>parent</module>
         <module>game</module>
         <module>engine</module>
+        <module>client</module>
     </modules>
 </project>
