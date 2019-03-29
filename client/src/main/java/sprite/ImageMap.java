@@ -13,7 +13,8 @@ class ImageMap {
 
     ImageMap() {
         this.imageMap = new HashMap<>();
-        initMap();
+        ImageIcon imageIcon = new ImageIcon("client/src/main/resources/test.png");
+        imageMap.put(Type.TANK, imageIcon.getImage());
     }
 
     Image getImage(int typeId) {
@@ -24,10 +25,5 @@ class ImageMap {
         }
 
         return image;
-    }
-
-    private void initMap() {
-        ImageIcon imageIcon = new ImageIcon("client/src/main/resources/test.png");
-        imageMap.put(Type.TANK, imageIcon.getImage());
     }
 }

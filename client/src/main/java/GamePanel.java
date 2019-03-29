@@ -1,8 +1,11 @@
 import sprite.Sprite;
 import sprite.SpriteManager;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,7 +18,7 @@ class GamePanel extends JPanel implements ActionListener {
     GamePanel(SpriteManager spriteManager) {
         this.spriteManager = spriteManager;
 
-        addKeyListener(new Input());
+        addKeyListener(new PlayerInput());
         setBackground(Color.black);
         setFocusable(true);
 

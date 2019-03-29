@@ -1,7 +1,7 @@
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-class Input extends KeyAdapter {
+class PlayerInput extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent keyEvent) {

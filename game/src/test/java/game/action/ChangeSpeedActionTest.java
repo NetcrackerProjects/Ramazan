@@ -4,7 +4,9 @@ import engine.geometry.Vector;
 import engine.object.GameObject;
 import org.junit.Test;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 public class ChangeSpeedActionTest {
 

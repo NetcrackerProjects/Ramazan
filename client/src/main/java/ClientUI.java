@@ -5,20 +5,18 @@ import game.object.tank.Tank;
 import sprite.SpriteFactory;
 import sprite.SpriteManager;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import java.awt.EventQueue;
 
 class ClientUI extends JFrame {
 
+    private static final int FRAME_WIDTH = 400;
+    private static final int FRAME_HEIGHT = 300;
+
     private ClientUI(SpriteManager spriteManager) {
-
-        initUI(spriteManager);
-    }
-
-    private void initUI(SpriteManager spriteManager) {
         add(new GamePanel(spriteManager));
 
-        setSize(400, 300);
+        setSize(FRAME_WIDTH, FRAME_HEIGHT);
         setResizable(false);
 
         setTitle("client gui");

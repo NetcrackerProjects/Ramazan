@@ -3,7 +3,7 @@ package sprite;
 import engine.geometry.Vector;
 import engine.object.GameObject;
 
-import java.awt.*;
+import java.awt.Image;
 
 public class Sprite {
 
