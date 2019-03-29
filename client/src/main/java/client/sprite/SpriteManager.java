@@ -1,4 +1,4 @@
-package sprite;
+package client.sprite;
 
 import java.util.Collection;
 import java.util.HashSet;

@@ -1,5 +1,7 @@
-import sprite.Sprite;
-import sprite.SpriteManager;
+package client;
+
+import client.sprite.Sprite;
+import client.sprite.SpriteManager;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -15,10 +17,10 @@ class GamePanel extends JPanel implements ActionListener {
 
     private final SpriteManager spriteManager;
 
-    GamePanel(SpriteManager spriteManager) {
+    GamePanel(SpriteManager spriteManager, PlayerInput playerInput) {
         this.spriteManager = spriteManager;
 
-        addKeyListener(new PlayerInput());
+        addKeyListener(playerInput);
         setBackground(Color.black);
         setFocusable(true);
 

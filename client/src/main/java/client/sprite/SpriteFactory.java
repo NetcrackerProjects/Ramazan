@@ -1,4 +1,4 @@
-package sprite;
+package client.sprite;
 
 import engine.object.GameObject;
 
