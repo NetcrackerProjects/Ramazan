@@ -1,7 +1,6 @@
 package client.sprite;
 
 import engine.geometry.Vector;
-import engine.object.GameObject;
 
 import java.awt.Image;
 
@@ -10,8 +9,8 @@ public class Sprite {
     private final Vector position;
     private final Image image;
 
-    Sprite(Image image, GameObject gameObject) {
-        this.position = gameObject.getPosition();
+    Sprite(Image image, Vector position) {
+        this.position = position;
         this.image = image;
     }
 

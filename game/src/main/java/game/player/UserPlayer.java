@@ -30,11 +30,11 @@ public class UserPlayer implements Player {
     }
 
     @Override
-    public EngineCommand getEngineCommand(PlayerCommandType.Type playerCommandType) {
+    public EngineCommand getEngineCommand(PlayerCommandType playerCommandType) {
         return createEngineCommand(playerCommandType);
     }
 
-    private EngineCommand createEngineCommand(PlayerCommandType.Type commandType) {
+    private EngineCommand createEngineCommand(PlayerCommandType commandType) {
         switch (commandType) {
             case MOVE_LEFT:
                 return new TankMoveEngineCommand(tank, Direction.Type.LEFT);

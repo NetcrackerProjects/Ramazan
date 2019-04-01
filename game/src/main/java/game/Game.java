@@ -62,7 +62,7 @@ class Game {
         Game game = new Game();
         game.start();
 
-        game.processCommand(new PlayerCommand(0, PlayerCommandType.Type.MOVE_DOWN));
+        game.processCommand(new PlayerCommand(0, PlayerCommandType.MOVE_DOWN));
 
         try {
             game.terminate();

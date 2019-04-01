@@ -11,6 +11,6 @@ public class SpriteFactory {
     }
 
     public Sprite createSprite(GameObject gameObject) {
-        return new Sprite(imageMap.getImage(gameObject.getTypeId()), gameObject);
+        return new Sprite(imageMap.getImage(gameObject.getTypeId()), gameObject.getPosition());
     }
 }

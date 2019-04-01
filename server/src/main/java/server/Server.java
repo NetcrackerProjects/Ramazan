@@ -3,23 +3,22 @@ package server;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-class Server extends Thread {
+class Server {
 
-    private static final int PORT = 5555;
+    static final int PORT = 5555;
 
     private ServerSocket serverSocket;
     private volatile boolean running;
 
-    private Server(int port) {
+    Server(int port) {
         try {
-            serverSocket = new ServerSocket(port);
+            this.serverSocket = new ServerSocket(port);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void run() {
+    void run() {
         this.running = true;
         while (isRunning()) {
             try {
@@ -31,21 +30,7 @@ class Server extends Thread {
         }
     }
 
-    void terminate() throws IOException, InterruptedException {
-        this.running = false;
-        serverSocket.close();
-        join();
-    }
-
     private boolean isRunning() {
         return running;
-    }
-
-    public static void main(String[] argv) {
-        Server server = new Server(PORT);
-        server.start();
-
-        ServerCloserListener serverCloserListener = new ServerCloserListener(server);
-        serverCloserListener.start();
     }
 }

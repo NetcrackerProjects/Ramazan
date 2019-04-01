@@ -5,7 +5,7 @@ import engine.player.command.PlayerCommandType;
 
 public interface Player {
 
-    EngineCommand getEngineCommand(PlayerCommandType.Type playerCommand);
+    EngineCommand getEngineCommand(PlayerCommandType playerCommand);
 
     int getId();
 }
