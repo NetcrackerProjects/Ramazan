@@ -16,11 +16,11 @@ class ClientConnection {
         this.clientSocket = new Socket(DEFAULT_ADDRESS, DEFAULT_PORT);
         this.out = new PrintWriter(clientSocket.getOutputStream(), true);
 
-        sendMessage(ClientCommandsTypeCoder.getCommand(ClientControlCommandType.START));
+        sendCommand(ClientCommandsTypeCoder.getCommand(ClientControlCommandType.START));
     }
 
-    void sendMessage(String text) {
-        out.println(text);
+    void sendCommand(String command) {
+        out.println(command);
     }
 
     void stopConnection() throws IOException {

@@ -14,7 +14,7 @@ public class ClientControl {
     void input(ClientControlCommandType clientControlCommandType) {
         String command = formMessage(clientControlCommandType);
 
-        clientConnection.sendMessage(command);
+        clientConnection.sendCommand(command);
 
         if (clientControlCommandType == ClientControlCommandType.EXIT) {
             try {
