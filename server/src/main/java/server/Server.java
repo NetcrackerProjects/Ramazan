@@ -24,7 +24,6 @@ class Server {
             try {
                 new ClientHandler(serverSocket.accept()).start();
             } catch (IOException e) {
-                //e.printStackTrace();
                 break;
             }
         }
