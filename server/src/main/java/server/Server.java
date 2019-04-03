@@ -18,7 +18,7 @@ class Server {
         }
     }
 
-    void run() {
+    void start() {
         this.running = true;
         while (isRunning()) {
             try {

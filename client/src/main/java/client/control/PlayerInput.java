@@ -35,7 +35,7 @@ public class PlayerInput extends KeyAdapter {
             return;
         }
 
-        clientControl.input(type);
+        clientControl.sendCommand(type);
 
         if (type == ClientControlCommandType.EXIT) {
             clientUI.close();

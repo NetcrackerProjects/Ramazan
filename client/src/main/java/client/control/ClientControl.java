@@ -8,24 +8,32 @@ public class ClientControl {
 
     public ClientControl() throws IOException {
         this.clientConnection = new ClientConnection();
-        clientConnection.startConnection();
+        start();
     }
 
-    void input(ClientControlCommandType clientControlCommandType) {
+    void sendCommand(ClientControlCommandType clientControlCommandType) {
         String command = formMessage(clientControlCommandType);
 
         clientConnection.sendCommand(command);
 
         if (clientControlCommandType == ClientControlCommandType.EXIT) {
-            try {
-                clientConnection.stopConnection();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            stop();
         }
     }
 
     private String formMessage(ClientControlCommandType clientControlCommandType) {
-        return ClientCommandsTypeCoder.getCommand(clientControlCommandType);
+        return ClientCommandsEncoder.getCommand(clientControlCommandType);
+    }
+
+    private void start() throws IOException {
+        clientConnection.startConnection();
+    }
+
+    private void stop() {
+        try {
+            clientConnection.stopConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

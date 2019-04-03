@@ -1,6 +1,6 @@
 package client.control;
 
-class ClientCommandsTypeCoder {
+class ClientCommandsEncoder {
 
     private static final String MOVE_LEFT_CODE = "1";
     private static final String MOVE_RIGHT_CODE = "2";

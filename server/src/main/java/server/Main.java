@@ -6,6 +6,6 @@ class Main {
 
         Server server = new Server(Server.PORT);
 
-        server.run();
+        server.start();
     }
 }
