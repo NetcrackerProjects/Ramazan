@@ -6,9 +6,12 @@ public class ClientControl {
 
     private final ClientConnection clientConnection;
 
-    public ClientControl() throws IOException {
+    public ClientControl() {
         this.clientConnection = new ClientConnection();
-        start();
+    }
+
+    public void start() throws IOException {
+        clientConnection.startConnection();
     }
 
     void sendCommand(ClientControlCommandType clientControlCommandType) {
@@ -22,11 +25,7 @@ public class ClientControl {
     }
 
     private String formMessage(ClientControlCommandType clientControlCommandType) {
-        return ClientCommandsEncoder.getCommand(clientControlCommandType);
-    }
-
-    private void start() throws IOException {
-        clientConnection.startConnection();
+        return ClientCommandEncoder.getCommand(clientControlCommandType);
     }
 
     private void stop() {

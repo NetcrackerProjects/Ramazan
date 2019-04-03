@@ -6,6 +6,8 @@ class Main {
 
         Server server = new Server(Server.PORT);
 
+        Runtime.getRuntime().addShutdownHook(new StopServerHook(server));
+
         server.start();
     }
 }

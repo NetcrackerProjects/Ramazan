@@ -13,6 +13,8 @@ class Client {
     Client() throws IOException {
         ClientControl clientControl = new ClientControl();
 
+        clientControl.start();
+
         EventQueue.invokeLater(() -> {
             this.clientUI = new ClientUI(clientControl);
             clientUI.setVisible(true);

@@ -16,7 +16,7 @@ class ClientConnection {
         this.clientSocket = new Socket(DEFAULT_ADDRESS, DEFAULT_PORT);
         this.out = new PrintWriter(clientSocket.getOutputStream(), true);
 
-        sendCommand(ClientCommandsEncoder.getCommand(ClientControlCommandType.START));
+        sendCommand(ClientCommandEncoder.getCommand(ClientControlCommandType.START));
     }
 
     void sendCommand(String command) {
