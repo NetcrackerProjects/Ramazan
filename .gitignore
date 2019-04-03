@@ -3,3 +3,4 @@
 **/.idea/
 **/target/
 game/src/main/java/TestGraphic.java
+server.pid
