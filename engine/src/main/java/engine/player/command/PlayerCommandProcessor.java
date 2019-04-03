@@ -2,9 +2,9 @@ package engine.player.command;
 
 import engine.command.EngineCommand;
 import engine.exception.CorruptPlayerCommandException;
+import engine.exception.WrongObjectIdException;
 import engine.player.Player;
 import engine.player.PlayerManager;
-import engine.exception.WrongObjectIdException;
 
 import java.util.Collection;
 import java.util.HashSet;

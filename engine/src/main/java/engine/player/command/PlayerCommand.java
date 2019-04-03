@@ -3,9 +3,9 @@ package engine.player.command;
 public class PlayerCommand {
 
     private final int playerId;
-    private final PlayerCommandType.Type commandType;
+    private final PlayerCommandType commandType;
 
-    public PlayerCommand(int playerId, PlayerCommandType.Type commandType) {
+    public PlayerCommand(int playerId, PlayerCommandType commandType) {
         this.playerId = playerId;
         this.commandType = commandType;
     }
@@ -14,7 +14,7 @@ public class PlayerCommand {
         return playerId;
     }
 
-    PlayerCommandType.Type getCommandType() {
+    PlayerCommandType getCommandType() {
         return commandType;
     }
 }

@@ -4,14 +4,14 @@ import engine.GameEngine;
 import engine.interaction.InteractionType;
 import engine.object.manager.ObjectManager;
 import engine.physic.PhysicManager;
+import engine.player.command.PlayerCommand;
+import engine.player.command.PlayerCommandType;
 import game.object.Bonus;
 import game.object.Bullet;
 import game.object.GameObjectFactory;
-import game.object.tank.Tank;
 import game.object.Type;
-import engine.player.command.PlayerCommand;
+import game.object.tank.Tank;
 import game.player.UserPlayerFactory;
-import engine.player.command.PlayerCommandType;
 import game.rule.BonusTankInteractionRule;
 import game.rule.TankBulletInteractionRule;
 
@@ -62,7 +62,7 @@ class Game {
         Game game = new Game();
         game.start();
 
-        game.processCommand(new PlayerCommand(0, PlayerCommandType.Type.MOVE_DOWN));
+        game.processCommand(new PlayerCommand(0, PlayerCommandType.MOVE_DOWN));
 
         try {
             game.terminate();

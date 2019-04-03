@@ -25,6 +25,14 @@ public class Vector {
         y *= alpha;
     }
 
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
     public double norm() {
         return Math.sqrt(x * x + y * y);
     }
