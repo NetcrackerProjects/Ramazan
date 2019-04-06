@@ -1,44 +1,44 @@
 package server;
 
+import game.Game;
+import server.connection.control.ClientControlListener;
+import server.connection.start.StartClientListener;
+import server.user.UserFactory;
+import server.user.UserManager;
+
 import java.io.IOException;
-import java.net.ServerSocket;
 
 class Server {
 
-    static final int PORT = 5555;
+    private ClientControlListener clientControlListener;
+    private StartClientListener startClientListener;
 
-    private ServerSocket serverSocket;
-    private volatile boolean running;
+    private Game game;
 
-    Server(int port) {
+    Server() {
         try {
-            this.serverSocket = new ServerSocket(port);
+            this.game = new Game();
+            UserFactory userFactory = new UserFactory(game.getUserPlayerFactory());
+            UserManager userManager = new UserManager();
+
+            this.startClientListener = new StartClientListener(userFactory, userManager);
+
+            this.clientControlListener = new ClientControlListener(game);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     void start() {
-        this.running = true;
-        while (isRunning()) {
-            try {
-                new ClientHandler(serverSocket.accept()).start();
-            } catch (IOException e) {
-                break;
-            }
-        }
+        startClientListener.start();
+        clientControlListener.start();
+        game.start();
     }
 
-    void stop() {
-        this.running = false;
-        try {
-            serverSocket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private boolean isRunning() {
-        return running;
+    void stop() throws IOException, InterruptedException {
+        startClientListener.terminate();
+        clientControlListener.terminate();
+        game.terminate();
     }
 }

@@ -1,8 +1,10 @@
 package server;
 
-public class StopServerHook extends Thread {
+import java.io.IOException;
 
-    private Server server;
+class StopServerHook extends Thread {
+
+    private final Server server;
 
     StopServerHook(Server server) {
         this.server = server;
@@ -10,6 +12,9 @@ public class StopServerHook extends Thread {
 
     @Override
     public void run() {
-        server.stop();
+        try {
+            server.stop();
+        } catch (IOException | InterruptedException ignored) {
+        }
     }
 }

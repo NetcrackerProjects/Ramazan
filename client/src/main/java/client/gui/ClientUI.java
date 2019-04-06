@@ -1,9 +1,10 @@
 package client.gui;
 
-import client.control.ClientControl;
-import client.control.PlayerInput;
+import client.connection.control.ClientControl;
+import client.connection.control.PlayerInput;
 import client.sprite.SpriteFactory;
 import client.sprite.SpriteManager;
+import client.uitls.VectorInt;
 import engine.geometry.Vector;
 import engine.object.TokenManager;
 import game.object.GameObjectFactory;
@@ -14,10 +15,7 @@ import java.awt.event.WindowEvent;
 
 public class ClientUI extends JFrame {
 
-    private static final int FRAME_WIDTH = 400;
-    private static final int FRAME_HEIGHT = 300;
-
-    public ClientUI(ClientControl clientControl) {
+    public ClientUI(ClientControl clientControl, VectorInt monitorSize) {
         SpriteManager spriteManager = new SpriteManager();
 
         GameObjectFactory gameObjectFactory = new GameObjectFactory(new TokenManager());
@@ -30,7 +28,7 @@ public class ClientUI extends JFrame {
 
         add(new GamePanel(spriteManager, playerInput));
 
-        setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        setSize(monitorSize.getX(), monitorSize.getY());
         setResizable(false);
 
         setTitle("client gui");

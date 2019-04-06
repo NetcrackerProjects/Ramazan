@@ -4,7 +4,7 @@ class Main {
 
     public static void main(String[] argv) {
 
-        Server server = new Server(Server.PORT);
+        Server server = new Server();
 
         Runtime.getRuntime().addShutdownHook(new StopServerHook(server));
 

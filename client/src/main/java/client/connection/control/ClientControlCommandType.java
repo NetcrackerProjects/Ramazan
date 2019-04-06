@@ -1,4 +1,4 @@
-package client.control;
+package client.connection.control;
 
 public enum ClientControlCommandType {
     MOVE_LEFT,
@@ -7,5 +7,6 @@ public enum ClientControlCommandType {
     MOVE_DOWN,
     SHOOT,
     START,
-    EXIT
+    EXIT,
+    NONE
 }

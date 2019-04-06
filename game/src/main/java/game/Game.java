@@ -5,7 +5,6 @@ import engine.interaction.InteractionType;
 import engine.object.manager.ObjectManager;
 import engine.physic.PhysicManager;
 import engine.player.command.PlayerCommand;
-import engine.player.command.PlayerCommandType;
 import game.object.Bonus;
 import game.object.Bullet;
 import game.object.GameObjectFactory;
@@ -15,11 +14,13 @@ import game.player.UserPlayerFactory;
 import game.rule.BonusTankInteractionRule;
 import game.rule.TankBulletInteractionRule;
 
-class Game {
+public class Game {
 
     private final GameEngine gameEngine;
 
-    private Game() {
+    private final UserPlayerFactory userPlayerFactory;
+
+    public Game() {
         this.gameEngine = new GameEngine();
 
         PhysicManager physicManager = gameEngine.getPhysicManager();
@@ -41,33 +42,23 @@ class Game {
         gameEngine.addInteractionRule(new InteractionType(Type.BONUS, Type.TANK),
                 new BonusTankInteractionRule(bonusHolderObjectManager, tankObjectManager));
 
-        UserPlayerFactory userPlayerFactory = new UserPlayerFactory(gameObjectFactory, tankObjectManager, bulletObjectManager);
-
-        gameEngine.addPlayer(userPlayerFactory.createPlayer());
+        this.userPlayerFactory = new UserPlayerFactory(gameEngine, gameObjectFactory,
+                tankObjectManager, bulletObjectManager);
     }
 
-    private void processCommand(PlayerCommand playerCommand) {
+    public void processCommand(PlayerCommand playerCommand) {
         gameEngine.addPlayerCommand(playerCommand);
     }
 
-    private void start() {
+    public void start() {
         gameEngine.start();
     }
 
-    private void terminate() throws InterruptedException {
+    public void terminate() throws InterruptedException {
         gameEngine.terminate();
     }
 
-    public static void main(String[] argv) {
-        Game game = new Game();
-        game.start();
-
-        game.processCommand(new PlayerCommand(0, PlayerCommandType.MOVE_DOWN));
-
-        try {
-            game.terminate();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public UserPlayerFactory getUserPlayerFactory() {
+        return userPlayerFactory;
     }
 }

@@ -1,6 +1,6 @@
 package client.gui;
 
-import client.control.PlayerInput;
+import client.connection.control.PlayerInput;
 import client.sprite.Sprite;
 import client.sprite.SpriteManager;
 

@@ -1,4 +1,4 @@
-package client.control;
+package client.connection.control;
 
 import client.gui.ClientUI;
 

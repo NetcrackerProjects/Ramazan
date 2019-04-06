@@ -1,5 +1,6 @@
 package game.player;
 
+import engine.GameEngine;
 import engine.geometry.Vector;
 import engine.object.TokenManager;
 import engine.object.manager.ObjectManager;
@@ -15,18 +16,25 @@ public class UserPlayerFactory {
     private final ObjectManager<Tank> tankObjectManager;
     private final ObjectManager<Bullet> bulletObjectManager;
 
-    public UserPlayerFactory(GameObjectFactory gameObjectFactory,
+    private final GameEngine gameEngine;
+
+    public UserPlayerFactory(GameEngine gameEngine, GameObjectFactory gameObjectFactory,
                              ObjectManager<Tank> tankObjectManager, ObjectManager<Bullet> bulletObjectManager) {
         this.tokenManager = new TokenManager();
         this.gameObjectFactory = gameObjectFactory;
         this.tankObjectManager = tankObjectManager;
         this.bulletObjectManager = bulletObjectManager;
+        this.gameEngine = gameEngine;
     }
 
     public UserPlayer createPlayer() {
         Tank tank = gameObjectFactory.createTank(new Vector(0, 0), new Vector(1, 1));
         tankObjectManager.addObject(tank);
 
-        return new UserPlayer(tank, bulletObjectManager, tokenManager.nextId());
+        UserPlayer userPlayer = new UserPlayer(tank, bulletObjectManager, tokenManager.nextId());
+
+        gameEngine.addPlayer(userPlayer);
+
+        return userPlayer;
     }
 }
