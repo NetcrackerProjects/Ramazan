@@ -4,7 +4,7 @@ import client.connection.control.ClientControl;
 import client.connection.control.PlayerInput;
 import client.sprite.SpriteFactory;
 import client.sprite.SpriteManager;
-import client.uitls.VectorInt;
+import client.utils.VectorInt;
 import engine.geometry.Vector;
 import engine.object.TokenManager;
 import game.object.GameObjectFactory;

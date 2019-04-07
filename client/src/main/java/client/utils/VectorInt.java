@@ -1,4 +1,4 @@
-package client.uitls;
+package client.utils;
 
 public class VectorInt {
 

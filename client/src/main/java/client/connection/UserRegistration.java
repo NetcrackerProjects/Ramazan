@@ -1,6 +1,6 @@
 package client.connection;
 
-import client.uitls.VectorInt;
+import client.utils.VectorInt;
 
 import java.io.IOException;
 

@@ -3,7 +3,7 @@ package client;
 import client.connection.UserRegistration;
 import client.connection.control.ClientControl;
 import client.gui.ClientUI;
-import client.uitls.VectorInt;
+import client.utils.VectorInt;
 
 import java.awt.EventQueue;
 import java.io.IOException;
