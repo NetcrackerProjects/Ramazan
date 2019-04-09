@@ -11,14 +11,14 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-class StartClientHandler extends Thread {
+class ClientRegistrationHandler extends Thread {
 
     private final Socket socket;
 
     private final UserFactory userFactory;
     private final UserManager userManager;
 
-    StartClientHandler(Socket socket, UserFactory userFactory, UserManager userManager) {
+    ClientRegistrationHandler(Socket socket, UserFactory userFactory, UserManager userManager) {
         this.socket = socket;
         this.userFactory = userFactory;
         this.userManager = userManager;
@@ -31,7 +31,7 @@ class StartClientHandler extends Thread {
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             String line = in.readLine();
 
-            int id = registerNewUser(parseMonitorSize(line));
+            int id = registerNewClient(parseMonitorSize(line));
 
             out.println(id);
         } catch (IOException e) {
@@ -51,7 +51,7 @@ class StartClientHandler extends Thread {
         return new Vector(width, height);
     }
 
-    private int registerNewUser(Vector monitorSize) {
+    private int registerNewClient(Vector monitorSize) {
         User user = userFactory.createUser(monitorSize);
         userManager.addUser(user);
 

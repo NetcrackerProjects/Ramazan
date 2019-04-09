@@ -2,7 +2,7 @@ package server;
 
 import game.Game;
 import server.connection.control.ClientControlListener;
-import server.connection.start.StartClientListener;
+import server.connection.start.ClientRegistrationListener;
 import server.user.UserFactory;
 import server.user.UserManager;
 
@@ -11,7 +11,7 @@ import java.io.IOException;
 class Server {
 
     private ClientControlListener clientControlListener;
-    private StartClientListener startClientListener;
+    private ClientRegistrationListener clientRegistrationListener;
 
     private Game game;
 
@@ -21,7 +21,7 @@ class Server {
             UserFactory userFactory = new UserFactory(game.getUserPlayerFactory());
             UserManager userManager = new UserManager();
 
-            this.startClientListener = new StartClientListener(userFactory, userManager);
+            this.clientRegistrationListener = new ClientRegistrationListener(userFactory, userManager);
 
             this.clientControlListener = new ClientControlListener(game);
 
@@ -31,13 +31,13 @@ class Server {
     }
 
     void start() {
-        startClientListener.start();
+        clientRegistrationListener.start();
         clientControlListener.start();
         game.start();
     }
 
     void stop() throws IOException, InterruptedException {
-        startClientListener.terminate();
+        clientRegistrationListener.terminate();
         clientControlListener.terminate();
         game.terminate();
     }

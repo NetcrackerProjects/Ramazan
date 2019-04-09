@@ -6,7 +6,7 @@ import server.user.UserManager;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-public class StartClientListener extends Thread {
+public class ClientRegistrationListener extends Thread {
 
     private final static int PORT = 6666;
 
@@ -17,7 +17,7 @@ public class StartClientListener extends Thread {
 
     private volatile boolean running;
 
-    public StartClientListener(UserFactory userFactory, UserManager userManager) throws IOException {
+    public ClientRegistrationListener(UserFactory userFactory, UserManager userManager) throws IOException {
         this.serverSocket = new ServerSocket(PORT);
         this.userFactory = userFactory;
         this.userManager = userManager;
@@ -28,7 +28,7 @@ public class StartClientListener extends Thread {
         this.running = true;
         while (isRunning()) {
             try {
-                new StartClientHandler(serverSocket.accept(), userFactory, userManager).start();
+                new ClientRegistrationHandler(serverSocket.accept(), userFactory, userManager).start();
             } catch (IOException e) {
                 break;
             }

@@ -53,26 +53,24 @@ class ClientControlHandler extends Thread {
             throw new IllegalArgumentException();
         }
 
-        ClientControlCommandType command = ClientCommandDecoder.getCommand(splits[0]);
+        ClientControlCommandType command = ClientControlCommandType.getType(Integer.parseInt(splits[0]));
 
-        if (command == ClientControlCommandType.NONE) {
-            return;
+        switch(command) {
+
+            case NONE:
+                return;
+            case START:
+                this.userId = Integer.parseInt((splits[1]));
+                return;
+            case EXIT:
+                try {
+                    terminate();
+                } catch (IOException ignored) {
+                }
+                return;
         }
 
-        if (command == ClientControlCommandType.EXIT) {
-            try {
-                terminate();
-            } catch (IOException ignored) {
-            }
-            return;
-        }
-
-        if (command == ClientControlCommandType.START) {
-            this.userId = getUserId(splits[1]);
-            return;
-        }
-
-        if (userId == NO_ID) {
+        if (userIsNotStartedYet()) {
             return;
         }
 
@@ -82,7 +80,7 @@ class ClientControlHandler extends Thread {
         game.processCommand(playerCommand);
     }
 
-    private int getUserId(String id) {
-        return Integer.parseInt(id);
+    private boolean userIsNotStartedYet() {
+        return (userId == NO_ID);
     }
 }

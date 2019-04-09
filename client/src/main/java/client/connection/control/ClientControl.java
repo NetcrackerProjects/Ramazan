@@ -10,11 +10,11 @@ public class ClientControl {
 
     private final ClientConnection clientConnection;
 
-    private final int userId;
+    private final int clientId;
 
-    public ClientControl(int userId) {
+    public ClientControl(int clientId) {
         this.clientConnection = new ClientConnection();
-        this.userId = userId;
+        this.clientId = clientId;
     }
 
     public void start(String address) throws IOException {
@@ -22,29 +22,21 @@ public class ClientControl {
     }
 
     void sendCommand(ClientControlCommandType clientControlCommandType) {
-        StringBuilder message = new StringBuilder();
-        message.append(formMessage(clientControlCommandType));
-
-        if (clientControlCommandType == ClientControlCommandType.START) {
-            message.append(":");
-            message.append(userId);
-        }
-
-        clientConnection.sendMessage(message.toString());
+        clientConnection.sendMessage(createMessage(clientControlCommandType));
 
         if (clientControlCommandType == ClientControlCommandType.EXIT) {
             stop();
         }
     }
 
-    private String formMessage(ClientControlCommandType clientControlCommandType) {
+    private String createMessage(ClientControlCommandType clientControlCommandType) {
         StringBuilder message = new StringBuilder();
 
-        message.append(ClientCommandEncoder.getCommand(clientControlCommandType));
+        message.append(clientControlCommandType.getCode());
 
         if (clientControlCommandType == ClientControlCommandType.START) {
             message.append(":");
-            message.append(userId);
+            message.append(clientId);
         }
 
         return message.toString();

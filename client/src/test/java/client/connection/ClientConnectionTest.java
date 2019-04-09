@@ -1,6 +1,5 @@
 package client.connection;
 
-import client.connection.ClientConnection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +12,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class ClientConnectionTest {
 
@@ -30,11 +28,6 @@ public class ClientConnectionTest {
     }
 
     @Test
-    public void shouldWorkCorrectlyWhenStartConnection() {
-        assertNotNull(clientSocket);
-    }
-
-    @Test
     public void shouldWorkCorrectlyWhenSendMessage() throws IOException {
         String expected = "test";
         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -47,17 +40,16 @@ public class ClientConnectionTest {
 
     @Test
     public void shouldWorkCorrectlyWhenReceiveMessage() throws IOException {
-        String expected = "test";
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-        out.println(expected);
+        out.println("test");
 
         String message = clientConnection.receiveMessage();
 
-        assertEquals(expected, message);
+        assertEquals("test", message);
     }
 
     @After
-    public void cleanup() throws IOException {
+    public void cleanUp() throws IOException {
         serverSocket.close();
         clientConnection.stopConnection();
     }

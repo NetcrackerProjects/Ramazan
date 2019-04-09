@@ -10,10 +10,11 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.assertEquals;
 
 public class ClientControlTest {
+
+    private static final int USER_ID = 0;
 
     private ClientControl clientControl;
 
@@ -22,7 +23,7 @@ public class ClientControlTest {
 
     @Before
     public void setup() throws IOException {
-        this.clientControl = new ClientControl(0);
+        this.clientControl = new ClientControl(USER_ID);
         this.serverSocket = new ServerSocket(5555);
 
         clientControl.start("127.0.0.1");
@@ -31,24 +32,18 @@ public class ClientControlTest {
     }
 
     @Test
-    public void shouldWorkCorrectlyWhenStart() {
-        assertNotNull(clientSocket);
-    }
-
-    @Test
     public void shouldWorkCorrectlyWhenSendMessage() throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         ClientControlCommandType type = ClientControlCommandType.MOVE_RIGHT;
-        String expected = ClientCommandEncoder.getCommand(type);
 
         clientControl.sendCommand(type);
 
         String message = in.readLine();
-        assertEquals(expected, message);
+        assertEquals("2", message);
     }
 
     @After
-    public void cleanup() throws IOException {
+    public void cleanUp() throws IOException {
         serverSocket.close();
         clientControl.sendCommand(ClientControlCommandType.EXIT);
     }

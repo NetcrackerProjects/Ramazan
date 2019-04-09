@@ -1,6 +1,5 @@
 package client.connection;
 
-import client.connection.UserRegistration;
 import client.utils.VectorInt;
 import org.junit.After;
 import org.junit.Before;
@@ -16,15 +15,15 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.Assert.assertEquals;
 
-public class UserRegistrationTest {
+public class ClientRegistrationTest {
 
-    private UserRegistration userRegistration;
+    private ClientRegistration clientRegistration;
     private ServerSocket serverSocket;
     private Thread server;
 
     @Before
     public void setup() throws IOException {
-        this.userRegistration = new UserRegistration();
+        this.clientRegistration = new ClientRegistration();
         this.serverSocket = new ServerSocket(6666);
     }
 
@@ -47,33 +46,33 @@ public class UserRegistrationTest {
         });
         server.start();
 
-        userRegistration.initializeConnection("127.0.0.1", message);
+        clientRegistration.registerClient("127.0.0.1", message);
 
         assertEquals("10:10", receivedMessage.get());
     }
 
     @Test
     public void shouldWorkCorrectlyWhenReceiveMessage() throws IOException {
-        int expected = 10;
         VectorInt message = new VectorInt(10, 10);
         this.server = new Thread(() -> {
             try {
                 Socket clientSocket = serverSocket.accept();
                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 
-                out.println(expected);
+                out.println(10);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
         server.start();
 
-        int id = userRegistration.initializeConnection("127.0.0.1", message);
-        assertEquals(expected, id);
+        int id = clientRegistration.registerClient("127.0.0.1", message);
+
+        assertEquals(10, id);
     }
 
     @After
-    public void cleanup() throws IOException {
+    public void cleanUp() throws IOException {
         serverSocket.close();
     }
 }
