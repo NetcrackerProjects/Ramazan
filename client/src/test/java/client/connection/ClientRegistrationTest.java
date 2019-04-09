@@ -1,6 +1,5 @@
 package client.connection;
 
-import client.utils.VectorInt;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +16,11 @@ import static org.junit.Assert.assertEquals;
 
 public class ClientRegistrationTest {
 
+    private final static int END_MESSAGE = 1;
+
+    private final static int WIDTH = 10;
+    private final static int HEIGHT = 10;
+
     private ClientRegistration clientRegistration;
     private ServerSocket serverSocket;
     private Thread server;
@@ -29,7 +33,6 @@ public class ClientRegistrationTest {
 
     @Test
     public void shouldWorkCorrectlyWhenSendMessage() throws IOException {
-        VectorInt message = new VectorInt(10, 10);
         AtomicReference<String> receivedMessage = new AtomicReference<>();
         this.server = new Thread(() -> {
             try {
@@ -39,21 +42,20 @@ public class ClientRegistrationTest {
 
                 receivedMessage.set(in.readLine());
 
-                out.println(1);
+                out.println(END_MESSAGE);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
         server.start();
 
-        clientRegistration.registerClient("127.0.0.1", message);
+        clientRegistration.registerClient("127.0.0.1", WIDTH, HEIGHT);
 
         assertEquals("10:10", receivedMessage.get());
     }
 
     @Test
     public void shouldWorkCorrectlyWhenReceiveMessage() throws IOException {
-        VectorInt message = new VectorInt(10, 10);
         this.server = new Thread(() -> {
             try {
                 Socket clientSocket = serverSocket.accept();
@@ -66,7 +68,7 @@ public class ClientRegistrationTest {
         });
         server.start();
 
-        int id = clientRegistration.registerClient("127.0.0.1", message);
+        int id = clientRegistration.registerClient("127.0.0.1", WIDTH, HEIGHT);
 
         assertEquals(10, id);
     }

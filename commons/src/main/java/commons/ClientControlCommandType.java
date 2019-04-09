@@ -1,4 +1,4 @@
-package client.connection.control;
+package commons;
 
 import java.util.HashMap;
 import java.util.Map;

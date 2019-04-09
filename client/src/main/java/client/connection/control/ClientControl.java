@@ -1,6 +1,7 @@
 package client.connection.control;
 
 import client.connection.ClientConnection;
+import commons.ClientControlCommandType;
 
 import java.io.IOException;
 

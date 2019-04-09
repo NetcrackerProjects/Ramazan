@@ -1,4 +1,4 @@
-package server.connection.start;
+package server.connection.registration;
 
 import engine.geometry.Vector;
 import server.user.User;

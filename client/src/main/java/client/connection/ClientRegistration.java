@@ -1,7 +1,5 @@
 package client.connection;
 
-import client.utils.VectorInt;
-
 import java.io.IOException;
 
 public class ClientRegistration {
@@ -14,10 +12,10 @@ public class ClientRegistration {
         this.clientConnection = new ClientConnection();
     }
 
-    public int registerClient(String address, VectorInt monitorSize) throws IOException {
+    public int registerClient(String address, int monitorWidth, int monitorHeight) throws IOException {
         clientConnection.startConnection(address, DEFAULT_PORT);
 
-        clientConnection.sendMessage(monitorSize.getX() + ":" + monitorSize.getY());
+        clientConnection.sendMessage(monitorWidth + ":" + monitorHeight);
 
         int id = Integer.parseInt(clientConnection.receiveMessage());
 

@@ -15,11 +15,6 @@
     <name>server</name>
     <dependencies>
         <dependency>
-            <groupId>netcracker</groupId>
-            <artifactId>client</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
@@ -28,6 +23,24 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>netcracker</groupId>
+            <artifactId>commons</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>netcracker</groupId>
+            <artifactId>engine</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>netcracker</groupId>
+            <artifactId>game</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

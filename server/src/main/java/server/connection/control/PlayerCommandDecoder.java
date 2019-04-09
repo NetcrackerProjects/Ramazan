@@ -1,6 +1,6 @@
 package server.connection.control;
 
-import client.connection.control.ClientControlCommandType;
+import commons.ClientControlCommandType;
 import engine.player.command.PlayerCommandType;
 
 class PlayerCommandDecoder {

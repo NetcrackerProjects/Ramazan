@@ -1,6 +1,7 @@
 package client.connection.control;
 
 import client.gui.ClientUI;
+import commons.ClientControlCommandType;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

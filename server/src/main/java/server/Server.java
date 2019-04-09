@@ -2,7 +2,7 @@ package server;
 
 import game.Game;
 import server.connection.control.ClientControlListener;
-import server.connection.start.ClientRegistrationListener;
+import server.connection.registration.ClientRegistrationListener;
 import server.user.UserFactory;
 import server.user.UserManager;
 

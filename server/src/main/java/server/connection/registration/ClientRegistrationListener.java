@@ -1,4 +1,4 @@
-package server.connection.start;
+package server.connection.registration;
 
 import server.user.UserFactory;
 import server.user.UserManager;
