@@ -21,4 +21,8 @@ public class User {
     public Vector getMonitorSize() {
         return monitorSize;
     }
+
+    public Vector getPosition() {
+        return userPlayer.getPosition();
+    }
 }

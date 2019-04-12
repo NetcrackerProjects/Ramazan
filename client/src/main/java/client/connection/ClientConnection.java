@@ -22,7 +22,7 @@ public class ClientConnection {
         out.println(command);
     }
 
-    String receiveMessage() throws IOException {
+    public String receiveMessage() throws IOException {
         return in.readLine();
     }
 

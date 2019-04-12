@@ -1,5 +1,6 @@
 package client.connection.control;
 
+import client.connection.visual.VisualConnection;
 import commons.ClientControlCommandType;
 import org.junit.After;
 import org.junit.Before;
@@ -12,6 +13,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 public class ClientControlTest {
 
@@ -24,7 +26,9 @@ public class ClientControlTest {
 
     @Before
     public void setup() throws IOException {
-        this.clientControl = new ClientControl(USER_ID);
+        VisualConnection visualConnection = mock(VisualConnection.class);
+        this.clientControl = new ClientControl(USER_ID, visualConnection);
+
         this.serverSocket = new ServerSocket(5555);
 
         clientControl.start("127.0.0.1");

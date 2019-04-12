@@ -32,6 +32,7 @@ public class ClientControlListener extends Thread {
             try {
                 ClientControlHandler controlHandler = new ClientControlHandler(serverSocket.accept(), game);
                 controlHandlers.add(controlHandler);
+                controlHandler.start();
             } catch (IOException e) {
                 break;
             }

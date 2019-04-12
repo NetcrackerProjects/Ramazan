@@ -28,7 +28,10 @@ public class UserPlayerFactory {
     }
 
     public UserPlayer createPlayer() {
-        Tank tank = gameObjectFactory.createTank(new Vector(0, 0), new Vector(1, 1));
+        Vector leftTop = gameEngine.getFreePositionForRectangle(Tank.SIZE);
+
+        Tank tank = gameObjectFactory.createTank(leftTop);
+        tank.setSpeed(new Vector(1, 0));
         tankObjectManager.addObject(tank);
 
         UserPlayer userPlayer = new UserPlayer(tank, bulletObjectManager, tokenManager.nextId());

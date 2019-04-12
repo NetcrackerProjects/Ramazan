@@ -1,6 +1,7 @@
 package client.connection.control;
 
 import client.connection.ClientConnection;
+import client.connection.visual.VisualConnection;
 import commons.ClientControlCommandType;
 
 import java.io.IOException;
@@ -11,18 +12,21 @@ public class ClientControl {
 
     private final ClientConnection clientConnection;
 
+    private final VisualConnection visualConnection;
+
     private final int clientId;
 
-    public ClientControl(int clientId) {
+    public ClientControl(int clientId, VisualConnection visualConnection) {
         this.clientConnection = new ClientConnection();
         this.clientId = clientId;
+        this.visualConnection = visualConnection;
     }
 
     public void start(String address) throws IOException {
         clientConnection.startConnection(address, DEFAULT_PORT);
     }
 
-    void sendCommand(ClientControlCommandType clientControlCommandType) {
+    public void sendCommand(ClientControlCommandType clientControlCommandType) {
         clientConnection.sendMessage(createMessage(clientControlCommandType));
 
         if (clientControlCommandType == ClientControlCommandType.EXIT) {
@@ -46,6 +50,7 @@ public class ClientControl {
     private void stop() {
         try {
             clientConnection.stopConnection();
+            visualConnection.terminate();
         } catch (IOException e) {
             e.printStackTrace();
         }

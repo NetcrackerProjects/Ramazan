@@ -23,10 +23,14 @@ public class PhysicManager {
         this.gameObjects = new HashSet<>();
     }
 
+    public Collection<GameObject> getGameObjects() {
+        return gameObjects;
+    }
+
     public void applyForces() {
         for (GameObject gameObject : gameObjects) {
             Vector friction = new Vector(gameObject.getSpeed());
-            friction.scale(GameField.frictionCoefficient);
+            friction.scale(-GameField.frictionCoefficient);
 
             gameObject.accelerate(friction);
         }
@@ -54,6 +58,33 @@ public class PhysicManager {
         }
 
         throw new AddObjectException();
+    }
+
+    public Vector getFreePositionForRectangle(Vector size) {
+        int count = 0;
+
+        while(count < 20) {
+            Rectangle space = new Rectangle(field.getRandomPoint(), size);
+
+            if (isFreeSpace(space)) {
+                return space.getTopLeft();
+            }
+
+            count++;
+        }
+
+        return new Vector(0, 0);
+    }
+
+    private boolean isFreeSpace(Rectangle rectangle) {
+        if (isOutOfGameField(rectangle)) {
+            return false;
+        }
+
+        Collection<GameObject> intersectedObjects =
+                getIntersectedGameObjects(null, rectangle);
+
+        return intersectedObjects.isEmpty();
     }
 
     private boolean canAddObject(GameObject gameObject) {

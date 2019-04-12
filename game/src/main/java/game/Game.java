@@ -5,6 +5,7 @@ import engine.interaction.InteractionType;
 import engine.object.manager.ObjectManager;
 import engine.physic.PhysicManager;
 import engine.player.command.PlayerCommand;
+import engine.visualizer.Visualizer;
 import game.object.Bonus;
 import game.object.Bullet;
 import game.object.GameObjectFactory;
@@ -20,8 +21,8 @@ public class Game {
 
     private final UserPlayerFactory userPlayerFactory;
 
-    public Game() {
-        this.gameEngine = new GameEngine();
+    public Game(Visualizer visualizer) {
+        this.gameEngine = new GameEngine(visualizer);
 
         PhysicManager physicManager = gameEngine.getPhysicManager();
 
@@ -32,8 +33,6 @@ public class Game {
         GameObjectFactory gameObjectFactory = new GameObjectFactory(gameEngine.getTokenManager());
         GameObjectInitializer gameObjectInitializer = new GameObjectInitializer(gameObjectFactory);
 
-        gameObjectInitializer.createTanks(tankObjectManager);
-        gameObjectInitializer.createBullets(bulletObjectManager);
         gameObjectInitializer.createBonuses(bonusHolderObjectManager);
 
         gameEngine.addInteractionRule(new InteractionType(Type.TANK, Type.BULLET),

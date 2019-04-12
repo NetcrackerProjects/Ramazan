@@ -1,6 +1,6 @@
 package client.sprite;
 
-import engine.object.GameObject;
+import engine.geometry.Rectangle;
 
 public class SpriteFactory {
 
@@ -10,7 +10,7 @@ public class SpriteFactory {
         this.imageMap = new ImageMap();
     }
 
-    public Sprite createSprite(GameObject gameObject) {
-        return new Sprite(imageMap.getImage(gameObject.getTypeId()), gameObject.getPosition());
+    public Sprite createSprite(Rectangle body, int typeId) {
+        return new Sprite(imageMap.getImage(typeId), body);
     }
 }

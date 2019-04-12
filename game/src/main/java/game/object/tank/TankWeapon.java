@@ -11,21 +11,31 @@ public class TankWeapon {
     private final static double RELATIVE_BULLET_SIZE = 0.2;
     private final static double BULLET_MAX_SPEED = 5;
 
+    private final static Vector INITIAL_DIRECTION = new Vector(1, 0);
+
     private final Rectangle tankBody;
-    private final Vector tankSpeed;
 
     private final GameObjectFactory gameObjectFactory;
 
-    TankWeapon(Rectangle tankBody, Vector tankSpeed, GameObjectFactory gameObjectFactory) {
+    private final int tankId;
+
+    private Vector direction;
+
+    TankWeapon(Rectangle tankBody, int tankId, GameObjectFactory gameObjectFactory) {
         this.tankBody = tankBody;
-        this.tankSpeed = tankSpeed;
+        this.direction = new Vector(INITIAL_DIRECTION);
+        this.tankId = tankId;
         this.gameObjectFactory = gameObjectFactory;
     }
 
     public Bullet nextBullet() {
-        Bullet bullet = gameObjectFactory.createBullet(getNewBulletBody());
+        Bullet bullet = gameObjectFactory.createBullet(getNewBulletBody(), tankId);
         bullet.setSpeed(getBulletSpeed());
         return bullet;
+    }
+
+    void setDirection(Vector direction) {
+        this.direction = direction;
     }
 
     private Rectangle getNewBulletBody() {
@@ -45,6 +55,6 @@ public class TankWeapon {
     }
 
     private Vector getBulletSpeed() {
-        return VectorUtils.scale(tankSpeed, BULLET_MAX_SPEED / tankSpeed.norm());
+        return VectorUtils.scale(direction, BULLET_MAX_SPEED);
     }
 }

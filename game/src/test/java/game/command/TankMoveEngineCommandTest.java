@@ -2,7 +2,7 @@ package game.command;
 
 import engine.action.Action;
 import engine.geometry.Direction;
-import game.action.ChangeSpeedAction;
+import game.action.ChangeTankSpeedAction;
 import game.object.tank.Tank;
 import org.junit.Test;
 
@@ -19,6 +19,6 @@ public class TankMoveEngineCommandTest {
 
         Action action = command.getAction();
 
-        assertTrue(action instanceof ChangeSpeedAction);
+        assertTrue(action instanceof ChangeTankSpeedAction);
     }
 }

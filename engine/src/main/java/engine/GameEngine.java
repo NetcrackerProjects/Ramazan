@@ -15,6 +15,7 @@ import engine.player.Player;
 import engine.player.PlayerManager;
 import engine.player.command.PlayerCommand;
 import engine.player.command.PlayerCommandProcessor;
+import engine.visualizer.Visualizer;
 
 import java.util.Collection;
 import java.util.concurrent.BlockingQueue;
@@ -39,12 +40,14 @@ public class GameEngine extends Thread {
 
     private final BlockingQueue<PlayerCommand> playerCommands;
 
-    public GameEngine() {
+    private final Visualizer visualizer;
+
+    public GameEngine(Visualizer visualizer) {
         this.actionManager = new ActionManager();
         this.tokenManager = new TokenManager();
 
         this.physicManager = new PhysicManager(new GameField(new Vector(0, 0),
-                new Vector(10, 10), tokenManager.nextId()));
+                new Vector(400, 400), tokenManager.nextId()));
 
         this.interactionRuleBase = new InteractionRuleBase();
         this.interactionProcessor = new InteractionProcessor(interactionRuleBase);
@@ -55,6 +58,8 @@ public class GameEngine extends Thread {
 
         this.playerCommands = new LinkedBlockingQueue<>();
         this.playerCommandProcessor = new PlayerCommandProcessor(playerManager);
+
+        this.visualizer = visualizer;
     }
 
     @Override
@@ -68,6 +73,8 @@ public class GameEngine extends Thread {
             double elapsed = current - previous;
             previous = current;
             lag += elapsed;
+
+            visualizer.draw(physicManager.getGameObjects());
 
             while (lag >= MS_PER_UPDATE) {
                 update();
@@ -99,6 +106,10 @@ public class GameEngine extends Thread {
 
     public void addPlayer(Player player) {
         playerManager.addPlayer(player);
+    }
+
+    public Vector getFreePositionForRectangle(Vector size) {
+        return physicManager.getFreePositionForRectangle(size);
     }
 
     private void update() {
