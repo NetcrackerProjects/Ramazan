@@ -68,9 +68,9 @@ public class ClientRegistrationTest {
         });
         server.start();
 
-        int fetchId = clientRegistration.registerClient("127.0.0.1", WIDTH, HEIGHT);
+        int fetchedId = clientRegistration.registerClient("127.0.0.1", WIDTH, HEIGHT);
 
-        assertEquals(10, fetchId);
+        assertEquals(10, fetchedId);
     }
 
     @After

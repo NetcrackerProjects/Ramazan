@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-public class ClientControlHandler extends Thread {
+class ClientControlHandler extends Thread {
 
     private static final int NO_ID = -1;
 
@@ -20,7 +20,7 @@ public class ClientControlHandler extends Thread {
 
     private int userId;
 
-    public ClientControlHandler(Socket clientSocket, Game game) {
+    ClientControlHandler(Socket clientSocket, Game game) {
         this.clientSocket = clientSocket;
         this.game = game;
         this.userId = NO_ID;

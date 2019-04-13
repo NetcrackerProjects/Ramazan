@@ -1,10 +1,9 @@
-package server.connection;
+package server.connection.control;
 
 import game.Game;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import server.connection.control.ClientControlHandler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
