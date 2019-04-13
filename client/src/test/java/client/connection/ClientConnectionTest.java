@@ -28,7 +28,7 @@ public class ClientConnectionTest {
     }
 
     @Test
-    public void shouldWorkCorrectlyWhenSendMessage() throws IOException {
+    public void shouldSendMessageToConnectedSocketWhenSendMessage() throws IOException {
         String expected = "test";
         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
@@ -39,7 +39,7 @@ public class ClientConnectionTest {
     }
 
     @Test
-    public void shouldWorkCorrectlyWhenReceiveMessage() throws IOException {
+    public void shouldReceiveMessageFromConnectedSocketWhenReceiveMessage() throws IOException {
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
         out.println("test");
 

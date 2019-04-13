@@ -34,9 +34,15 @@ class ClientRegistrationHandler extends Thread {
             int id = registerNewClient(parseMonitorSize(line));
 
             out.println(id);
+
+            terminate();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void terminate() throws IOException {
+        socket.close();
     }
 
     private Vector parseMonitorSize(String line) {

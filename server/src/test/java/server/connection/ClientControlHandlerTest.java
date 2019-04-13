@@ -22,11 +22,13 @@ public class ClientControlHandlerTest {
     private Socket socket;
     private ServerSocket serverSocket;
     private ClientControlHandler clientControlHandler;
+    private PrintWriter printer;
 
     @Before
     public void setup() throws IOException {
         this.serverSocket = new ServerSocket(6666);
         this.socket = new Socket("127.0.0.1", 6666);
+        this.printer = new PrintWriter(socket.getOutputStream(), true);
         Socket clientSocket = serverSocket.accept();
 
         this.game = mock(Game.class);
@@ -34,17 +36,14 @@ public class ClientControlHandlerTest {
     }
 
     @Test
-    public void should() throws IOException, InterruptedException {
-        PrintWriter printer = new PrintWriter(socket.getOutputStream(), true);
-
+    public void shouldCallGameProcessCommandMethodWhenReceiveCommand() throws InterruptedException {
         clientControlHandler.start();
-
         printer.println("7:1");
+
         printer.println("1");
+
         printer.println("6");
-
         clientControlHandler.join();
-
         verify(game, times(1)).processCommand(any());
     }
 

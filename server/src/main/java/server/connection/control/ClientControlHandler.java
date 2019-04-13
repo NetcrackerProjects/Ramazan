@@ -69,7 +69,7 @@ public class ClientControlHandler extends Thread {
                 return;
         }
 
-        if (userIsNotStartedYet()) {
+        if (ClientControlHandler.isRegistered(userId)) {
             return;
         }
 
@@ -79,7 +79,7 @@ public class ClientControlHandler extends Thread {
         game.processCommand(playerCommand);
     }
 
-    private boolean userIsNotStartedYet() {
+    private static boolean isRegistered(int userId) {
         return (userId == NO_ID);
     }
 }

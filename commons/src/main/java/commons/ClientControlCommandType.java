@@ -13,7 +13,7 @@ public enum ClientControlCommandType {
     START(7),
     NONE(8);
 
-    private static Map<Integer, ClientControlCommandType> map;
+    private static Map<Integer, ClientControlCommandType> TYPE_MAP;
 
     private final int code;
 
@@ -22,12 +22,8 @@ public enum ClientControlCommandType {
         addToMap(this, code);
     }
 
-    public int getCode() {
-        return code;
-    }
-
     public static ClientControlCommandType getType(int code) {
-        ClientControlCommandType type = map.get(code);
+        ClientControlCommandType type = TYPE_MAP.get(code);
 
         if (type == null) {
             throw new IllegalArgumentException();
@@ -36,10 +32,14 @@ public enum ClientControlCommandType {
         return type;
     }
 
+    public static int valueOf(ClientControlCommandType type) {
+        return type.code;
+    }
+
     private static void addToMap(ClientControlCommandType type, int code) {
-        if (map == null) {
-            map = new HashMap<>();
+        if (TYPE_MAP == null) {
+            TYPE_MAP = new HashMap<>();
         }
-        map.put(code, type);
+        TYPE_MAP.put(code, type);
     }
 }

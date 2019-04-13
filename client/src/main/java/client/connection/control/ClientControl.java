@@ -37,7 +37,7 @@ public class ClientControl {
     private String createMessage(ClientControlCommandType clientControlCommandType) {
         StringBuilder message = new StringBuilder();
 
-        message.append(clientControlCommandType.getCode());
+        message.append(ClientControlCommandType.valueOf(clientControlCommandType));
 
         if (clientControlCommandType == ClientControlCommandType.START) {
             message.append(":");

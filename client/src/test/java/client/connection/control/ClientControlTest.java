@@ -37,7 +37,7 @@ public class ClientControlTest {
     }
 
     @Test
-    public void shouldWorkCorrectlyWhenSendMessage() throws IOException {
+    public void shouldSendValueOfCommandTypeWhenSendCommand() throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         ClientControlCommandType type = ClientControlCommandType.MOVE_RIGHT;
 

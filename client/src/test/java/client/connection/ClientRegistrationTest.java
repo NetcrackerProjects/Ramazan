@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ClientRegistrationTest {
 
-    private final static int END_MESSAGE = 1;
+    private final static int CLIENT_ID_TO_REGISTER = 1;
 
     private final static int WIDTH = 10;
     private final static int HEIGHT = 10;
@@ -32,7 +32,7 @@ public class ClientRegistrationTest {
     }
 
     @Test
-    public void shouldWorkCorrectlyWhenSendMessage() throws IOException {
+    public void shouldSendMonitorParametersWhenTryingRegisterClient() throws IOException {
         AtomicReference<String> receivedMessage = new AtomicReference<>();
         this.server = new Thread(() -> {
             try {
@@ -42,7 +42,7 @@ public class ClientRegistrationTest {
 
                 receivedMessage.set(in.readLine());
 
-                out.println(END_MESSAGE);
+                out.println(CLIENT_ID_TO_REGISTER);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -55,7 +55,7 @@ public class ClientRegistrationTest {
     }
 
     @Test
-    public void shouldWorkCorrectlyWhenReceiveMessage() throws IOException {
+    public void shouldFetchIdWhenTryingToRegisterClient() throws IOException {
         this.server = new Thread(() -> {
             try {
                 Socket clientSocket = serverSocket.accept();
@@ -68,9 +68,9 @@ public class ClientRegistrationTest {
         });
         server.start();
 
-        int id = clientRegistration.registerClient("127.0.0.1", WIDTH, HEIGHT);
+        int fetchId = clientRegistration.registerClient("127.0.0.1", WIDTH, HEIGHT);
 
-        assertEquals(10, id);
+        assertEquals(10, fetchId);
     }
 
     @After
