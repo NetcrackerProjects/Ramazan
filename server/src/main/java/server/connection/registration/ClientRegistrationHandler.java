@@ -1,14 +1,11 @@
 package server.connection.registration;
 
-import engine.geometry.Vector;
 import server.exception.FailedCreateUserException;
 import server.user.User;
 import server.user.UserFactory;
 import server.user.UserManager;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -28,11 +25,9 @@ class ClientRegistrationHandler extends Thread {
     @Override
     public void run() {
         try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            String line = in.readLine();
 
-            int id = registerNewClient(parseMonitorSize(line));
+            int id = registerNewClient();
 
             out.println(id);
 
@@ -46,20 +41,8 @@ class ClientRegistrationHandler extends Thread {
         socket.close();
     }
 
-    private Vector parseMonitorSize(String line) {
-        String[] splits = line.split(":");
-
-        if (splits.length != 2) {
-            throw new IllegalArgumentException();
-        }
-
-        int width = Integer.parseInt(splits[0]);
-        int height = Integer.parseInt(splits[1]);
-        return new Vector(width, height);
-    }
-
-    private int registerNewClient(Vector monitorSize) throws FailedCreateUserException {
-        User user = userFactory.createUser(monitorSize);
+    private int registerNewClient() throws FailedCreateUserException {
+        User user = userFactory.createUser();
         userManager.addUser(user);
 
         return user.getId();

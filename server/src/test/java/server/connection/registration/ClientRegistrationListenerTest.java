@@ -15,7 +15,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -34,7 +33,7 @@ public class ClientRegistrationListenerTest {
         UserFactory userFactory = mock(UserFactory.class);
         User user = mock(User.class);
         when(user.getId()).thenReturn(USER_ID);
-        when(userFactory.createUser(any())).thenReturn(user);
+        when(userFactory.createUser()).thenReturn(user);
         UserManager userManager = mock(UserManager.class);
         this.clientRegistrationListener = new ClientRegistrationListener(userFactory, userManager);
         clientRegistrationListener.start();

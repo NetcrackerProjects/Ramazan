@@ -12,10 +12,8 @@ public class ClientRegistration {
         this.clientConnection = new ClientConnection();
     }
 
-    public int registerClient(String address, int monitorWidth, int monitorHeight) throws IOException {
+    public int registerClient(String address) throws IOException {
         clientConnection.startConnection(address, DEFAULT_PORT);
-
-        clientConnection.sendMessage(monitorWidth + ":" + monitorHeight);
 
         int id = Integer.parseInt(clientConnection.receiveMessage());
 

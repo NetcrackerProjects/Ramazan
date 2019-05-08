@@ -1,6 +1,5 @@
 package server.connection.data;
 
-import engine.geometry.Rectangle;
 import engine.geometry.Vector;
 import engine.object.GameObject;
 import engine.visualizer.Publisher;
@@ -54,25 +53,17 @@ public class DataSubscriberManager implements Publisher {
 
     private String createMessageForUser(User user, Collection<GameObject> gameObjects) {
         Vector pos = user.getPosition();
-        Vector monitorSize = user.getMonitorSize();
-
-        Rectangle monitorRectangle = new Rectangle(new Vector(pos.getX() - monitorSize.getX()/2,
-                                                            pos.getY() - monitorSize.getY()/2),
-                                                new Vector(pos.getX() + monitorSize.getX()/2,
-                                                            pos.getY() + monitorSize.getY()/2));
 
         return pos.getX() + ":" + pos.getY() + ";" +
-                createMessage(gameObjects, monitorRectangle);
+                createMessage(gameObjects);
     }
 
-    private String createMessage(Collection<GameObject> gameObjects, Rectangle monitorRectangle) {
+    private String createMessage(Collection<GameObject> gameObjects) {
         StringBuilder stringBuilder = new StringBuilder();
 
         for(GameObject gameObject: gameObjects) {
-            if (gameObject.doesIntersect(monitorRectangle)) {
-                stringBuilder.append(GameObjectEncoder.encode(gameObject));
-                stringBuilder.append(";");
-            }
+            stringBuilder.append(GameObjectEncoder.encode(gameObject));
+            stringBuilder.append(";");
         }
 
         return stringBuilder.toString();

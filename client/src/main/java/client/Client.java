@@ -41,6 +41,6 @@ class Client {
 
     private int registerClient() throws IOException {
         ClientRegistration clientRegistration = new ClientRegistration();
-        return clientRegistration.registerClient(DEFAULT_ADDRESS, MONITOR_WIDTH, MONITOR_HEIGHT);
+        return clientRegistration.registerClient(DEFAULT_ADDRESS);
     }
 }

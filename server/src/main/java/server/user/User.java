@@ -7,19 +7,12 @@ public class User {
 
     private final UserPlayer userPlayer;
 
-    private final Vector monitorSize;
-
-    User(UserPlayer userPlayer, Vector monitorSize) {
+    User(UserPlayer userPlayer) {
         this.userPlayer = userPlayer;
-        this.monitorSize = monitorSize;
     }
 
     public int getId() {
         return userPlayer.getId();
-    }
-
-    public Vector getMonitorSize() {
-        return monitorSize;
     }
 
     public Vector getPosition() {
