@@ -2,7 +2,7 @@ package client;
 
 import client.connection.ClientRegistration;
 import client.connection.control.ClientControl;
-import client.connection.visual.VisualConnection;
+import client.connection.data.DataConnection;
 import client.gui.ClientUI;
 import client.sprite.SpriteManager;
 import commons.ClientControlCommandType;
@@ -24,10 +24,10 @@ class Client {
 
         SpriteManager spriteManager = new SpriteManager();
 
-        VisualConnection visualConnection = new VisualConnection(DEFAULT_ADDRESS, id, spriteManager);
-        visualConnection.start();
+        DataConnection dataConnection = new DataConnection(DEFAULT_ADDRESS, id, spriteManager);
+        dataConnection.start();
 
-        ClientControl clientControl = new ClientControl(id, visualConnection);
+        ClientControl clientControl = new ClientControl(id, dataConnection);
 
         clientControl.start(DEFAULT_ADDRESS);
 

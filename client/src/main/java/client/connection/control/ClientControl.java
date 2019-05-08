@@ -1,7 +1,7 @@
 package client.connection.control;
 
 import client.connection.ClientConnection;
-import client.connection.visual.VisualConnection;
+import client.connection.data.DataConnection;
 import commons.ClientControlCommandType;
 
 import java.io.IOException;
@@ -12,14 +12,14 @@ public class ClientControl {
 
     private final ClientConnection clientConnection;
 
-    private final VisualConnection visualConnection;
+    private final DataConnection dataConnection;
 
     private final int clientId;
 
-    public ClientControl(int clientId, VisualConnection visualConnection) {
+    public ClientControl(int clientId, DataConnection dataConnection) {
         this.clientConnection = new ClientConnection();
         this.clientId = clientId;
-        this.visualConnection = visualConnection;
+        this.dataConnection = dataConnection;
     }
 
     public void start(String address) throws IOException {
@@ -50,7 +50,7 @@ public class ClientControl {
     private void stop() {
         try {
             clientConnection.stopConnection();
-            visualConnection.terminate();
+            dataConnection.terminate();
         } catch (IOException e) {
             e.printStackTrace();
         }

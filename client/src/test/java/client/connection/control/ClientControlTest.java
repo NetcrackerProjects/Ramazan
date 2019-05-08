@@ -1,6 +1,6 @@
 package client.connection.control;
 
-import client.connection.visual.VisualConnection;
+import client.connection.data.DataConnection;
 import commons.ClientControlCommandType;
 import org.junit.After;
 import org.junit.Before;
@@ -26,8 +26,8 @@ public class ClientControlTest {
 
     @Before
     public void setup() throws IOException {
-        VisualConnection visualConnection = mock(VisualConnection.class);
-        this.clientControl = new ClientControl(USER_ID, visualConnection);
+        DataConnection dataConnection = mock(DataConnection.class);
+        this.clientControl = new ClientControl(USER_ID, dataConnection);
 
         this.serverSocket = new ServerSocket(5555);
 

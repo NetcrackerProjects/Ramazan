@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import server.exception.FailedCreateUserException;
 import server.user.User;
 import server.user.UserFactory;
 import server.user.UserManager;
@@ -41,7 +42,7 @@ public class ClientRegistrationHandlerTest {
     private PrintWriter printer;
 
     @Before
-    public void setup() throws IOException {
+    public void setup() throws IOException, FailedCreateUserException {
         this.serverSocket = new ServerSocket(PORT);
         this.socket = new Socket("127.0.0.1", PORT);
         Socket clientSocket = serverSocket.accept();
@@ -57,7 +58,7 @@ public class ClientRegistrationHandlerTest {
     }
 
     @Test
-    public void shouldCallCreateUserWhenRegisterNewUser() throws InterruptedException {
+    public void shouldCallCreateUserWhenRegisterNewUser() throws InterruptedException, FailedCreateUserException {
         printer.println(MONITOR_SIZE);
 
         clientRegistrationHandler.join();

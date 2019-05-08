@@ -1,8 +1,9 @@
-package server.connection.visual;
+package server.connection.data;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import server.exception.NoSuchUserException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,19 +16,19 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-public class VisualSubscriberHandlerTest {
+public class DataSubscriberHandlerTest {
 
     private static final int PORT = 6666;
 
     private static final int USER_ID = 1;
 
-    private VisualSubscriberHandler visualSubscriberHandler;
+    private DataSubscriberHandler dataSubscriberHandler;
 
     private Socket socket;
     private ServerSocket serverSocket;
     private Socket clientSocket;
 
-    private VisualSubscriberManager visualSubscriberManager;
+    private DataSubscriberManager dataSubscriberManager;
 
     private PrintWriter printer;
 
@@ -37,18 +38,18 @@ public class VisualSubscriberHandlerTest {
         this.socket = new Socket("127.0.0.1", PORT);
         this.clientSocket = serverSocket.accept();
         this.printer = new PrintWriter(socket.getOutputStream(), true);
-        this.visualSubscriberManager = mock(VisualSubscriberManager.class);
-        this.visualSubscriberHandler =
-                new VisualSubscriberHandler(clientSocket, visualSubscriberManager);
-        visualSubscriberHandler.start();
+        this.dataSubscriberManager = mock(DataSubscriberManager.class);
+        this.dataSubscriberHandler =
+                new DataSubscriberHandler(clientSocket, dataSubscriberManager);
+        dataSubscriberHandler.start();
     }
 
     @Test
-    public void shouldCallAddVisualSubscriberWhenHandleClient() throws InterruptedException, IOException {
+    public void shouldCallAddVisualSubscriberWhenHandleClient() throws InterruptedException, IOException, NoSuchUserException {
         printer.println(USER_ID);
 
-        visualSubscriberHandler.join();
-        verify(visualSubscriberManager, times(1)).
+        dataSubscriberHandler.join();
+        verify(dataSubscriberManager, times(1)).
                 addVisualSubscriber(eq(USER_ID), any(Socket.class));
     }
 

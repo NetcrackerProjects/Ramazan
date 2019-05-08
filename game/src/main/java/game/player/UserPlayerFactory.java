@@ -1,9 +1,11 @@
 package game.player;
 
 import engine.GameEngine;
+import engine.exception.GetFreePositionFailedException;
 import engine.geometry.Vector;
 import engine.object.TokenManager;
 import engine.object.manager.ObjectManager;
+import game.exception.FailedCreateUserPlayerException;
 import game.object.Bullet;
 import game.object.GameObjectFactory;
 import game.object.tank.Tank;
@@ -27,17 +29,20 @@ public class UserPlayerFactory {
         this.gameEngine = gameEngine;
     }
 
-    public UserPlayer createPlayer() {
-        Vector leftTop = gameEngine.getFreePositionForRectangle(Tank.SIZE);
+    public UserPlayer createPlayer() throws FailedCreateUserPlayerException {
+        try {
+            Vector leftTop = gameEngine.getFreePositionForRectangle(Tank.SIZE);
+            Tank tank = gameObjectFactory.createTank(leftTop);
+            tank.setSpeed(new Vector(1, 0));
+            tankObjectManager.addObject(tank);
 
-        Tank tank = gameObjectFactory.createTank(leftTop);
-        tank.setSpeed(new Vector(1, 0));
-        tankObjectManager.addObject(tank);
+            UserPlayer userPlayer = new UserPlayer(tank, bulletObjectManager, tokenManager.nextId());
 
-        UserPlayer userPlayer = new UserPlayer(tank, bulletObjectManager, tokenManager.nextId());
+            gameEngine.addPlayer(userPlayer);
 
-        gameEngine.addPlayer(userPlayer);
-
-        return userPlayer;
+            return userPlayer;
+        } catch (GetFreePositionFailedException e) {
+            throw new FailedCreateUserPlayerException();
+        }
     }
 }

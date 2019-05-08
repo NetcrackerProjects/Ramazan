@@ -3,8 +3,8 @@ package server;
 import game.Game;
 import server.connection.control.ClientControlListener;
 import server.connection.registration.ClientRegistrationListener;
-import server.connection.visual.VisualSubscriberListener;
-import server.connection.visual.VisualSubscriberManager;
+import server.connection.data.DataSubscriberListener;
+import server.connection.data.DataSubscriberManager;
 import server.user.UserFactory;
 import server.user.UserManager;
 
@@ -14,16 +14,16 @@ class Server {
 
     private ClientControlListener clientControlListener;
     private ClientRegistrationListener clientRegistrationListener;
-    private VisualSubscriberListener visualSubscriberListener;
+    private DataSubscriberListener dataSubscriberListener;
 
     private Game game;
 
     Server() {
         try {
             UserManager userManager = new UserManager();
-            VisualSubscriberManager visualSubscriberManager = new VisualSubscriberManager(userManager);
+            DataSubscriberManager dataSubscriberManager = new DataSubscriberManager(userManager);
 
-            this.game = new Game(visualSubscriberManager);
+            this.game = new Game(dataSubscriberManager);
 
             UserFactory userFactory = new UserFactory(game.getUserPlayerFactory());
 
@@ -31,7 +31,7 @@ class Server {
 
             this.clientControlListener = new ClientControlListener(game);
 
-            this.visualSubscriberListener = new VisualSubscriberListener(visualSubscriberManager);
+            this.dataSubscriberListener = new DataSubscriberListener(dataSubscriberManager);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,14 +40,14 @@ class Server {
     void start() {
         clientRegistrationListener.start();
         clientControlListener.start();
-        visualSubscriberListener.start();
+        dataSubscriberListener.start();
         game.start();
     }
 
     void stop() throws IOException, InterruptedException {
         clientRegistrationListener.terminate();
         clientControlListener.terminate();
-        visualSubscriberListener.terminate();
+        dataSubscriberListener.terminate();
         game.terminate();
     }
 }

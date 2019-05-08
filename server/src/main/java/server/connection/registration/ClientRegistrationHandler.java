@@ -1,6 +1,7 @@
 package server.connection.registration;
 
 import engine.geometry.Vector;
+import server.exception.FailedCreateUserException;
 import server.user.User;
 import server.user.UserFactory;
 import server.user.UserManager;
@@ -36,7 +37,7 @@ class ClientRegistrationHandler extends Thread {
             out.println(id);
 
             terminate();
-        } catch (IOException e) {
+        } catch (IOException | FailedCreateUserException e) {
             e.printStackTrace();
         }
     }
@@ -57,7 +58,7 @@ class ClientRegistrationHandler extends Thread {
         return new Vector(width, height);
     }
 
-    private int registerNewClient(Vector monitorSize) {
+    private int registerNewClient(Vector monitorSize) throws FailedCreateUserException {
         User user = userFactory.createUser(monitorSize);
         userManager.addUser(user);
 

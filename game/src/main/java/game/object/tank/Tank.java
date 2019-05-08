@@ -41,7 +41,7 @@ public class Tank extends GameObject implements Damageable {
         return tankWeapon;
     }
 
-    public void updateWeaponDirection() {
+    public void rotateWeapon() {
         if (getSpeed().equals(new Vector(0, 0))) {
             return;
         }

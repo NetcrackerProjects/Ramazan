@@ -1,21 +1,21 @@
-package server.connection.visual;
+package server.connection.data;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 
-public class VisualSubscriberListener extends Thread {
+public class DataSubscriberListener extends Thread {
 
     private final static int PORT = 7777;
 
     private final ServerSocket serverSocket;
 
-    private final VisualSubscriberManager visualSubscriberManager;
+    private final DataSubscriberManager dataSubscriberManager;
 
     private volatile boolean running;
 
-    public VisualSubscriberListener(VisualSubscriberManager visualSubscriberManager) throws IOException {
+    public DataSubscriberListener(DataSubscriberManager dataSubscriberManager) throws IOException {
         this.serverSocket = new ServerSocket(PORT);
-        this.visualSubscriberManager = visualSubscriberManager;
+        this.dataSubscriberManager = dataSubscriberManager;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class VisualSubscriberListener extends Thread {
         this.running = true;
         while (isRunning()) {
             try {
-                new VisualSubscriberHandler(serverSocket.accept(), visualSubscriberManager).start();
+                new DataSubscriberHandler(serverSocket.accept(), dataSubscriberManager).start();
             } catch (IOException e) {
                 break;
             }
@@ -32,7 +32,7 @@ public class VisualSubscriberListener extends Thread {
 
     public void terminate() throws IOException {
         serverSocket.close();
-        visualSubscriberManager.terminate();
+        dataSubscriberManager.terminate();
     }
 
     private boolean isRunning() {

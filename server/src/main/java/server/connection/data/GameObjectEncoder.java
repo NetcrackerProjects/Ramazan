@@ -1,4 +1,4 @@
-package server.connection.visual;
+package server.connection.data;
 
 import engine.geometry.Rectangle;
 import engine.object.GameObject;

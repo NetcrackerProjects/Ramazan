@@ -1,11 +1,13 @@
 package engine.physic;
 
 import engine.exception.AddObjectException;
+import engine.exception.GetFreePositionFailedException;
 import engine.geometry.Rectangle;
 import engine.geometry.Vector;
 import engine.interaction.Interaction;
 import engine.object.GameField;
 import engine.object.GameObject;
+import engine.utils.GameRandomizer;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -13,6 +15,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class PhysicManager {
+
+
+    private static final int MAX_ATTEMPT = 20;
 
     private final GameField field;
     private final Collection<GameObject> gameObjects;
@@ -60,20 +65,20 @@ public class PhysicManager {
         throw new AddObjectException();
     }
 
-    public Vector getFreePositionForRectangle(Vector size) {
-        int count = 0;
+    public Vector getFreePositionForRectangle(Vector size) throws GetFreePositionFailedException {
+        int attempts = 0;
 
-        while(count < 20) {
-            Rectangle space = new Rectangle(field.getRandomPoint(), size);
+        while(attempts < MAX_ATTEMPT) {
+            Rectangle space = new Rectangle(GameRandomizer.getRandomVectorAtGameField(field), size);
 
             if (isFreeSpace(space)) {
                 return space.getTopLeft();
             }
 
-            count++;
+            attempts++;
         }
 
-        return new Vector(0, 0);
+        throw new GetFreePositionFailedException();
     }
 
     private boolean isFreeSpace(Rectangle rectangle) {
@@ -81,8 +86,7 @@ public class PhysicManager {
             return false;
         }
 
-        Collection<GameObject> intersectedObjects =
-                getIntersectedGameObjects(null, rectangle);
+        Collection<GameObject> intersectedObjects = getIntersectedGameObjects(null, rectangle);
 
         return intersectedObjects.isEmpty();
     }

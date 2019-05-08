@@ -1,4 +1,4 @@
-package server.connection.visual;
+package server.connection.data;
 
 import engine.geometry.Rectangle;
 import engine.geometry.Vector;
@@ -12,8 +12,7 @@ import static org.mockito.Mockito.when;
 public class GameObjectEncoderTest {
 
     private static final int TYPE_ID = 1;
-    private static final Rectangle OBJECT_BODY =
-            new Rectangle(new Vector(2, 3), new Vector(4, 5));
+    private static final Rectangle OBJECT_BODY = new Rectangle(new Vector(2, 3), new Vector(4, 5));
 
     @Test
     public void shouldReturnTypeIdAndBodyPointsWhenCalledEncode() {

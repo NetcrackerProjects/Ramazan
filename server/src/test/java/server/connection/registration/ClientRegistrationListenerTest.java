@@ -3,6 +3,7 @@ package server.connection.registration;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import server.exception.FailedCreateUserException;
 import server.user.User;
 import server.user.UserFactory;
 import server.user.UserManager;
@@ -29,7 +30,7 @@ public class ClientRegistrationListenerTest {
     private ClientRegistrationListener clientRegistrationListener;
 
     @Before
-    public void setup() throws IOException {
+    public void setup() throws IOException, FailedCreateUserException {
         UserFactory userFactory = mock(UserFactory.class);
         User user = mock(User.class);
         when(user.getId()).thenReturn(USER_ID);

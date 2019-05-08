@@ -1,4 +1,4 @@
-package client.connection.visual;
+package client.connection.data;
 
 import client.connection.ClientConnection;
 import client.sprite.SpriteFactory;
@@ -8,7 +8,7 @@ import engine.geometry.Vector;
 
 import java.io.IOException;
 
-public class VisualConnection extends Thread {
+public class DataConnection extends Thread {
 
     private static final int PORT = 7777;
 
@@ -23,7 +23,7 @@ public class VisualConnection extends Thread {
 
     private volatile boolean running;
 
-    public VisualConnection(String address, int clientId, SpriteManager spriteManager) {
+    public DataConnection(String address, int clientId, SpriteManager spriteManager) {
         this.clientConnection = new ClientConnection();
         this.clientId = clientId;
         this.spriteManager = spriteManager;

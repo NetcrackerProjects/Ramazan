@@ -5,7 +5,7 @@ import engine.interaction.InteractionType;
 import engine.object.manager.ObjectManager;
 import engine.physic.PhysicManager;
 import engine.player.command.PlayerCommand;
-import engine.visualizer.Visualizer;
+import engine.visualizer.Publisher;
 import game.object.Bonus;
 import game.object.Bullet;
 import game.object.GameObjectFactory;
@@ -21,8 +21,8 @@ public class Game {
 
     private final UserPlayerFactory userPlayerFactory;
 
-    public Game(Visualizer visualizer) {
-        this.gameEngine = new GameEngine(visualizer);
+    public Game(Publisher publisher) {
+        this.gameEngine = new GameEngine(publisher);
 
         PhysicManager physicManager = gameEngine.getPhysicManager();
 

@@ -1,5 +1,7 @@
 package server.user;
 
+import server.exception.NoSuchUserException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,11 +17,11 @@ public class UserManager {
         users.put(user.getId(), user);
     }
 
-    public User getUser(int id) {
+    public User getUser(int id) throws NoSuchUserException {
         User user = users.get(id);
 
         if (user == null) {
-            throw new IllegalArgumentException();
+            throw new NoSuchUserException();
         }
 
         return user;

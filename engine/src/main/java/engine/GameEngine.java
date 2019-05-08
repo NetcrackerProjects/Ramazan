@@ -2,6 +2,7 @@ package engine;
 
 import engine.action.ActionManager;
 import engine.command.EngineCommandProcessor;
+import engine.exception.GetFreePositionFailedException;
 import engine.geometry.Vector;
 import engine.interaction.Interaction;
 import engine.interaction.InteractionProcessor;
@@ -15,7 +16,7 @@ import engine.player.Player;
 import engine.player.PlayerManager;
 import engine.player.command.PlayerCommand;
 import engine.player.command.PlayerCommandProcessor;
-import engine.visualizer.Visualizer;
+import engine.visualizer.Publisher;
 
 import java.util.Collection;
 import java.util.concurrent.BlockingQueue;
@@ -40,9 +41,9 @@ public class GameEngine extends Thread {
 
     private final BlockingQueue<PlayerCommand> playerCommands;
 
-    private final Visualizer visualizer;
+    private final Publisher publisher;
 
-    public GameEngine(Visualizer visualizer) {
+    public GameEngine(Publisher publisher) {
         this.actionManager = new ActionManager();
         this.tokenManager = new TokenManager();
 
@@ -59,7 +60,7 @@ public class GameEngine extends Thread {
         this.playerCommands = new LinkedBlockingQueue<>();
         this.playerCommandProcessor = new PlayerCommandProcessor(playerManager);
 
-        this.visualizer = visualizer;
+        this.publisher = publisher;
     }
 
     @Override
@@ -74,7 +75,7 @@ public class GameEngine extends Thread {
             previous = current;
             lag += elapsed;
 
-            visualizer.draw(physicManager.getGameObjects());
+            publisher.publish(physicManager.getGameObjects());
 
             while (lag >= MS_PER_UPDATE) {
                 update();
@@ -108,7 +109,7 @@ public class GameEngine extends Thread {
         playerManager.addPlayer(player);
     }
 
-    public Vector getFreePositionForRectangle(Vector size) {
+    public Vector getFreePositionForRectangle(Vector size) throws GetFreePositionFailedException {
         return physicManager.getFreePositionForRectangle(size);
     }
 

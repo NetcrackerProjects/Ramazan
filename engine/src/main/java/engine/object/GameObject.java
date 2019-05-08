@@ -11,7 +11,7 @@ public class GameObject implements Identifiable {
     private Vector speed;
     private final int id;
     private final int typeId;
-    private boolean solid;
+    private final boolean solid;
 
     public GameObject(Vector leftTop, Vector rightBottom, boolean solid, int id, int typeId) {
         this.body = new Rectangle(leftTop, rightBottom);
@@ -80,9 +80,5 @@ public class GameObject implements Identifiable {
 
     public boolean isSolid() {
         return solid;
-    }
-
-    public void setSolid(boolean solid) {
-        this.solid = solid;
     }
 }

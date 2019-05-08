@@ -33,6 +33,6 @@ public class ChangeTankSpeedActionTest {
     public void shouldCallUpdateWeaponDirectionWhenDoAction() {
         changeTankSpeedAction.doAction();
 
-        verify(tank, times(1)).updateWeaponDirection();
+        verify(tank, times(1)).rotateWeapon();
     }
 }

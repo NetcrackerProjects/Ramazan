@@ -17,6 +17,6 @@ public class ChangeTankSpeedAction implements Action {
     @Override
     public void doAction() {
         tank.setSpeed(newSpeed);
-        tank.updateWeaponDirection();
+        tank.rotateWeapon();
     }
 }

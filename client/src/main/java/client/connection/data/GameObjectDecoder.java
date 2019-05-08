@@ -1,4 +1,4 @@
-package client.connection.visual;
+package client.connection.data;
 
 import engine.geometry.Rectangle;
 import engine.geometry.Vector;

@@ -4,7 +4,7 @@ import engine.object.GameObject;
 
 import java.util.Collection;
 
-public interface Visualizer {
+public interface Publisher {
 
-    void draw(Collection<GameObject> gameObjects);
+    void publish(Collection<GameObject> gameObjects);
 }

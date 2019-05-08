@@ -1,19 +1,21 @@
-package server.connection.visual;
+package server.connection.data;
+
+import server.exception.NoSuchUserException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-class VisualSubscriberHandler extends Thread{
+class DataSubscriberHandler extends Thread{
 
     private final Socket socket;
 
-    private final VisualSubscriberManager visualSubscriberManager;
+    private final DataSubscriberManager dataSubscriberManager;
 
-    VisualSubscriberHandler(Socket socket, VisualSubscriberManager visualSubscriberManager) {
+    DataSubscriberHandler(Socket socket, DataSubscriberManager dataSubscriberManager) {
         this.socket = socket;
-        this.visualSubscriberManager = visualSubscriberManager;
+        this.dataSubscriberManager = dataSubscriberManager;
     }
 
     @Override
@@ -25,9 +27,9 @@ class VisualSubscriberHandler extends Thread{
 
             int userId = Integer.parseInt(line);
 
-            visualSubscriberManager.addVisualSubscriber(userId, socket);
+            dataSubscriberManager.addVisualSubscriber(userId, socket);
 
-        } catch (IOException e) {
+        } catch (IOException | NoSuchUserException e) {
             e.printStackTrace();
         }
     }
