@@ -2,7 +2,8 @@ package client.connection.control;
 
 import client.connection.ClientConnection;
 import client.connection.data.DataConnection;
-import commons.ClientControlCommandType;
+import commons.ClientPlayerCommandType;
+import commons.ClientServerCommandType;
 
 import java.io.IOException;
 
@@ -26,20 +27,30 @@ public class ClientControl {
         clientConnection.startConnection(address, DEFAULT_PORT);
     }
 
-    public void sendCommand(ClientControlCommandType clientControlCommandType) {
-        clientConnection.sendMessage(createMessage(clientControlCommandType));
+    void sendCommand(ClientPlayerCommandType clientPlayerCommandType) {
+        clientConnection.sendMessage(createMessage(clientPlayerCommandType));
+    }
 
-        if (clientControlCommandType == ClientControlCommandType.EXIT) {
+    public void sendCommand(ClientServerCommandType clientServerCommandType) {
+        clientConnection.sendMessage(createMessage(clientServerCommandType));
+
+        if (clientServerCommandType == ClientServerCommandType.EXIT) {
             stop();
         }
     }
 
-    private String createMessage(ClientControlCommandType clientControlCommandType) {
+    private String createMessage(ClientPlayerCommandType clientPlayerCommandType) {
+        return "p:" + ClientPlayerCommandType.valueOf(clientPlayerCommandType);
+    }
+
+    private String createMessage(ClientServerCommandType clientServerCommandType) {
         StringBuilder message = new StringBuilder();
 
-        message.append(ClientControlCommandType.valueOf(clientControlCommandType));
+        message.append("s:");
 
-        if (clientControlCommandType == ClientControlCommandType.START) {
+        message.append(ClientServerCommandType.valueOf(clientServerCommandType));
+
+        if (clientServerCommandType == ClientServerCommandType.START) {
             message.append(":");
             message.append(clientId);
         }

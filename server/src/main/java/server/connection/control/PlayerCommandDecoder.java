@@ -1,11 +1,11 @@
 package server.connection.control;
 
-import commons.ClientControlCommandType;
+import commons.ClientPlayerCommandType;
 import engine.player.command.PlayerCommandType;
 
 class PlayerCommandDecoder {
 
-    static PlayerCommandType getPlayerCommand(ClientControlCommandType clientCommand) {
+    static PlayerCommandType getPlayerCommand(ClientPlayerCommandType clientCommand) {
         switch (clientCommand) {
 
             case MOVE_LEFT:

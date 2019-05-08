@@ -3,27 +3,24 @@ package commons;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum ClientControlCommandType {
+public enum ClientPlayerCommandType {
     MOVE_LEFT(1),
     MOVE_RIGHT(2),
     MOVE_DOWN(3),
     MOVE_UP(4),
-    SHOOT(5),
-    EXIT(6),
-    START(7),
-    NONE(8);
+    SHOOT(5);
 
-    private static Map<Integer, ClientControlCommandType> TYPE_MAP;
+    private static Map<Integer, ClientPlayerCommandType> TYPE_MAP;
 
     private final int code;
 
-    ClientControlCommandType(int code) {
+    ClientPlayerCommandType(int code) {
         this.code = code;
         addToMap(this, code);
     }
 
-    public static ClientControlCommandType getType(int code) {
-        ClientControlCommandType type = TYPE_MAP.get(code);
+    public static ClientPlayerCommandType getType(int code) {
+        ClientPlayerCommandType type = TYPE_MAP.get(code);
 
         if (type == null) {
             throw new IllegalArgumentException();
@@ -32,11 +29,11 @@ public enum ClientControlCommandType {
         return type;
     }
 
-    public static int valueOf(ClientControlCommandType type) {
+    public static int valueOf(ClientPlayerCommandType type) {
         return type.code;
     }
 
-    private static void addToMap(ClientControlCommandType type, int code) {
+    private static void addToMap(ClientPlayerCommandType type, int code) {
         if (TYPE_MAP == null) {
             TYPE_MAP = new HashMap<>();
         }

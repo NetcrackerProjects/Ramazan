@@ -37,11 +37,11 @@ public class ClientControlHandlerTest {
     @Test
     public void shouldCallGameProcessCommandMethodWhenReceiveCommand() throws InterruptedException {
         clientControlHandler.start();
-        printer.println("7:1");
+        printer.println("s:2:1");
 
-        printer.println("1");
+        printer.println("p:1");
 
-        printer.println("6");
+        printer.println("s:6");
         clientControlHandler.join();
         verify(game, times(1)).processCommand(any());
     }

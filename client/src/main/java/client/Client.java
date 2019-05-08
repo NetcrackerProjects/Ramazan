@@ -5,7 +5,7 @@ import client.connection.control.ClientControl;
 import client.connection.data.DataConnection;
 import client.gui.ClientUI;
 import client.sprite.SpriteManager;
-import commons.ClientControlCommandType;
+import commons.ClientServerCommandType;
 
 import java.awt.EventQueue;
 import java.io.IOException;
@@ -31,7 +31,7 @@ class Client {
 
         clientControl.start(DEFAULT_ADDRESS);
 
-        clientControl.sendCommand(ClientControlCommandType.START);
+        clientControl.sendCommand(ClientServerCommandType.START);
 
         EventQueue.invokeLater(() -> {
             this.clientUI = new ClientUI(clientControl, spriteManager, MONITOR_WIDTH, MONITOR_HEIGHT);

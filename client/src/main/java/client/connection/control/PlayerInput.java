@@ -1,7 +1,8 @@
 package client.connection.control;
 
 import client.gui.ClientUI;
-import commons.ClientControlCommandType;
+import commons.ClientPlayerCommandType;
+import commons.ClientServerCommandType;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -13,33 +14,44 @@ public class PlayerInput extends KeyAdapter {
     private final ClientControl clientControl;
     private final ClientUI clientUI;
 
-    private final Map<Integer, ClientControlCommandType> keyCommandMap;
+    private final Map<Integer, ClientPlayerCommandType> keyPlayerCommandMap;
+    private final Map<Integer, ClientServerCommandType> keyServerCommandMap;
 
     public PlayerInput(ClientControl clientControl, ClientUI clientUI) {
         this.clientControl = clientControl;
         this.clientUI = clientUI;
 
-        this.keyCommandMap = new HashMap<>();
-        keyCommandMap.put(KeyEvent.VK_D, ClientControlCommandType.MOVE_RIGHT);
-        keyCommandMap.put(KeyEvent.VK_A, ClientControlCommandType.MOVE_LEFT);
-        keyCommandMap.put(KeyEvent.VK_W, ClientControlCommandType.MOVE_UP);
-        keyCommandMap.put(KeyEvent.VK_S, ClientControlCommandType.MOVE_DOWN);
-        keyCommandMap.put(KeyEvent.VK_SPACE, ClientControlCommandType.SHOOT);
-        keyCommandMap.put(KeyEvent.VK_ESCAPE, ClientControlCommandType.EXIT);
+        this.keyPlayerCommandMap = new HashMap<>();
+        keyPlayerCommandMap.put(KeyEvent.VK_D, ClientPlayerCommandType.MOVE_RIGHT);
+        keyPlayerCommandMap.put(KeyEvent.VK_A, ClientPlayerCommandType.MOVE_LEFT);
+        keyPlayerCommandMap.put(KeyEvent.VK_W, ClientPlayerCommandType.MOVE_UP);
+        keyPlayerCommandMap.put(KeyEvent.VK_S, ClientPlayerCommandType.MOVE_DOWN);
+        keyPlayerCommandMap.put(KeyEvent.VK_SPACE, ClientPlayerCommandType.SHOOT);
+
+        this.keyServerCommandMap = new HashMap<>();
+        keyServerCommandMap.put(KeyEvent.VK_ESCAPE, ClientServerCommandType.EXIT);
     }
 
     @Override
     public void keyPressed(KeyEvent keyEvent) {
-        ClientControlCommandType type = keyCommandMap.get(keyEvent.getKeyCode());
+        int key = keyEvent.getKeyCode();
 
-        if (type == null) {
+        ClientPlayerCommandType playerCommand = keyPlayerCommandMap.get(key);
+
+        if (playerCommand != null) {
+            clientControl.sendCommand(playerCommand);
+
             return;
         }
 
-        clientControl.sendCommand(type);
+        ClientServerCommandType serverCommand = keyServerCommandMap.get(key);
 
-        if (type == ClientControlCommandType.EXIT) {
-            clientUI.close();
+        if (serverCommand != null) {
+            clientControl.sendCommand(serverCommand);
+
+            if (serverCommand == ClientServerCommandType.EXIT) {
+                clientUI.close();
+            }
         }
     }
 }

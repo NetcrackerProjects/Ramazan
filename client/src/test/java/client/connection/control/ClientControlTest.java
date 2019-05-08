@@ -1,7 +1,8 @@
 package client.connection.control;
 
 import client.connection.data.DataConnection;
-import commons.ClientControlCommandType;
+import commons.ClientPlayerCommandType;
+import commons.ClientServerCommandType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,17 +40,17 @@ public class ClientControlTest {
     @Test
     public void shouldSendValueOfCommandTypeWhenSendCommand() throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        ClientControlCommandType type = ClientControlCommandType.MOVE_RIGHT;
+        ClientPlayerCommandType type = ClientPlayerCommandType.MOVE_RIGHT;
 
         clientControl.sendCommand(type);
 
         String message = in.readLine();
-        assertEquals("2", message);
+        assertEquals("p:2", message);
     }
 
     @After
     public void cleanUp() throws IOException {
         serverSocket.close();
-        clientControl.sendCommand(ClientControlCommandType.EXIT);
+        clientControl.sendCommand(ClientServerCommandType.EXIT);
     }
 }
