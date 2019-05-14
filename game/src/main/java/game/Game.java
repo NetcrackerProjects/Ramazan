@@ -5,7 +5,7 @@ import engine.interaction.InteractionType;
 import engine.object.manager.ObjectManager;
 import engine.physic.PhysicManager;
 import engine.player.command.PlayerCommand;
-import engine.visualizer.Publisher;
+import engine.publisher.Publisher;
 import game.object.Bonus;
 import game.object.Bullet;
 import game.object.GameObjectFactory;

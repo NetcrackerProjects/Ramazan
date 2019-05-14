@@ -1,9 +1,7 @@
 package client.connection.data;
 
 import client.connection.ClientConnection;
-import client.sprite.SpriteFactory;
 import client.sprite.SpriteManager;
-import engine.geometry.Rectangle;
 import engine.geometry.Vector;
 
 import java.io.IOException;
@@ -19,8 +17,6 @@ public class DataConnection extends Thread {
 
     private final SpriteManager spriteManager;
 
-    private final SpriteFactory spriteFactory;
-
     private volatile boolean running;
 
     public DataConnection(String address, int clientId, SpriteManager spriteManager) {
@@ -28,7 +24,6 @@ public class DataConnection extends Thread {
         this.clientId = clientId;
         this.spriteManager = spriteManager;
         this.address = address;
-        this.spriteFactory = new SpriteFactory();
     }
 
     @Override
@@ -64,18 +59,14 @@ public class DataConnection extends Thread {
 
             String[] splits = message.split(";");
 
-            GameObjectDecoder gameObjectDecoder = new GameObjectDecoder();
+            SpriteDecoder spriteDecoder = new SpriteDecoder();
 
             spriteManager.setMonitorPosition(getMonitorPosition(splits[0]));
 
             for (int i = 1; i < splits.length; i++) {
                 String split = splits[i];
-                gameObjectDecoder.loadGameObject(split);
 
-                Rectangle body = gameObjectDecoder.getBody();
-                int typeId = gameObjectDecoder.getTypeId();
-
-                spriteManager.addSprite(spriteFactory.createSprite(body, typeId));
+                spriteManager.addSprite(spriteDecoder.loadSprite(split));
             }
         }
     }

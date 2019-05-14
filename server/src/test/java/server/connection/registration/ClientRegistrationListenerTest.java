@@ -11,7 +11,6 @@ import server.user.UserManager;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 import static org.junit.Assert.assertEquals;
@@ -21,8 +20,6 @@ import static org.mockito.Mockito.when;
 public class ClientRegistrationListenerTest {
 
     private static final int PORT = 6666;
-
-    private static final String MONITOR_SIZE = "10:10";
 
     private static final int USER_ID = 1;
 
@@ -42,8 +39,6 @@ public class ClientRegistrationListenerTest {
     @Test
     public void shouldCreateHandlerThatWouldProcessRegistrationRequestWhenRun() throws IOException {
         Socket socket = new Socket("127.0.0.1", PORT);
-        PrintWriter printer = new PrintWriter(socket.getOutputStream(), true);
-        printer.println(MONITOR_SIZE);
 
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         String message = in.readLine();

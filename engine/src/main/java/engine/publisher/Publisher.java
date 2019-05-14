@@ -1,4 +1,4 @@
-package engine.visualizer;
+package engine.publisher;
 
 import engine.object.GameObject;
 

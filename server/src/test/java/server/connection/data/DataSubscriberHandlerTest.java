@@ -45,12 +45,12 @@ public class DataSubscriberHandlerTest {
     }
 
     @Test
-    public void shouldCallAddVisualSubscriberWhenHandleClient() throws InterruptedException, IOException, NoSuchUserException {
+    public void shouldCallAddDataSubscriberWhenHandleClient() throws InterruptedException, IOException, NoSuchUserException {
         printer.println(USER_ID);
 
         dataSubscriberHandler.join();
         verify(dataSubscriberManager, times(1)).
-                addVisualSubscriber(eq(USER_ID), any(Socket.class));
+                addDataSubscriber(eq(USER_ID), any(Socket.class));
     }
 
     @After

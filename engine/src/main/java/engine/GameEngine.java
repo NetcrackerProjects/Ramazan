@@ -16,7 +16,7 @@ import engine.player.Player;
 import engine.player.PlayerManager;
 import engine.player.command.PlayerCommand;
 import engine.player.command.PlayerCommandProcessor;
-import engine.visualizer.Publisher;
+import engine.publisher.Publisher;
 
 import java.util.Collection;
 import java.util.concurrent.BlockingQueue;

@@ -2,7 +2,7 @@ package server.connection.data;
 
 import engine.geometry.Vector;
 import engine.object.GameObject;
-import engine.visualizer.Publisher;
+import engine.publisher.Publisher;
 import server.exception.NoSuchUserException;
 import server.user.User;
 import server.user.UserManager;
@@ -23,7 +23,7 @@ public class DataSubscriberManager implements Publisher {
         this.userManager = userManager;
     }
 
-    void addVisualSubscriber(int userId, Socket socket) throws IOException, NoSuchUserException {
+    void addDataSubscriber(int userId, Socket socket) throws IOException, NoSuchUserException {
         User user = userManager.getUser(userId);
         synchronized (subscribers) {
             subscribers.add(new DataSubscriber(user, socket));

@@ -27,7 +27,7 @@ class DataSubscriberHandler extends Thread{
 
             int userId = Integer.parseInt(line);
 
-            dataSubscriberManager.addVisualSubscriber(userId, socket);
+            dataSubscriberManager.addDataSubscriber(userId, socket);
 
         } catch (IOException | NoSuchUserException e) {
             e.printStackTrace();
