@@ -13,4 +13,8 @@ public class VectorUtils {
     public static Vector scale(Vector a, double alpha) {
         return new Vector(a.x * alpha, a.y * alpha);
     }
+
+    public static Vector unitVector(Vector a) {
+        return VectorUtils.scale(a, a.norm());
+    }
 }

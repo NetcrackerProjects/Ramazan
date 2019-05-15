@@ -15,6 +15,8 @@ class ImageMap {
         this.imageMap = new HashMap<>();
         ImageIcon imageIcon = new ImageIcon("client/src/main/resources/test.png");
         imageMap.put(Type.TANK, imageIcon.getImage());
+        imageMap.put(Type.BULLET, imageIcon.getImage());
+        imageMap.put(Type.BONUS, imageIcon.getImage());
     }
 
     Image getImage(int typeId) {

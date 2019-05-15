@@ -1,6 +1,7 @@
 package game.rule;
 
 import engine.action.Action;
+import engine.geometry.Rectangle;
 import engine.geometry.Vector;
 import engine.interaction.Interaction;
 import engine.object.GameField;
@@ -22,12 +23,14 @@ public class TankBulletInteractionRuleTest {
     public void shouldReturnTwoActionWhenGivenTankBulletInteraction() {
         TokenManager tokenManager = new TokenManager();
         PhysicManager physicManager = new PhysicManager(new GameField(new Vector(0, 0),
-                new Vector(10, 10), tokenManager.nextId()));
+                new Vector(100, 100), tokenManager.nextId()));
         ObjectManager<Tank> tankObjectManager = new ObjectManager<>(physicManager);
         ObjectManager<Bullet> bulletObjectManager = new ObjectManager<>(physicManager);
         GameObjectFactory gameObjectFactory = new GameObjectFactory(tokenManager);
-        Tank tank = gameObjectFactory.createTank(new Vector(1, 1), new Vector(2, 2));
-        Bullet bullet = gameObjectFactory.createBullet(new Vector(3, 3), new Vector(4, 4));
+        Tank tank = gameObjectFactory.createTank(new Vector(1, 1));
+        Rectangle rectangle = new Rectangle(new Vector(53, 53), new Vector(57, 57));
+        Bullet bullet = gameObjectFactory.
+                createBullet(rectangle, tank.getId() + 1);
         tankObjectManager.addObject(tank);
         bulletObjectManager.addObject(bullet);
         Interaction interaction = new Interaction(tank, bullet);

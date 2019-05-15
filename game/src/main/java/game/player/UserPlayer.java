@@ -2,6 +2,7 @@ package game.player;
 
 import engine.command.EngineCommand;
 import engine.geometry.Direction;
+import engine.geometry.Vector;
 import engine.object.manager.ObjectManager;
 import engine.player.Player;
 import engine.player.command.PlayerCommandType;
@@ -22,6 +23,10 @@ public class UserPlayer implements Player {
         this.tank = tank;
         this.id = id;
         this.bulletObjectManager = bulletObjectManager;
+    }
+
+    public Vector getPosition() {
+        return tank.getPosition();
     }
 
     @Override

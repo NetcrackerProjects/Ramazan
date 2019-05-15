@@ -33,6 +33,10 @@ public class TankBulletInteractionRule implements InteractionRule<Tank, Bullet> 
             Tank tank = getFirstObject(interaction);
             Bullet bullet = getSecondObject(interaction);
 
+            if (doesBulletBelongToTank(tank, bullet)) {
+                return Collections.emptySet();
+            }
+
             Collection<Action> actions = new HashSet<>();
             actions.add(new DamageAction(tank, bullet.getDamage()));
             actions.add(new DeleteAction<>(bullet, bulletObjectManager));
@@ -62,5 +66,9 @@ public class TankBulletInteractionRule implements InteractionRule<Tank, Bullet> 
         } else {
             return bulletObjectManager.getObjectById(second.getId());
         }
+    }
+
+    private boolean doesBulletBelongToTank(Tank tank, Bullet bullet) {
+        return tank.getId() == bullet.getTankId();
     }
 }

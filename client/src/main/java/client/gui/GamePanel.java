@@ -1,8 +1,10 @@
 package client.gui;
 
-import client.control.PlayerInput;
+import client.connection.control.PlayerInput;
 import client.sprite.Sprite;
 import client.sprite.SpriteManager;
+import engine.geometry.Vector;
+import engine.geometry.VectorUtils;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -44,8 +46,12 @@ class GamePanel extends JPanel implements ActionListener {
     }
 
     private void draw(Graphics graphics) {
-        for (Sprite sprite : spriteManager.getSprites()) {
-            graphics.drawImage(sprite.getImage(), (int) sprite.getX(), (int) sprite.getY(), this);
+        synchronized (spriteManager) {
+            for (Sprite sprite : spriteManager.getSprites()) {
+                Vector size = VectorUtils.subtract(sprite.getRightBottom(), sprite.getLeftTop());
+                graphics.drawRect((int)sprite.getLeftTop().getX(), (int)sprite.getLeftTop().getY(),
+                        (int)size.getX(), (int)size.getY());
+            }
         }
     }
 }

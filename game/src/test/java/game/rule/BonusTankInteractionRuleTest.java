@@ -22,12 +22,12 @@ public class BonusTankInteractionRuleTest {
     public void shouldReturnTwoActionWhenGivenTankBulletInteraction() {
         TokenManager tokenManager = new TokenManager();
         PhysicManager physicManager = new PhysicManager(new GameField(new Vector(0, 0),
-                new Vector(10, 10), tokenManager.nextId()));
+                new Vector(100, 100), tokenManager.nextId()));
         ObjectManager<Tank> tankObjectManager = new ObjectManager<>(physicManager);
         ObjectManager<Bonus> bonusObjectManager = new ObjectManager<>(physicManager);
         GameObjectFactory gameObjectFactory = new GameObjectFactory(tokenManager);
-        Tank tank = gameObjectFactory.createTank(new Vector(1, 1), new Vector(2, 2));
-        Bonus bonus = gameObjectFactory.createBonus(new Vector(3, 3), new Vector(4, 4));
+        Tank tank = gameObjectFactory.createTank(new Vector(1, 1));
+        Bonus bonus = gameObjectFactory.createBonus(new Vector(53, 53));
         tankObjectManager.addObject(tank);
         bonusObjectManager.addObject(bonus);
         Interaction interaction = new Interaction(tank, bonus);

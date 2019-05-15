@@ -18,5 +18,6 @@
         <module>engine</module>
         <module>client</module>
         <module>server</module>
+        <module>commons</module>
     </modules>
 </project>

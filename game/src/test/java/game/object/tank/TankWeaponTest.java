@@ -9,12 +9,15 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.times;
 
 public class TankWeaponTest {
+
+    private static final int TANK_ID = 1;
 
     private TankWeapon tankWeapon;
     private GameObjectFactory gameObjectFactory;
@@ -24,11 +27,10 @@ public class TankWeaponTest {
     public void setup() {
         this.gameObjectFactory = mock(GameObjectFactory.class);
         this.bullet = mock(Bullet.class);
-        when(gameObjectFactory.createBullet(any(Rectangle.class))).thenReturn(bullet);
+        when(gameObjectFactory.createBullet(any(Rectangle.class), anyInt())).thenReturn(bullet);
 
         Rectangle tankBody = new Rectangle(new Vector(2, 4), new Vector(12, 24));
-        Vector tankSpeed = new Vector(3, 0);
-        this.tankWeapon = new TankWeapon(tankBody, tankSpeed, gameObjectFactory);
+        this.tankWeapon = new TankWeapon(tankBody, TANK_ID, gameObjectFactory);
     }
 
     @Test
@@ -44,7 +46,7 @@ public class TankWeaponTest {
 
         tankWeapon.nextBullet();
 
-        verify(gameObjectFactory, times(1)).createBullet(expected);
+        verify(gameObjectFactory, times(1)).createBullet(expected, TANK_ID);
     }
 
     @Test

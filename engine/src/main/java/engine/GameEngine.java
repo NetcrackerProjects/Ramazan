@@ -2,6 +2,7 @@ package engine;
 
 import engine.action.ActionManager;
 import engine.command.EngineCommandProcessor;
+import engine.exception.GetFreePositionFailedException;
 import engine.geometry.Vector;
 import engine.interaction.Interaction;
 import engine.interaction.InteractionProcessor;
@@ -15,6 +16,7 @@ import engine.player.Player;
 import engine.player.PlayerManager;
 import engine.player.command.PlayerCommand;
 import engine.player.command.PlayerCommandProcessor;
+import engine.publisher.Publisher;
 
 import java.util.Collection;
 import java.util.concurrent.BlockingQueue;
@@ -39,12 +41,14 @@ public class GameEngine extends Thread {
 
     private final BlockingQueue<PlayerCommand> playerCommands;
 
-    public GameEngine() {
+    private final Publisher publisher;
+
+    public GameEngine(Publisher publisher) {
         this.actionManager = new ActionManager();
         this.tokenManager = new TokenManager();
 
         this.physicManager = new PhysicManager(new GameField(new Vector(0, 0),
-                new Vector(10, 10), tokenManager.nextId()));
+                new Vector(400, 400), tokenManager.nextId()));
 
         this.interactionRuleBase = new InteractionRuleBase();
         this.interactionProcessor = new InteractionProcessor(interactionRuleBase);
@@ -55,6 +59,8 @@ public class GameEngine extends Thread {
 
         this.playerCommands = new LinkedBlockingQueue<>();
         this.playerCommandProcessor = new PlayerCommandProcessor(playerManager);
+
+        this.publisher = publisher;
     }
 
     @Override
@@ -68,6 +74,8 @@ public class GameEngine extends Thread {
             double elapsed = current - previous;
             previous = current;
             lag += elapsed;
+
+            publisher.publish(physicManager.getGameObjects());
 
             while (lag >= MS_PER_UPDATE) {
                 update();
@@ -99,6 +107,10 @@ public class GameEngine extends Thread {
 
     public void addPlayer(Player player) {
         playerManager.addPlayer(player);
+    }
+
+    public Vector getFreePositionForRectangle(Vector size) throws GetFreePositionFailedException {
+        return physicManager.getFreePositionForRectangle(size);
     }
 
     private void update() {

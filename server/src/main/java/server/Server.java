@@ -1,44 +1,53 @@
 package server;
 
+import game.Game;
+import server.connection.control.ClientControlListener;
+import server.connection.registration.ClientRegistrationListener;
+import server.connection.data.DataSubscriberListener;
+import server.connection.data.DataSubscriberManager;
+import server.user.UserFactory;
+import server.user.UserManager;
+
 import java.io.IOException;
-import java.net.ServerSocket;
 
 class Server {
 
-    static final int PORT = 5555;
+    private ClientControlListener clientControlListener;
+    private ClientRegistrationListener clientRegistrationListener;
+    private DataSubscriberListener dataSubscriberListener;
 
-    private ServerSocket serverSocket;
-    private volatile boolean running;
+    private Game game;
 
-    Server(int port) {
+    Server() {
         try {
-            this.serverSocket = new ServerSocket(port);
+            UserManager userManager = new UserManager();
+            DataSubscriberManager dataSubscriberManager = new DataSubscriberManager(userManager);
+
+            this.game = new Game(dataSubscriberManager);
+
+            UserFactory userFactory = new UserFactory(game.getUserPlayerFactory());
+
+            this.clientRegistrationListener = new ClientRegistrationListener(userFactory, userManager);
+
+            this.clientControlListener = new ClientControlListener(game);
+
+            this.dataSubscriberListener = new DataSubscriberListener(dataSubscriberManager);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     void start() {
-        this.running = true;
-        while (isRunning()) {
-            try {
-                new ClientHandler(serverSocket.accept()).start();
-            } catch (IOException e) {
-                break;
-            }
-        }
+        clientRegistrationListener.start();
+        clientControlListener.start();
+        dataSubscriberListener.start();
+        game.start();
     }
 
-    void stop() {
-        this.running = false;
-        try {
-            serverSocket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private boolean isRunning() {
-        return running;
+    void stop() throws IOException, InterruptedException {
+        clientRegistrationListener.terminate();
+        clientControlListener.terminate();
+        dataSubscriberListener.terminate();
+        game.terminate();
     }
 }

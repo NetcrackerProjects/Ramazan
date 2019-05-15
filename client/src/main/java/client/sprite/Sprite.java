@@ -1,16 +1,19 @@
 package client.sprite;
 
+import engine.geometry.Rectangle;
 import engine.geometry.Vector;
 
 import java.awt.Image;
 
 public class Sprite {
 
-    private final Vector position;
+    private final Vector leftTop;
+    private final Vector rightBottom;
     private final Image image;
 
-    Sprite(Image image, Vector position) {
-        this.position = position;
+    Sprite(Image image, Rectangle body) {
+        this.leftTop = body.getTopLeft();
+        this.rightBottom = body.getBottomRight();
         this.image = image;
     }
 
@@ -18,11 +21,11 @@ public class Sprite {
         return image;
     }
 
-    public double getX() {
-        return position.getX();
+    public Vector getLeftTop() {
+        return leftTop;
     }
 
-    public double getY() {
-        return position.getY();
+    public Vector getRightBottom() {
+        return rightBottom;
     }
 }

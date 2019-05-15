@@ -13,19 +13,15 @@ public class GameObjectFactory {
         this.tokenManager = tokenManager;
     }
 
-    public Tank createTank(Vector leftTop, Vector rightBottom) {
-        return new Tank(leftTop, rightBottom, this, tokenManager.nextId());
+    public Tank createTank(Vector leftTop) {
+        return new Tank(leftTop, this, tokenManager.nextId());
     }
 
-    public Bullet createBullet(Vector leftTop, Vector rightBottom) {
-        return new Bullet(leftTop, rightBottom, 1, tokenManager.nextId());
+    public Bullet createBullet(Rectangle body, int tankId) {
+        return new Bullet(body, 1, tokenManager.nextId(), tankId);
     }
 
-    public Bullet createBullet(Rectangle body) {
-        return new Bullet(body, 1, tokenManager.nextId());
-    }
-
-    public Bonus createBonus(Vector leftTop, Vector rightBottom) {
-        return new Bonus(leftTop, rightBottom, 5, tokenManager.nextId());
+    public Bonus createBonus(Vector leftTop) {
+        return new Bonus(leftTop, 5, tokenManager.nextId());
     }
 }

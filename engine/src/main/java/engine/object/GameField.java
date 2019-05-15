@@ -5,7 +5,7 @@ import engine.geometry.Vector;
 
 public class GameField extends GameObject {
 
-    public static final double frictionCoefficient = 0.1;
+    public static final double frictionCoefficient = 0.3;
 
     private static final int FIELD_TYPE = 0;
 
