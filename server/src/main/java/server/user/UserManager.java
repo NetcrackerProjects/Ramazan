@@ -1,5 +1,7 @@
 package server.user;
 
+import database.Repository;
+import database.UserInformation;
 import server.exception.NoSuchUserException;
 
 import java.util.HashMap;
@@ -9,8 +11,11 @@ public class UserManager {
 
     private final Map<Integer, User> users;
 
-    public UserManager() {
+    private final Repository repository;
+
+    public UserManager(Repository repository) {
         this.users = new HashMap<>();
+        this.repository = repository;
     }
 
     public void addUser(User user) {
@@ -25,5 +30,13 @@ public class UserManager {
         }
 
         return user;
+    }
+
+    public void saveUser(int id) {
+        try {
+            User user = getUser(id);
+            repository.save(new UserInformation(user.getName(), user.getHealth()));
+        } catch (NoSuchUserException ignored) {
+        }
     }
 }

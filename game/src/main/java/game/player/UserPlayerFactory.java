@@ -29,6 +29,15 @@ public class UserPlayerFactory {
         this.gameEngine = gameEngine;
     }
 
+    public UserPlayer createPlayer(int health) throws FailedCreateUserPlayerException {
+        UserPlayer player = createPlayer();
+
+        Tank tank = player.getTank();
+        tank.setHealth(health);
+
+        return player;
+    }
+
     public UserPlayer createPlayer() throws FailedCreateUserPlayerException {
         try {
             Vector leftTop = gameEngine.getFreePositionForRectangle(Tank.SIZE);

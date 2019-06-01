@@ -28,6 +28,14 @@ public class Tank extends GameObject implements Damageable {
         health -= damage;
     }
 
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
     @Override
     public boolean isAlive() {
         return health > 0;

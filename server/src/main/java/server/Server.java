@@ -1,5 +1,8 @@
 package server;
 
+import database.Repository;
+import database.RepositoryImplementation;
+import database.exception.FailedDataBaseCreationException;
 import game.Game;
 import server.connection.control.ClientControlListener;
 import server.connection.registration.ClientRegistrationListener;
@@ -18,21 +21,24 @@ class Server {
 
     private Game game;
 
+    private Repository repository;
+
     Server() {
         try {
-            UserManager userManager = new UserManager();
+            this.repository = new RepositoryImplementation();
+            UserManager userManager = new UserManager(repository);
             DataSubscriberManager dataSubscriberManager = new DataSubscriberManager(userManager);
 
             this.game = new Game(dataSubscriberManager);
 
-            UserFactory userFactory = new UserFactory(game.getUserPlayerFactory());
+            UserFactory userFactory = new UserFactory(game.getUserPlayerFactory(), repository);
 
             this.clientRegistrationListener = new ClientRegistrationListener(userFactory, userManager);
 
-            this.clientControlListener = new ClientControlListener(game);
+            this.clientControlListener = new ClientControlListener(game, userManager);
 
             this.dataSubscriberListener = new DataSubscriberListener(dataSubscriberManager);
-        } catch (IOException e) {
+        } catch (IOException | FailedDataBaseCreationException e) {
             e.printStackTrace();
         }
     }
@@ -49,5 +55,6 @@ class Server {
         clientControlListener.terminate();
         dataSubscriberListener.terminate();
         game.terminate();
+        repository.clean();
     }
 }

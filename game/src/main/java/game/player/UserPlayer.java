@@ -29,6 +29,10 @@ public class UserPlayer implements Player {
         return tank.getPosition();
     }
 
+    public Tank getTank() {
+        return tank;
+    }
+
     @Override
     public int getId() {
         return id;
