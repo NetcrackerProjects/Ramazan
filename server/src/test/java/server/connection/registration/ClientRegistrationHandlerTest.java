@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 
 public class ClientRegistrationHandlerTest {
 
-    private static final int PORT = 6666;
+    private static final int PORT = 10000;
 
     private static final int USER_ID = 1;
 
