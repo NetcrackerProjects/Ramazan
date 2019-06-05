@@ -1,7 +1,7 @@
 package server.user;
 
-import database.Repository;
-import database.UserInformation;
+import database.UserRepository;
+import game.player.User;
 import server.exception.NoSuchUserException;
 
 import java.util.HashMap;
@@ -9,21 +9,25 @@ import java.util.Map;
 
 public class UserManager {
 
-    private final Map<Integer, User> users;
+    private final Map<Integer, User> usersById;
 
-    private final Repository repository;
+    private final Map<String, User> usersByName;
 
-    public UserManager(Repository repository) {
-        this.users = new HashMap<>();
-        this.repository = repository;
+    private final UserRepository userRepository;
+
+    public UserManager(UserRepository userRepository) {
+        this.usersById = new HashMap<>();
+        this.usersByName = new HashMap<>();
+        this.userRepository = userRepository;
     }
 
     public void addUser(User user) {
-        users.put(user.getId(), user);
+        usersById.put(user.getId(), user);
+        usersByName.put(user.getName(), user);
     }
 
     public User getUser(int id) throws NoSuchUserException {
-        User user = users.get(id);
+        User user = usersById.get(id);
 
         if (user == null) {
             throw new NoSuchUserException();
@@ -32,11 +36,24 @@ public class UserManager {
         return user;
     }
 
-    public void saveUser(int id) {
-        try {
-            User user = getUser(id);
-            repository.save(new UserInformation(user.getName(), user.getHealth()));
-        } catch (NoSuchUserException ignored) {
+    public User getUser(String name) throws NoSuchUserException {
+        User user = usersByName.get(name);
+
+        if (user == null) {
+            throw new NoSuchUserException();
         }
+
+        return user;
+    }
+
+    public boolean exists(String name) {
+        User user = usersByName.get(name);
+
+        return user != null;
+    }
+
+    public void saveUser(int id) throws NoSuchUserException {
+        User user = getUser(id);
+        userRepository.add(user);
     }
 }

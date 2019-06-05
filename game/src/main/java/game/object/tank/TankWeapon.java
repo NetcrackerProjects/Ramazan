@@ -3,8 +3,6 @@ package game.object.tank;
 import engine.geometry.Rectangle;
 import engine.geometry.Vector;
 import engine.geometry.VectorUtils;
-import game.object.Bullet;
-import game.object.GameObjectFactory;
 
 public class TankWeapon {
 
@@ -15,30 +13,21 @@ public class TankWeapon {
 
     private final Rectangle tankBody;
 
-    private final GameObjectFactory gameObjectFactory;
-
     private final int tankId;
 
     private Vector direction;
 
-    TankWeapon(Rectangle tankBody, int tankId, GameObjectFactory gameObjectFactory) {
+    TankWeapon(Rectangle tankBody, int tankId) {
         this.tankBody = tankBody;
         this.direction = new Vector(INITIAL_DIRECTION);
         this.tankId = tankId;
-        this.gameObjectFactory = gameObjectFactory;
-    }
-
-    public Bullet nextBullet() {
-        Bullet bullet = gameObjectFactory.createBullet(getNewBulletBody(), tankId);
-        bullet.setSpeed(getBulletSpeed());
-        return bullet;
     }
 
     void setDirection(Vector direction) {
         this.direction = direction;
     }
 
-    private Rectangle getNewBulletBody() {
+    public Rectangle getNewBulletBody() {
         Vector topLeft = tankBody.getTopLeft();
         Vector bottomRight = tankBody.getBottomRight();
 
@@ -54,7 +43,11 @@ public class TankWeapon {
         return new Rectangle(bulletLeftTop, bulletRightBottom);
     }
 
-    private Vector getBulletSpeed() {
+    public Vector getBulletSpeed() {
         return VectorUtils.scale(direction, BULLET_MAX_SPEED);
+    }
+
+    public int getTankId() {
+        return tankId;
     }
 }

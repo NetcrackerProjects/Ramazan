@@ -1,8 +1,9 @@
 package server.connection.registration;
 
-import server.exception.FailedCreateUserException;
-import server.user.User;
-import server.user.UserFactory;
+import game.exception.FailedCreateUserException;
+import game.player.User;
+import game.player.UserFactory;
+import server.exception.NoSuchUserException;
 import server.user.UserManager;
 
 import java.io.BufferedReader;
@@ -32,13 +33,28 @@ class ClientRegistrationHandler extends Thread {
 
             String name = in.readLine();
 
-            int id = registerNewClient(name);
+            int id = getUserId(name);
 
             out.println(id);
 
             terminate();
         } catch (IOException | FailedCreateUserException e) {
             e.printStackTrace();
+        }
+    }
+
+    private int getUserId(String name) throws FailedCreateUserException {
+        if (userManager.exists(name)) {
+            try {
+                User user = userManager.getUser(name);
+
+                return user.getId();
+            } catch (NoSuchUserException e) {
+                throw new IllegalStateException();
+            }
+        }
+        else {
+            return registerNewClient(name);
         }
     }
 

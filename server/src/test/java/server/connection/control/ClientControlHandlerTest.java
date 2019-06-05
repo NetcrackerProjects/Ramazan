@@ -4,6 +4,7 @@ import game.Game;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import server.exception.NoSuchUserException;
 import server.user.UserManager;
 
 import java.io.IOException;
@@ -27,8 +28,8 @@ public class ClientControlHandlerTest {
 
     @Before
     public void setup() throws IOException {
-        this.serverSocket = new ServerSocket(6666);
-        this.socket = new Socket("127.0.0.1", 6666);
+        this.serverSocket = new ServerSocket(7777);
+        this.socket = new Socket("127.0.0.1", 7777);
         this.printer = new PrintWriter(socket.getOutputStream(), true);
         Socket clientSocket = serverSocket.accept();
 
@@ -50,7 +51,7 @@ public class ClientControlHandlerTest {
     }
 
     @Test
-    public void shouldSaveUserWhenReceiveEndCommand() throws InterruptedException {
+    public void shouldSaveUserWhenReceiveEndCommand() throws InterruptedException, NoSuchUserException {
         clientControlHandler.start();
         printer.println("s:2:1");
 

@@ -1,7 +1,9 @@
 package engine;
 
 import engine.action.ActionManager;
+import engine.command.EngineCommandFactory;
 import engine.command.EngineCommandProcessor;
+import engine.exception.EngineCommandFactoryNotSetException;
 import engine.exception.GetFreePositionFailedException;
 import engine.geometry.Vector;
 import engine.interaction.Interaction;
@@ -33,7 +35,7 @@ public class GameEngine extends Thread {
     private final PlayerManager playerManager;
 
     private final EngineCommandProcessor engineCommandProcessor;
-    private final PlayerCommandProcessor playerCommandProcessor;
+    private PlayerCommandProcessor playerCommandProcessor;
 
     private final InteractionRuleBase interactionRuleBase;
 
@@ -58,13 +60,21 @@ public class GameEngine extends Thread {
         this.playerManager = new PlayerManager();
 
         this.playerCommands = new LinkedBlockingQueue<>();
-        this.playerCommandProcessor = new PlayerCommandProcessor(playerManager);
 
         this.publisher = publisher;
     }
 
     @Override
     public void run() {
+        if (playerCommandProcessor == null) {
+            try {
+                throw new EngineCommandFactoryNotSetException();
+            } catch (EngineCommandFactoryNotSetException e) {
+                e.printStackTrace();
+                return;
+            }
+        }
+
         double lag = 0.0;
         double previous = getCurrentTime();
         this.running = true;
@@ -111,6 +121,10 @@ public class GameEngine extends Thread {
 
     public Vector getFreePositionForRectangle(Vector size) throws GetFreePositionFailedException {
         return physicManager.getFreePositionForRectangle(size);
+    }
+
+    public void setEngineCommandFactory(EngineCommandFactory engineCommandFactory) {
+        this.playerCommandProcessor = new PlayerCommandProcessor(playerManager, engineCommandFactory);
     }
 
     private void update() {

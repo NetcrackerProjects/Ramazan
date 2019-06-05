@@ -1,11 +1,11 @@
 package server.connection.registration;
 
+import game.exception.FailedCreateUserException;
+import game.player.User;
+import game.player.UserFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import server.exception.FailedCreateUserException;
-import server.user.User;
-import server.user.UserFactory;
 import server.user.UserManager;
 
 import java.io.BufferedReader;

@@ -1,14 +1,8 @@
 package database;
 
-import database.exception.FailedDataBaseQueryException;
+public interface Repository<T> {
 
-public interface Repository {
+    void add(T data);
 
-    boolean exists(String name) throws FailedDataBaseQueryException;
-
-    UserInformation getByName(String name) throws FailedDataBaseQueryException;
-
-    void save(UserInformation userInformation);
-
-    void clean();
+    void clear();
 }

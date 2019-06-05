@@ -11,7 +11,8 @@ import game.object.Bullet;
 import game.object.GameObjectFactory;
 import game.object.Type;
 import game.object.tank.Tank;
-import game.player.UserPlayerFactory;
+import game.player.EngineTankCommandFactory;
+import game.player.UserFactory;
 import game.rule.BonusTankInteractionRule;
 import game.rule.TankBulletInteractionRule;
 
@@ -19,7 +20,7 @@ public class Game {
 
     private final GameEngine gameEngine;
 
-    private final UserPlayerFactory userPlayerFactory;
+    private final UserFactory userFactory;
 
     public Game(Publisher publisher) {
         this.gameEngine = new GameEngine(publisher);
@@ -33,6 +34,9 @@ public class Game {
         GameObjectFactory gameObjectFactory = new GameObjectFactory(gameEngine.getTokenManager());
         GameObjectInitializer gameObjectInitializer = new GameObjectInitializer(gameObjectFactory);
 
+        gameEngine.setEngineCommandFactory(new EngineTankCommandFactory(tankObjectManager,
+                                                                    bulletObjectManager, gameObjectFactory));
+
         gameObjectInitializer.createBonuses(bonusHolderObjectManager);
 
         gameEngine.addInteractionRule(new InteractionType(Type.TANK, Type.BULLET),
@@ -41,8 +45,8 @@ public class Game {
         gameEngine.addInteractionRule(new InteractionType(Type.BONUS, Type.TANK),
                 new BonusTankInteractionRule(bonusHolderObjectManager, tankObjectManager));
 
-        this.userPlayerFactory = new UserPlayerFactory(gameEngine, gameObjectFactory,
-                tankObjectManager, bulletObjectManager);
+        this.userFactory = new UserFactory(gameEngine, gameObjectFactory,
+                tankObjectManager);
     }
 
     public void processCommand(PlayerCommand playerCommand) {
@@ -57,7 +61,7 @@ public class Game {
         gameEngine.terminate();
     }
 
-    public UserPlayerFactory getUserPlayerFactory() {
-        return userPlayerFactory;
+    public UserFactory getUserFactory() {
+        return userFactory;
     }
 }

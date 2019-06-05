@@ -1,4 +1,4 @@
-package server.exception;
+package game.exception;
 
 public class FailedCreateUserException extends Exception {
 }

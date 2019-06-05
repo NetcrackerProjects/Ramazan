@@ -5,6 +5,7 @@ import commons.ClientServerCommandType;
 import engine.player.command.PlayerCommand;
 import engine.player.command.PlayerCommandType;
 import game.Game;
+import server.exception.NoSuchUserException;
 import server.user.UserManager;
 
 import java.io.BufferedReader;
@@ -96,7 +97,7 @@ class ClientControlHandler extends Thread {
                 try {
                     userManager.saveUser(userId);
                     terminate();
-                } catch (IOException ignored) {
+                } catch (IOException | NoSuchUserException ignored) {
                 }
                 break;
         }
