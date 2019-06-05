@@ -1,5 +1,7 @@
 package server;
 
+import database.exception.RepositoryException;
+
 import java.io.IOException;
 
 class StopServerHook extends Thread {
@@ -14,7 +16,8 @@ class StopServerHook extends Thread {
     public void run() {
         try {
             server.stop();
-        } catch (IOException | InterruptedException ignored) {
+        } catch (IOException | InterruptedException | RepositoryException e) {
+            e.printStackTrace();
         }
     }
 }

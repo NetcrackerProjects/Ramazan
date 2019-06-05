@@ -1,6 +1,6 @@
 package database;
 
-import database.exception.FailedDataBaseCreationException;
+import database.exception.RepositoryException;
 import game.player.User;
 
 import java.sql.Connection;
@@ -20,7 +20,7 @@ public class UserRepository implements Repository<User> {
 
     private Statement statement;
 
-    public UserRepository() throws FailedDataBaseCreationException {
+    public UserRepository() throws RepositoryException {
         try {
             Connection connection = DriverManager.getConnection(URL);
 
@@ -28,12 +28,12 @@ public class UserRepository implements Repository<User> {
             statement.execute(CREATE_TABLE_COMMAND);
 
         } catch (SQLException e) {
-            throw new FailedDataBaseCreationException();
+            throw new RepositoryException("failed to create repository", e);
         }
     }
 
     @Override
-    public void add(User user) {
+    public void add(User user) throws RepositoryException {
         try {
             ResultSet set = statement.executeQuery(
                     "select name from " + TABLE_NAME +
@@ -45,18 +45,20 @@ public class UserRepository implements Repository<User> {
                             " values('" + user.getName()
                             + "', " + user.getId() + ", " + user.getObjectId() + ")");
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    throw new RepositoryException("failed to add to repository", e);
                 }
             }
-        } catch (SQLException ignored) {
+        } catch (SQLException e) {
+            throw new RepositoryException("failed to add to repository", e);
         }
     }
 
     @Override
-    public void clear() {
+    public void clear() throws RepositoryException {
         try {
             statement.execute("drop table " + TABLE_NAME);
-        } catch (SQLException ignored) {
+        } catch (SQLException e) {
+            throw new RepositoryException("failed to clear repository", e);
         }
     }
 }

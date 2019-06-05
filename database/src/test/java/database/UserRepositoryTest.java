@@ -1,6 +1,6 @@
 package database;
 
-import database.exception.FailedDataBaseCreationException;
+import database.exception.RepositoryException;
 import game.player.User;
 import org.junit.After;
 import org.junit.Before;
@@ -26,7 +26,7 @@ public class UserRepositoryTest {
     private Statement statement;
 
     @Before
-    public void setup() throws FailedDataBaseCreationException, SQLException {
+    public void setup() throws RepositoryException, SQLException {
         this.userRepository = new UserRepository();
         Connection connection = DriverManager.getConnection(URL);
 
@@ -34,7 +34,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void shouldSaveUserIntoDataBaseWhenCalledAdd() throws SQLException {
+    public void shouldSaveUserIntoDataBaseWhenCalledAdd() throws SQLException, RepositoryException {
         userRepository.add(new User(1, 2, "test"));
 
         ResultSet set = statement.executeQuery("select * from " + TABLE_NAME + " where name = 'test'");
@@ -42,7 +42,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void shouldSaveIdIntoDataBaseWhenCalledAdd() throws SQLException {
+    public void shouldSaveIdIntoDataBaseWhenCalledAdd() throws SQLException, RepositoryException {
         userRepository.add(new User(1, 2, "test"));
 
         ResultSet set = statement.executeQuery("select * from " + TABLE_NAME + " where name = 'test'");
@@ -52,7 +52,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void shouldSaveObjectIdIntoDataBaseWhenCalledAdd() throws SQLException {
+    public void shouldSaveObjectIdIntoDataBaseWhenCalledAdd() throws SQLException, RepositoryException {
         userRepository.add(new User(1, 2, "test"));
 
         ResultSet set = statement.executeQuery("select * from " + TABLE_NAME + " where name = 'test'");
@@ -62,7 +62,7 @@ public class UserRepositoryTest {
     }
 
     @After
-    public void cleanUp() {
+    public void cleanUp() throws RepositoryException {
         userRepository.clear();
     }
 }

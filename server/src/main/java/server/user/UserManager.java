@@ -1,6 +1,7 @@
 package server.user;
 
 import database.UserRepository;
+import database.exception.RepositoryException;
 import game.player.User;
 import server.exception.NoSuchUserException;
 
@@ -52,7 +53,7 @@ public class UserManager {
         return user != null;
     }
 
-    public void saveUser(int id) throws NoSuchUserException {
+    public void saveUser(int id) throws NoSuchUserException, RepositoryException {
         User user = getUser(id);
         userRepository.add(user);
     }

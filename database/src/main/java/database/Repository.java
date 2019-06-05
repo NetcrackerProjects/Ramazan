@@ -1,8 +1,10 @@
 package database;
 
+import database.exception.RepositoryException;
+
 public interface Repository<T> {
 
-    void add(T data);
+    void add(T data) throws RepositoryException;
 
-    void clear();
+    void clear() throws RepositoryException;
 }

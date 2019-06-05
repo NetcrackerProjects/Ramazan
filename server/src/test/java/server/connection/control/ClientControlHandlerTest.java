@@ -1,5 +1,6 @@
 package server.connection.control;
 
+import database.exception.RepositoryException;
 import game.Game;
 import org.junit.After;
 import org.junit.Before;
@@ -51,7 +52,7 @@ public class ClientControlHandlerTest {
     }
 
     @Test
-    public void shouldSaveUserWhenReceiveEndCommand() throws InterruptedException, NoSuchUserException {
+    public void shouldSaveUserWhenReceiveEndCommand() throws InterruptedException, NoSuchUserException, RepositoryException {
         clientControlHandler.start();
         printer.println("s:2:1");
 

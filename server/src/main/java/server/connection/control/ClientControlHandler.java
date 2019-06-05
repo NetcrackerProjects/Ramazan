@@ -2,6 +2,7 @@ package server.connection.control;
 
 import commons.ClientPlayerCommandType;
 import commons.ClientServerCommandType;
+import database.exception.RepositoryException;
 import engine.player.command.PlayerCommand;
 import engine.player.command.PlayerCommandType;
 import game.Game;
@@ -97,7 +98,7 @@ class ClientControlHandler extends Thread {
                 try {
                     userManager.saveUser(userId);
                     terminate();
-                } catch (IOException | NoSuchUserException ignored) {
+                } catch (IOException | NoSuchUserException | RepositoryException ignored) {
                 }
                 break;
         }

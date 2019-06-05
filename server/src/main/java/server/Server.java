@@ -1,7 +1,7 @@
 package server;
 
 import database.UserRepository;
-import database.exception.FailedDataBaseCreationException;
+import database.exception.RepositoryException;
 import game.Game;
 import server.connection.control.ClientControlListener;
 import server.connection.registration.ClientRegistrationListener;
@@ -34,7 +34,7 @@ class Server {
             this.clientControlListener = new ClientControlListener(game, userManager);
 
             this.dataSubscriberListener = new DataSubscriberListener(dataSubscriberManager);
-        } catch (IOException | FailedDataBaseCreationException e) {
+        } catch (IOException | RepositoryException e) {
             e.printStackTrace();
         }
     }
@@ -46,7 +46,7 @@ class Server {
         game.start();
     }
 
-    void stop() throws IOException, InterruptedException {
+    void stop() throws IOException, InterruptedException, RepositoryException {
         clientRegistrationListener.terminate();
         clientControlListener.terminate();
         dataSubscriberListener.terminate();
