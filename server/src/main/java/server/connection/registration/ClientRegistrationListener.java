@@ -1,6 +1,6 @@
 package server.connection.registration;
 
-import server.user.UserFactory;
+import game.player.UserFactory;
 import server.user.UserManager;
 
 import java.io.IOException;

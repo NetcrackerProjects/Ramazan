@@ -4,7 +4,6 @@ import engine.geometry.Vector;
 import engine.geometry.VectorUtils;
 import engine.object.GameObject;
 import game.object.Damageable;
-import game.object.GameObjectFactory;
 import game.object.Type;
 
 public class Tank extends GameObject implements Damageable {
@@ -17,15 +16,23 @@ public class Tank extends GameObject implements Damageable {
 
     private final TankWeapon tankWeapon;
 
-    public Tank(Vector leftTop, GameObjectFactory gameObjectFactory, int id) {
+    public Tank(Vector leftTop, int id) {
         super(leftTop, VectorUtils.sum(leftTop, SIZE), true, id, Type.TANK);
         this.health = MAX_HEALTH;
-        this.tankWeapon = new TankWeapon(getBody(), id, gameObjectFactory);
+        this.tankWeapon = new TankWeapon(getBody(), id);
     }
 
     @Override
     public void takeDamage(int damage) {
         health -= damage;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getHealth() {
+        return health;
     }
 
     @Override

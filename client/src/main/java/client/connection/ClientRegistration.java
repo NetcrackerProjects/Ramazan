@@ -4,6 +4,8 @@ import java.io.IOException;
 
 public class ClientRegistration {
 
+    private static final String NAME = "TEST_NAME";
+
     private static final int DEFAULT_PORT = 6666;
 
     private final ClientConnection clientConnection;
@@ -14,6 +16,8 @@ public class ClientRegistration {
 
     public int registerClient(String address) throws IOException {
         clientConnection.startConnection(address, DEFAULT_PORT);
+
+        clientConnection.sendMessage(NAME);
 
         int id = Integer.parseInt(clientConnection.receiveMessage());
 

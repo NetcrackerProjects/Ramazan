@@ -3,8 +3,8 @@ package server.connection.data;
 import engine.geometry.Vector;
 import engine.object.GameObject;
 import engine.publisher.Publisher;
+import game.player.User;
 import server.exception.NoSuchUserException;
-import server.user.User;
 import server.user.UserManager;
 
 import java.io.IOException;
@@ -52,7 +52,7 @@ public class DataSubscriberManager implements Publisher {
     }
 
     private String createMessageForUser(User user, Collection<GameObject> gameObjects) {
-        Vector pos = user.getPosition();
+        Vector pos = getPosition(gameObjects, user.getObjectId());
 
         return pos.getX() + ":" + pos.getY() + ";" +
                 createMessage(gameObjects);
@@ -67,5 +67,15 @@ public class DataSubscriberManager implements Publisher {
         }
 
         return stringBuilder.toString();
+    }
+
+    private Vector getPosition(Collection<GameObject> gameObjects, int id) {
+        for (GameObject gameObject: gameObjects) {
+            if (gameObject.getId() == id) {
+                return gameObject.getPosition();
+            }
+        }
+
+        throw new IllegalArgumentException();
     }
 }

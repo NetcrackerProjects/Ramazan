@@ -1,6 +1,6 @@
 package server.connection.data;
 
-import server.user.User;
+import game.player.User;
 
 import java.io.IOException;
 import java.io.PrintWriter;

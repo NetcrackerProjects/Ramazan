@@ -1,6 +1,7 @@
 package server.connection.control;
 
 import game.Game;
+import server.user.UserManager;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -17,12 +18,15 @@ public class ClientControlListener extends Thread {
 
     private final Game game;
 
+    private final UserManager userManager;
+
     private volatile boolean running;
 
-    public ClientControlListener(Game game) throws IOException {
+    public ClientControlListener(Game game, UserManager userManager) throws IOException {
         this.serverSocket = new ServerSocket(PORT);
         this.controlHandlers = new HashSet<>();
         this.game = game;
+        this.userManager = userManager;
     }
 
     @Override
@@ -30,7 +34,8 @@ public class ClientControlListener extends Thread {
         this.running = true;
         while(running) {
             try {
-                ClientControlHandler controlHandler = new ClientControlHandler(serverSocket.accept(), game);
+                ClientControlHandler controlHandler =
+                        new ClientControlHandler(serverSocket.accept(), game, userManager);
                 controlHandlers.add(controlHandler);
                 controlHandler.start();
             } catch (IOException e) {

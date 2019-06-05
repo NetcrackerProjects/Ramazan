@@ -2,9 +2,12 @@ package server.connection.control;
 
 import commons.ClientPlayerCommandType;
 import commons.ClientServerCommandType;
+import database.exception.RepositoryException;
 import engine.player.command.PlayerCommand;
 import engine.player.command.PlayerCommandType;
 import game.Game;
+import server.exception.NoSuchUserException;
+import server.user.UserManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,10 +27,13 @@ class ClientControlHandler extends Thread {
 
     private int userId;
 
-    ClientControlHandler(Socket clientSocket, Game game) {
+    private final UserManager userManager;
+
+    ClientControlHandler(Socket clientSocket, Game game, UserManager userManager) {
         this.clientSocket = clientSocket;
         this.game = game;
         this.userId = NO_ID;
+        this.userManager = userManager;
     }
 
     @Override
@@ -90,8 +96,9 @@ class ClientControlHandler extends Thread {
                 break;
             case EXIT:
                 try {
+                    userManager.saveUser(userId);
                     terminate();
-                } catch (IOException ignored) {
+                } catch (IOException | NoSuchUserException | RepositoryException ignored) {
                 }
                 break;
         }

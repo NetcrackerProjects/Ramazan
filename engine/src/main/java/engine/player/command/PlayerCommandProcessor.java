@@ -1,7 +1,7 @@
 package engine.player.command;
 
 import engine.command.EngineCommand;
-import engine.exception.CorruptPlayerCommandException;
+import engine.command.EngineCommandFactory;
 import engine.exception.WrongObjectIdException;
 import engine.player.Player;
 import engine.player.PlayerManager;
@@ -15,9 +15,11 @@ public class PlayerCommandProcessor {
     private static final int RETRIEVE_AMOUNT_PER_UPDATE = 100;
 
     private final PlayerManager playerManager;
+    private final EngineCommandFactory engineCommandFactory;
 
-    public PlayerCommandProcessor(PlayerManager playerManager) {
+    public PlayerCommandProcessor(PlayerManager playerManager, EngineCommandFactory engineCommandFactory) {
         this.playerManager = playerManager;
+        this.engineCommandFactory = engineCommandFactory;
     }
 
     public Collection<EngineCommand> processPlayerCommands(BlockingQueue<PlayerCommand> playerCommands) {
@@ -28,21 +30,14 @@ public class PlayerCommandProcessor {
 
         for (PlayerCommand playerCommand : commandsToProcess) {
             try {
-                engineCommands.add(createEngineCommand(playerCommand));
-            } catch (CorruptPlayerCommandException ignored) {
+                Player player = playerManager.getPlayer(playerCommand.getPlayerId());
+                PlayerCommandType type = playerCommand.getCommandType();
+
+                engineCommands.add(engineCommandFactory.createEngineCommand(player, type));
+            } catch (WrongObjectIdException ignored) {
             }
         }
 
         return engineCommands;
-    }
-
-    private EngineCommand createEngineCommand(PlayerCommand playerCommand) throws CorruptPlayerCommandException {
-        try {
-            Player player = playerManager.getPlayer(playerCommand.getPlayerId());
-
-            return player.getEngineCommand(playerCommand.getCommandType());
-        } catch (WrongObjectIdException e) {
-            throw new CorruptPlayerCommandException();
-        }
     }
 }
